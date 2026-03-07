@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>REV Culture — Automotive & Luxury Photography</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
   <style>
     :root {
       --red: #CC0000;
@@ -15,46 +13,17 @@
       --dark2: #1a1a1a;
       --white: #F5F5F5;
       --gray: #888;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body: 'Barlow', sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--black);
       color: var(--white);
-      font-family: var(--font-body);
+      font-family: Arial, sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: none;
     }
-
-    /* CUSTOM CURSOR */
-    .cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      background: var(--red);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(204,0,0,0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.12s ease-out, width 0.3s, height 0.3s;
-    }
-    .cursor.hover { width: 20px; height: 20px; background: var(--red-hot); }
-    .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--red); }
 
     /* NAV */
     nav {
@@ -66,15 +35,14 @@
       justify-content: space-between;
       padding: 24px 48px;
       background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
-      backdrop-filter: blur(2px);
     }
 
     .nav-logo {
-      font-family: var(--font-display);
       font-size: 2rem;
       letter-spacing: 0.12em;
       color: var(--white);
       text-decoration: none;
+      font-weight: bold;
     }
     .nav-logo span { color: var(--red); }
 
@@ -84,14 +52,12 @@
       list-style: none;
     }
     .nav-links a {
-      font-family: var(--font-body);
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gray);
       text-decoration: none;
-      transition: color 0.25s;
     }
     .nav-links a:hover { color: var(--red); }
 
@@ -109,36 +75,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(135deg, rgba(204,0,0,0.08) 0%, transparent 50%),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 80px,
-          rgba(255,255,255,0.012) 80px,
-          rgba(255,255,255,0.012) 81px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 80px,
-          rgba(255,255,255,0.012) 80px,
-          rgba(255,255,255,0.012) 81px
-        );
-    }
-
-    /* Animated red line */
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 40%; height: 3px;
-      background: linear-gradient(to right, var(--red), transparent);
-      animation: linePulse 3s ease-in-out infinite;
-    }
-    @keyframes linePulse {
-      0%, 100% { opacity: 1; width: 40%; }
-      50% { opacity: 0.4; width: 55%; }
+      background: linear-gradient(135deg, rgba(204,0,0,0.08) 0%, transparent 50%);
     }
 
     .hero-content { position: relative; z-index: 2; max-width: 900px; }
@@ -153,31 +90,23 @@
       border: 1px solid var(--red);
       padding: 6px 16px;
       margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
     }
 
     .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(5rem, 14vw, 13rem);
-      line-height: 0.88;
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.9;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--white);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.4s forwards;
+      font-weight: bold;
     }
     .hero-title .accent { color: var(--red); display: block; }
 
     .hero-sub {
       margin-top: 32px;
       font-size: 1rem;
-      font-weight: 300;
       color: var(--gray);
-      letter-spacing: 0.05em;
       max-width: 480px;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.7s forwards;
     }
 
     .hero-cta {
@@ -185,8 +114,6 @@
       display: flex;
       gap: 20px;
       align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.9s 1s forwards;
     }
 
     .btn-primary {
@@ -201,9 +128,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       padding: 16px 32px;
-      transition: background 0.25s, transform 0.2s;
     }
-    .btn-primary:hover { background: var(--red-hot); transform: translateX(4px); }
 
     .btn-ghost {
       display: inline-flex;
@@ -217,44 +142,6 @@
       text-transform: uppercase;
       padding: 16px 0;
       border-bottom: 1px solid var(--gray);
-      transition: color 0.25s, border-color 0.25s;
-    }
-    .btn-ghost:hover { color: var(--red); border-color: var(--red); }
-
-    .hero-scroll {
-      position: absolute;
-      right: 48px;
-      bottom: 48px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      opacity: 0;
-      animation: fadeUp 1s 1.4s forwards;
-    }
-    .hero-scroll span {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gray);
-      writing-mode: vertical-rl;
-    }
-    .scroll-line {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, var(--red), transparent);
-      animation: scrollLine 2s ease-in-out infinite;
-    }
-    @keyframes scrollLine {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     /* SECTION COMMON */
@@ -266,25 +153,15 @@
       letter-spacing: 0.35em;
       text-transform: uppercase;
       color: var(--red);
-      display: flex;
-      align-items: center;
-      gap: 16px;
       margin-bottom: 20px;
-    }
-    .section-label::after {
-      content: '';
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: var(--red);
     }
 
     .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       letter-spacing: 0.06em;
       line-height: 1;
       text-transform: uppercase;
+      font-weight: bold;
     }
 
     /* PORTFOLIO */
@@ -310,73 +187,17 @@
       aspect-ratio: 1;
       overflow: hidden;
       background: var(--dark2);
-      cursor: none;
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
-      filter: grayscale(20%);
-    }
-
-    .photo-item:hover img {
-      transform: scale(1.08);
-      filter: grayscale(0%);
-    }
-
-    .photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity 0.35s;
-      display: flex;
-      align-items: flex-end;
-      padding: 24px;
-    }
-    .photo-item:hover .photo-overlay { opacity: 1; }
-
-    .photo-label {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-    }
-    .photo-label span { color: var(--red); }
-
-    /* Placeholder pattern for photos */
-    .photo-placeholder {
-      width: 100%; height: 100%;
-      background: var(--dark2);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
+      min-height: 200px;
     }
-    .photo-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 20px,
-          rgba(255,255,255,0.015) 20px,
-          rgba(255,255,255,0.015) 21px
-        );
-    }
-    .photo-placeholder .ph-icon {
-      font-size: 2rem;
-      color: rgba(255,255,255,0.1);
-      font-family: var(--font-display);
+
+    .photo-placeholder {
+      color: var(--gray);
+      font-size: 1.2rem;
+      text-transform: uppercase;
       letter-spacing: 0.1em;
-      position: relative;
-      z-index: 1;
     }
 
     .photo-item.large {
@@ -390,62 +211,28 @@
       position: relative;
       overflow: hidden;
     }
-    #about::before {
-      content: 'REV';
-      position: absolute;
-      right: -40px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: 30vw;
-      color: rgba(204,0,0,0.04);
-      pointer-events: none;
-      line-height: 1;
-    }
 
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: center;
-      position: relative;
-      z-index: 1;
     }
 
-    .about-image {
-      position: relative;
-    }
     .about-image-wrap {
       aspect-ratio: 4/5;
       background: var(--dark2);
-      overflow: hidden;
-      position: relative;
-    }
-    .about-image-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: grayscale(30%);
-      transition: filter 0.5s, transform 0.6s;
-    }
-    .about-image-wrap:hover img { filter: grayscale(0%); transform: scale(1.04); }
-    .about-image::after {
-      content: '';
-      position: absolute;
-      bottom: -16px; right: -16px;
-      width: 60%;
-      height: 60%;
-      border: 2px solid var(--red);
-      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .about-text { }
     .about-text p {
       font-size: 1.05rem;
       line-height: 1.8;
       color: rgba(245,245,245,0.75);
       margin-bottom: 24px;
     }
-    .about-text p strong { color: var(--white); font-weight: 600; }
 
     .about-stats {
       display: flex;
@@ -454,13 +241,11 @@
       padding-top: 40px;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .stat-item {}
     .stat-num {
-      font-family: var(--font-display);
       font-size: 3rem;
       letter-spacing: 0.06em;
       color: var(--red);
-      line-height: 1;
+      font-weight: bold;
     }
     .stat-label {
       font-size: 0.7rem;
@@ -472,9 +257,7 @@
     }
 
     /* SERVICES */
-    #servizi {
-      background: var(--black);
-    }
+    #servizi { background: var(--black); }
 
     .services-grid {
       display: grid;
@@ -486,38 +269,20 @@
     .service-card {
       background: var(--dark2);
       padding: 48px 36px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
     }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0%; height: 3px;
-      background: var(--red);
-      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .service-card:hover { background: #1c1c1c; }
-    .service-card:hover::before { width: 100%; }
-
     .service-num {
-      font-family: var(--font-display);
       font-size: 3.5rem;
-      color: rgba(204,0,0,0.2);
-      line-height: 1;
+      color: rgba(204,0,0,0.3);
+      font-weight: bold;
       margin-bottom: 24px;
-      transition: color 0.3s;
     }
-    .service-card:hover .service-num { color: rgba(204,0,0,0.5); }
-
     .service-name {
-      font-family: var(--font-display);
       font-size: 1.5rem;
       letter-spacing: 0.1em;
       color: var(--white);
       margin-bottom: 16px;
       text-transform: uppercase;
+      font-weight: bold;
     }
     .service-desc {
       font-size: 0.9rem;
@@ -529,39 +294,22 @@
     #contatti {
       background: var(--dark);
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
-    #contatti::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(204,0,0,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .contact-inner { position: relative; z-index: 1; }
-
     .contact-title {
-      font-family: var(--font-display);
       font-size: clamp(3rem, 8vw, 7rem);
       letter-spacing: 0.06em;
       line-height: 1;
       text-transform: uppercase;
+      font-weight: bold;
       margin-bottom: 24px;
     }
     .contact-title span { color: var(--red); }
-
     .contact-sub {
       font-size: 1rem;
       color: var(--gray);
       max-width: 500px;
       margin: 0 auto 56px;
-      line-height: 1.7;
     }
-
     .wa-button {
       display: inline-flex;
       align-items: center;
@@ -574,42 +322,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       padding: 22px 56px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
     }
-    .wa-button::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      transform: translateX(-100%);
-      transition: transform 0.4s;
-    }
-    .wa-button:hover { background: var(--red-hot); }
-    .wa-button:hover::after { transform: translateX(0); }
-
-    .wa-icon {
-      width: 22px; height: 22px;
-    }
-
-    .contact-ig {
-      margin-top: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    .contact-ig a {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color 0.25s;
-    }
-    .contact-ig a:hover { color: var(--red); }
 
     /* FOOTER */
     footer {
@@ -621,67 +334,15 @@
       align-items: center;
     }
     .footer-logo {
-      font-family: var(--font-display);
       font-size: 1.2rem;
       letter-spacing: 0.15em;
       color: var(--white);
+      font-weight: bold;
     }
     .footer-logo span { color: var(--red); }
     footer p {
       font-size: 0.7rem;
       color: rgba(255,255,255,0.25);
-      letter-spacing: 0.1em;
-    }
-
-    /* PARALLAX */
-    .parallax-wrap {
-      position: relative;
-      overflow: hidden;
-      height: 50vh;
-    }
-    .parallax-img {
-      position: absolute;
-      inset: -20%;
-      background: var(--dark2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .parallax-text {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 9rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.04);
-      white-space: nowrap;
-    }
-    .parallax-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(204,0,0,0.08), transparent);
-    }
-    .parallax-quote {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 4rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: center;
-      color: var(--white);
-    }
-    .parallax-quote span { color: var(--red); }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* MOBILE */
@@ -695,17 +356,10 @@
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .services-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
-      .hero-scroll { display: none; }
-      body { cursor: auto; }
-      .cursor, .cursor-ring { display: none; }
     }
   </style>
 </head>
 <body>
-
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- NAV -->
   <nav>
@@ -722,114 +376,51 @@
   <section class="hero" id="home">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <div class="hero-tag">Automotive &amp; Luxury Photography</div>
+      <div class="hero-tag">Automotive & Luxury Photography</div>
       <h1 class="hero-title">
         REV
         <span class="accent">Culture</span>
       </h1>
       <p class="hero-sub">Fotografia che cattura l'anima delle macchine. Ogni scatto racconta velocità, lusso, e passione autentica.</p>
       <div class="hero-cta">
-        <a href="#portfolio" class="btn-primary">
-          <span>Guarda il portfolio</span>
-          <span>→</span>
-        </a>
+        <a href="#portfolio" class="btn-primary">Guarda il portfolio →</a>
         <a href="#contatti" class="btn-ghost">Contattami</a>
       </div>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
     </div>
   </section>
 
   <!-- PORTFOLIO -->
   <section id="portfolio">
-    <div class="portfolio-header reveal">
-      <div>
-        <div class="section-label">Portfolio</div>
-        <h2 class="section-title">I Miei<br/><span style="color:var(--red)">Scatti</span></h2>
-      </div>
-      <a href="https://instagram.com/revculture.it" target="_blank" class="btn-ghost">Vedi tutto su Instagram →</a>
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">I Miei<br/><span style="color:var(--red)">Scatti</span></h2>
     </div>
-
-    <div class="portfolio-grid reveal">
-      <!-- Sostituisci i placeholder con i tuoi <img src="foto.jpg" /> -->
-      <div class="photo-item large">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 01</span></div>
-        <div class="photo-overlay"><div class="photo-label">Supercar <span>/ Track Day</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 02</span></div>
-        <div class="photo-overlay"><div class="photo-label">Luxury <span>/ Detail</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 03</span></div>
-        <div class="photo-overlay"><div class="photo-label">Sport <span>/ Motion</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 04</span></div>
-        <div class="photo-overlay"><div class="photo-label">Lifestyle <span>/ Cars</span></div></div>
-      </div>
-      <div class="photo-item large">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 05</span></div>
-        <div class="photo-overlay"><div class="photo-label">Night <span>/ Shoot</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 06</span></div>
-        <div class="photo-overlay"><div class="photo-label">Classic <span>/ Vintage</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 07</span></div>
-        <div class="photo-overlay"><div class="photo-label">Events <span>/ Live</span></div></div>
-      </div>
-      <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 08</span></div>
-        <div class="photo-overlay"><div class="photo-label">Exclusive <span>/ Shoot</span></div></div>
-      </div>
+    <div class="portfolio-grid" style="margin-top:60px">
+      <div class="photo-item large"><div class="photo-placeholder">FOTO 01</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 02</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 03</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 04</div></div>
+      <div class="photo-item large"><div class="photo-placeholder">FOTO 05</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 06</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 07</div></div>
+      <div class="photo-item"><div class="photo-placeholder">FOTO 08</div></div>
     </div>
   </section>
-
-  <!-- PARALLAX QUOTE -->
-  <div class="parallax-wrap">
-    <div class="parallax-img">
-      <div class="parallax-text">SPEED POWER PASSION LUXURY</div>
-    </div>
-    <div class="parallax-overlay">
-      <div class="parallax-quote">Non fotografie.<br/><span>Emozioni su pixel.</span></div>
-    </div>
-  </div>
 
   <!-- ABOUT -->
   <section id="about">
     <div class="about-grid">
-      <div class="about-image reveal">
-        <div class="about-image-wrap">
-          <!-- Sostituisci con la tua foto: <img src="profilo.jpg" alt="REV Culture" /> -->
-          <div class="photo-placeholder" style="height:100%"><span class="ph-icon">TUA FOTO</span></div>
-        </div>
-      </div>
-      <div class="about-text reveal">
+      <div class="about-image-wrap"><span style="color:var(--gray)">TUA FOTO</span></div>
+      <div>
         <div class="section-label">Chi sono</div>
         <h2 class="section-title">La Visione<br/><span style="color:var(--red)">REV</span></h2>
         <p style="margin-top:32px">
-          Sono un fotografo specializzato in <strong>automotive e luxury lifestyle</strong>. Il mio obiettivo è catturare l'anima di ogni vettura — la tensione muscolare di una sportiva, l'eleganza silenziosa di una berlina di lusso, la brutalità pura di una supercar.
-        </p>
-        <p>
-          Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia — è un racconto visivo che fa venire voglia di mettere la chiave nel quadro.
+          Sono un fotografo specializzato in <strong>automotive e luxury lifestyle</strong>. Il mio obiettivo è catturare l'anima di ogni vettura.
         </p>
         <div class="about-stats">
-          <div class="stat-item">
-            <div class="stat-num">100+</div>
-            <div class="stat-label">Vetture fotografate</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">50+</div>
-            <div class="stat-label">Clienti soddisfatti</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">3+</div>
-            <div class="stat-label">Anni di esperienza</div>
-          </div>
+          <div><div class="stat-num">100+</div><div class="stat-label">Vetture fotografate</div></div>
+          <div><div class="stat-num">50+</div><div class="stat-label">Clienti soddisfatti</div></div>
+          <div><div class="stat-num">3+</div><div class="stat-label">Anni di esperienza</div></div>
         </div>
       </div>
     </div>
@@ -837,127 +428,34 @@
 
   <!-- SERVIZI -->
   <section id="servizi">
-    <div class="reveal">
+    <div>
       <div class="section-label">Servizi</div>
       <h2 class="section-title">Cosa<br/><span style="color:var(--red)">Offro</span></h2>
     </div>
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <div class="service-num">01</div>
-        <div class="service-name">Shooting Privato</div>
-        <div class="service-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">02</div>
-        <div class="service-name">Content Creator</div>
-        <div class="service-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o del tuo stile di vita.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">03</div>
-        <div class="service-name">Events Coverage</div>
-        <div class="service-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">04</div>
-        <div class="service-name">Brand &amp; Dealer</div>
-        <div class="service-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">05</div>
-        <div class="service-name">Luxury Lifestyle</div>
-        <div class="service-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">06</div>
-        <div class="service-name">Post-Produzione</div>
-        <div class="service-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nel minimo dettaglio.</div>
-      </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-num">01</div><div class="service-name">Shooting Privato</div><div class="service-desc">Sessione fotografica dedicata alla tua vettura.</div></div>
+      <div class="service-card"><div class="service-num">02</div><div class="service-name">Content Creator</div><div class="service-desc">Contenuti per i tuoi profili social.</div></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-name">Events Coverage</div><div class="service-desc">Copertura fotografica di eventi automotive.</div></div>
+      <div class="service-card"><div class="service-num">04</div><div class="service-name">Brand & Dealer</div><div class="service-desc">Servizi per concessionarie e brand.</div></div>
+      <div class="service-card"><div class="service-num">05</div><div class="service-name">Luxury Lifestyle</div><div class="service-desc">Shooting integrati tra vettura e lifestyle.</div></div>
+      <div class="service-card"><div class="service-num">06</div><div class="service-name">Post-Produzione</div><div class="service-desc">Editing professionale e retouching.</div></div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contatti">
-    <div class="contact-inner reveal">
-      <div class="section-label" style="justify-content:center">Contatti</div>
-      <h2 class="contact-title">Parliamo<br/><span>del tuo progetto</span></h2>
-      <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivimi su WhatsApp e troviamo insieme la soluzione perfetta.</p>
-      <a href="https://wa.me/393128912400" target="_blank" class="wa-button">
-        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        Scrivimi su WhatsApp
-      </a>
-      <div class="contact-ig">
-        <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray)">Seguimi su</span>
-        <a href="https://instagram.com/revculture.it" target="_blank">@revculture.it</a>
-      </div>
-    </div>
+    <div style="justify-content:center" class="section-label">Contatti</div>
+    <h2 class="contact-title">Parliamo<br/><span>del tuo progetto</span></h2>
+    <p class="contact-sub">Hai una vettura da fotografare? Scrivimi su WhatsApp.</p>
+    <a href="https://wa.me/393128912400" target="_blank" class="wa-button">Scrivimi su WhatsApp</a>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">REV<span>.</span>CULTURE</div>
     <p>© 2025 revculture.it — Tutti i diritti riservati</p>
-    <p style="color:rgba(255,255,255,0.15);font-size:0.65rem;letter-spacing:0.1em;">AUTOMOTIVE PHOTOGRAPHY</p>
+    <p style="color:rgba(255,255,255,0.15);font-size:0.65rem;">AUTOMOTIVE PHOTOGRAPHY</p>
   </footer>
 
-  <script>
-    // CURSOR
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
-    });
-
-    function animRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
-      requestAnimationFrame(animRing);
-    }
-    animRing();
-
-    document.querySelectorAll('a, button, .photo-item, .service-card').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
-      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
-    });
-
-    // PARALLAX
-    window.addEventListener('scroll', () => {
-      const wrap = document.querySelector('.parallax-img');
-      if (wrap) {
-        const offset = window.scrollY * 0.3;
-        wrap.style.transform = `translateY(${offset}px)`;
-      }
-    });
-
-    // SCROLL REVEAL
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(r => obs.observe(r));
-
-    // NAV scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 80) {
-        nav.style.background = 'rgba(8,8,8,0.97)';
-        nav.style.backdropFilter = 'blur(12px)';
-      } else {
-        nav.style.background = '';
-        nav.style.backdropFilter = 'blur(2px)';
-      }
-    });
-  </script>
 </body>
 </html>
