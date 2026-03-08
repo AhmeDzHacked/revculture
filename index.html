@@ -347,38 +347,6 @@
     }
     .photo-label span { color: var(--red); }
 
-    /* Placeholder pattern for photos */
-    .photo-placeholder {
-      width: 100%; height: 100%;
-      background: var(--dark2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .photo-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 20px,
-          rgba(255,255,255,0.015) 20px,
-          rgba(255,255,255,0.015) 21px
-        );
-    }
-    .photo-placeholder .ph-icon {
-      font-size: 2rem;
-      color: rgba(255,255,255,0.1);
-      font-family: var(--font-display);
-      letter-spacing: 0.1em;
-      position: relative;
-      z-index: 1;
-    }
-
     .photo-item.large {
       grid-column: span 2;
       aspect-ratio: 2/1;
@@ -438,7 +406,6 @@
       z-index: -1;
     }
 
-    .about-text { }
     .about-text p {
       font-size: 1.05rem;
       line-height: 1.8;
@@ -454,7 +421,6 @@
       padding-top: 40px;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .stat-item {}
     .stat-num {
       font-family: var(--font-display);
       font-size: 3rem;
@@ -753,37 +719,44 @@
     </div>
 
     <div class="portfolio-grid reveal">
-      <!-- Sostituisci i placeholder con i tuoi <img src="foto.jpg" /> -->
+      <!-- FOTO 1 - GRANDE -->
       <div class="photo-item large">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 01</span></div>
+        <img src="images/foto01.jpg" alt="Supercar Track Day" />
         <div class="photo-overlay"><div class="photo-label">Supercar <span>/ Track Day</span></div></div>
       </div>
+      <!-- FOTO 2 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 02</span></div>
+        <img src="images/foto02.jpg" alt="Luxury Detail" />
         <div class="photo-overlay"><div class="photo-label">Luxury <span>/ Detail</span></div></div>
       </div>
+      <!-- FOTO 3 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 03</span></div>
+        <img src="images/foto03.jpg" alt="Sport Motion" />
         <div class="photo-overlay"><div class="photo-label">Sport <span>/ Motion</span></div></div>
       </div>
+      <!-- FOTO 4 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 04</span></div>
+        <img src="images/foto04.jpg" alt="Lifestyle Cars" />
         <div class="photo-overlay"><div class="photo-label">Lifestyle <span>/ Cars</span></div></div>
       </div>
+      <!-- FOTO 5 - GRANDE -->
       <div class="photo-item large">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 05</span></div>
+        <img src="images/foto05.jpg" alt="Night Shoot" />
         <div class="photo-overlay"><div class="photo-label">Night <span>/ Shoot</span></div></div>
       </div>
+      <!-- FOTO 6 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 06</span></div>
+        <img src="images/foto06.jpg" alt="Classic Vintage" />
         <div class="photo-overlay"><div class="photo-label">Classic <span>/ Vintage</span></div></div>
       </div>
+      <!-- FOTO 7 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 07</span></div>
+        <img src="images/foto07.jpg" alt="Events Live" />
         <div class="photo-overlay"><div class="photo-label">Events <span>/ Live</span></div></div>
       </div>
+      <!-- FOTO 8 -->
       <div class="photo-item">
-        <div class="photo-placeholder"><span class="ph-icon">FOTO 08</span></div>
+        <img src="images/foto08.jpg" alt="Exclusive Shoot" />
         <div class="photo-overlay"><div class="photo-label">Exclusive <span>/ Shoot</span></div></div>
       </div>
     </div>
@@ -804,8 +777,7 @@
     <div class="about-grid">
       <div class="about-image reveal">
         <div class="about-image-wrap">
-          <!-- Sostituisci con la tua foto: <img src="profilo.jpg" alt="REV Culture" /> -->
-          <div class="photo-placeholder" style="height:100%"><span class="ph-icon">TUA FOTO</span></div>
+          <img src="images/profilo.jpg" alt="REV Culture Photographer" />
         </div>
       </div>
       <div class="about-text reveal">
