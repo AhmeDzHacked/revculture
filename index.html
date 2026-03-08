@@ -287,7 +287,7 @@
       text-transform: uppercase;
     }
 
-    /* PORTFOLIO */
+    /* PORTFOLIO - MASONRY LAYOUT */
     #portfolio { background: var(--black); }
 
     .portfolio-header {
@@ -299,58 +299,43 @@
       gap: 24px;
     }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
+    /* MASONRY GRID */
+    .portfolio-masonry {
+      column-count: 3;
+      column-gap: 4px;
     }
 
     .photo-item {
       position: relative;
-      aspect-ratio: 1;
       overflow: hidden;
       background: var(--dark2);
       cursor: none;
+      margin-bottom: 4px;
+      break-inside: avoid;
     }
 
     .photo-item img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
       filter: grayscale(20%);
     }
 
     .photo-item:hover img {
-      transform: scale(1.08);
+      transform: scale(1.05);
       filter: grayscale(0%);
     }
 
+    /* Overlay nascosto, visibile solo su hover senza testo */
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(204,0,0,0.6) 0%, transparent 60%);
       opacity: 0;
       transition: opacity 0.35s;
-      display: flex;
-      align-items: flex-end;
-      padding: 24px;
     }
     .photo-item:hover .photo-overlay { opacity: 1; }
-
-    .photo-label {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-    }
-    .photo-label span { color: var(--red); }
-
-    .photo-item.large {
-      grid-column: span 2;
-      aspect-ratio: 2/1;
-    }
 
     /* ABOUT */
     #about {
@@ -651,19 +636,25 @@
     }
 
     /* MOBILE */
+    @media (max-width: 1024px) {
+      .portfolio-masonry { column-count: 2; }
+    }
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
       .nav-links { display: none; }
       section { padding: 80px 24px; }
       .hero { padding: 60px 24px; }
-      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-      .photo-item.large { grid-column: span 1; aspect-ratio: 1; }
+      .portfolio-masonry { column-count: 2; gap: 2px; }
+      .photo-item { margin-bottom: 2px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .services-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
       .hero-scroll { display: none; }
       body { cursor: auto; }
       .cursor, .cursor-ring { display: none; }
+    }
+    @media (max-width: 480px) {
+      .portfolio-masonry { column-count: 1; }
     }
   </style>
 </head>
@@ -708,7 +699,7 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO -->
+  <!-- PORTFOLIO - MASONRY -->
   <section id="portfolio">
     <div class="portfolio-header reveal">
       <div>
@@ -718,46 +709,46 @@
       <a href="https://instagram.com/revculture.it" target="_blank" class="btn-ghost">Vedi tutto su Instagram →</a>
     </div>
 
-    <div class="portfolio-grid reveal">
-      <!-- FOTO 1 - GRANDE -->
-      <div class="photo-item large">
-        <img src="images/foto01.JPG" alt="Supercar Track Day" />
-        <div class="photo-overlay"><div class="photo-label">Supercar <span>/ Track Day</span></div></div>
+    <div class="portfolio-masonry reveal">
+      <!-- FOTO 1 - Solo SEO, no testo visibile -->
+      <div class="photo-item">
+        <img src="images/foto01.JPG" alt="Ferrari supercar track day racing automotive photography" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 2 -->
       <div class="photo-item">
-        <img src="images/foto02.JPG" alt="Luxury Detail" />
-        <div class="photo-overlay"><div class="photo-label">Luxury <span>/ Detail</span></div></div>
+        <img src="images/foto02.JPG" alt="Luxury car detail interior leather automotive photography" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 3 -->
       <div class="photo-item">
-        <img src="images/foto03.JPG" alt="Sport Motion" />
-        <div class="photo-overlay"><div class="photo-label">Sport <span>/ Motion</span></div></div>
+        <img src="images/foto03.JPG" alt="Sports car motion speed panning automotive photography" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 4 -->
       <div class="photo-item">
-        <img src="images/foto04.JPG" alt="Lifestyle Cars" />
-        <div class="photo-overlay"><div class="photo-label">Lifestyle <span>/ Cars</span></div></div>
+        <img src="images/foto04.JPG" alt="Lifestyle automotive cars coffee luxury lifestyle photography" />
+        <div class="photo-overlay"></div>
       </div>
-      <!-- FOTO 5 - GRANDE -->
-      <div class="photo-item large">
-        <img src="images/foto05.JPG" alt="Night Shoot" />
-        <div class="photo-overlay"><div class="photo-label">Night <span>/ Shoot</span></div></div>
+      <!-- FOTO 5 -->
+      <div class="photo-item">
+        <img src="images/foto05.JPG" alt="Night car photography light painting automotive supercar" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 6 -->
       <div class="photo-item">
-        <img src="images/foto06.JPG" alt="Classic Vintage" />
-        <div class="photo-overlay"><div class="photo-label">Classic <span>/ Vintage</span></div></div>
+        <img src="images/foto06.JPG" alt="Classic vintage car restoration automotive photography" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 7 -->
       <div class="photo-item">
-        <img src="images/foto07.JPG" alt="Events Live" />
-        <div class="photo-overlay"><div class="photo-label">Events <span>/ Live</span></div></div>
+        <img src="images/foto07.JPG" alt="Cars and coffee event automotive gathering photography" />
+        <div class="photo-overlay"></div>
       </div>
       <!-- FOTO 8 -->
       <div class="photo-item">
-        <img src="images/foto08.JPG" alt="Exclusive Shoot" />
-        <div class="photo-overlay"><div class="photo-label">Exclusive <span>/ Shoot</span></div></div>
+        <img src="images/foto08.JPG" alt="Exclusive supercar photoshoot luxury automotive photography" />
+        <div class="photo-overlay"></div>
       </div>
     </div>
   </section>
@@ -777,7 +768,7 @@
     <div class="about-grid">
       <div class="about-image reveal">
         <div class="about-image-wrap">
-          <img src="images/profilo.JPG" alt="REV Culture Photographer" />
+          <img src="images/profilo.JPG" alt="REV Culture automotive photographer Italy" />
         </div>
       </div>
       <div class="about-text reveal">
