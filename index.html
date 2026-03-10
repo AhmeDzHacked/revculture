@@ -19,8 +19,6 @@
   --d2:  #161616;
   --d3:  #1f1f1f;
   --w:   #F4F2EF;
-  --g:   #666;
-  --lg:  #999;
   --head:'Anton', sans-serif;
   --cond:'Barlow Condensed', sans-serif;
   --body:'Barlow', sans-serif;
@@ -49,7 +47,7 @@ body::before{
 }
 
 /* ================================================================
-   CURSOR
+   CURSOR — desktop only
 ================================================================ */
 #cur{
   position:fixed;width:8px;height:8px;
@@ -66,9 +64,7 @@ body::before{
   pointer-events:none;z-index:9998;
   left:0;top:0;
   transform:translate(-50%,-50%);
-  transition:width .35s cubic-bezier(.25,.46,.45,.94),
-             height .35s cubic-bezier(.25,.46,.45,.94),
-             border-color .25s;
+  transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s;
 }
 body.hov #cur{width:16px;height:16px;background:var(--rh);border-radius:3px}
 body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
@@ -92,7 +88,7 @@ body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
   letter-spacing:.12em;color:var(--w);
   overflow:hidden;margin-bottom:40px;
 }
-.ld-logo span{color:var(--r)}
+.ld-logo em{color:var(--r);font-style:normal}
 .ld-logo-inner{
   display:block;
   transform:translateY(100%);
@@ -102,16 +98,12 @@ body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
   width:220px;height:1px;
   background:rgba(244,242,239,.08);position:relative;overflow:hidden;
 }
-.ld-bar{
-  position:absolute;top:0;left:0;height:100%;
-  background:var(--r);width:0%;
-  transition:width .05s linear;
-}
+.ld-bar{position:absolute;top:0;left:0;height:100%;background:var(--r);width:0%;transition:width .05s linear}
 .ld-pct{
   font-family:var(--cond);font-size:.7rem;
-  letter-spacing:.35em;color:var(--g);
-  margin-top:16px;
-  animation:ldFade .5s .3s forwards;opacity:0;
+  letter-spacing:.35em;color:rgba(244,242,239,.5);
+  margin-top:16px;opacity:0;
+  animation:ldFade .5s .3s forwards;
 }
 @keyframes ldUp{to{transform:translateY(0)}}
 @keyframes ldFade{to{opacity:1}}
@@ -122,33 +114,30 @@ body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
-  padding:32px 56px;
-  transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s;
+  padding:28px 48px;
+  transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s,transform .4s;
   border-bottom:1px solid transparent;
 }
 nav.scrolled{
-  padding:18px 56px;
+  padding:16px 48px;
   background:rgba(6,6,6,.94);
   backdrop-filter:blur(20px);
   border-color:rgba(255,255,255,.04);
 }
+nav.hidden{transform:translateY(-100%)}
+
 .nav-logo{
-  font-family:var(--head);font-size:1.5rem;
-  letter-spacing:.18em;color:var(--w);
-  position:relative;
+  font-family:var(--head);font-size:1.4rem;
+  letter-spacing:.16em;color:var(--w);
 }
 .nav-logo em{color:var(--r);font-style:normal}
-.nav-logo::after{
-  content:'AUTOMOTIVE PHOTOGRAPHY';
-  position:absolute;left:0;top:calc(100% + 4px);
-  font-family:var(--cond);font-size:.42rem;
-  letter-spacing:.35em;color:rgba(244,242,239,.3);
-  font-weight:600;white-space:nowrap;
-}
-.nav-links{display:flex;gap:44px;list-style:none}
+
+.nav-links{display:flex;gap:40px;list-style:none}
 .nav-links a{
   font-family:var(--cond);font-size:.7rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--g);
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:rgba(244,242,239,.7);
   position:relative;transition:color .25s;
 }
 .nav-links a::after{
@@ -158,13 +147,14 @@ nav.scrolled{
 }
 .nav-links a:hover{color:var(--w)}
 .nav-links a:hover::after{width:100%}
+
 .nav-btn{
   font-family:var(--cond);font-size:.7rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;
   color:var(--w);background:var(--r);
   padding:11px 24px;
-  transition:background .25s,transform .2s;
   position:relative;overflow:hidden;
+  transition:background .25s,transform .2s;
 }
 .nav-btn::before{
   content:'';position:absolute;inset:0;
@@ -178,87 +168,59 @@ nav.scrolled{
    HERO
 ================================================================ */
 .hero{
-  position:relative;height:100vh;min-height:700px;
+  position:relative;height:100vh;min-height:600px;
   display:flex;flex-direction:column;justify-content:flex-end;
   overflow:hidden;
 }
-
-/* — animated grid bg — */
 .hero-grid{
   position:absolute;inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
   background-size:90px 90px;
   animation:gridDrift 20s linear infinite;
 }
-@keyframes gridDrift{
-  from{background-position:0 0}
-  to{background-position:90px 90px}
-}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:90px 90px}}
 
-/* — red glows — */
-.hero-glow{
-  position:absolute;
-  border-radius:50%;pointer-events:none;
-}
+.hero-glow{position:absolute;border-radius:50%;pointer-events:none}
 .hero-glow-1{
-  width:1000px;height:1000px;
-  top:-300px;left:-300px;
+  width:900px;height:900px;top:-300px;left:-300px;
   background:radial-gradient(circle,rgba(180,0,0,.16) 0%,transparent 65%);
   animation:glow1 9s ease-in-out infinite alternate;
 }
 .hero-glow-2{
-  width:700px;height:700px;
-  bottom:-200px;right:5%;
+  width:650px;height:650px;bottom:-200px;right:5%;
   background:radial-gradient(circle,rgba(204,0,0,.1) 0%,transparent 65%);
   animation:glow2 12s ease-in-out infinite alternate;
 }
-@keyframes glow1{from{transform:translate(0,0) scale(1)} to{transform:translate(60px,50px) scale(1.18)}}
-@keyframes glow2{from{transform:translate(0,0)} to{transform:translate(-50px,-40px) scale(1.15)}}
+@keyframes glow1{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,50px) scale(1.18)}}
+@keyframes glow2{from{transform:translate(0,0)}to{transform:translate(-50px,-40px) scale(1.15)}}
 
-/* — big diagonal stripe — */
 .hero-stripe{
-  position:absolute;top:0;left:0;
-  width:4px;height:100%;
+  position:absolute;top:0;left:0;width:4px;height:100%;
   background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent);
 }
-
-/* — watermark — */
 .hero-wm{
   position:absolute;bottom:-60px;right:-30px;
-  font-family:var(--head);
-  font-size:clamp(200px,32vw,440px);
+  font-family:var(--head);font-size:clamp(180px,30vw,420px);
   line-height:1;letter-spacing:-.02em;
   color:rgba(204,0,0,.045);
   pointer-events:none;user-select:none;
   animation:wmDrift 14s ease-in-out infinite alternate;
 }
-@keyframes wmDrift{
-  from{transform:translateY(0) rotate(-1deg)}
-  to{transform:translateY(-20px) rotate(0deg)}
-}
+@keyframes wmDrift{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-20px) rotate(0deg)}}
 
-/* — scanning line — */
 .hero-scan{
   position:absolute;left:0;right:0;height:1px;
   background:linear-gradient(to right,transparent,rgba(204,0,0,.4),transparent);
-  animation:scan 6s ease-in-out infinite;
-  pointer-events:none;
+  animation:scan 6s ease-in-out infinite;pointer-events:none;
 }
-@keyframes scan{
-  0%{top:0%;opacity:0}
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{top:100%;opacity:0}
-}
+@keyframes scan{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
 
 .hero-content{
   position:relative;z-index:2;
-  padding:0 56px 80px;
+  padding:0 48px 72px;
 }
-
-/* eyebrow */
 .hero-tag{
   display:inline-flex;align-items:center;gap:12px;
   font-family:var(--cond);font-size:.68rem;font-weight:700;
@@ -270,51 +232,38 @@ nav.scrolled{
 .hero-tag::before{content:'';width:24px;height:1px;background:var(--r)}
 @keyframes tagReveal{to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
 
-/* main title — character split */
 .hero-h1{
   font-family:var(--head);
-  font-size:clamp(80px,18vw,240px);
+  font-size:clamp(76px,18vw,240px);
   line-height:.85;letter-spacing:-.01em;
   text-transform:uppercase;
-  margin-bottom:0;
-  overflow:hidden;
 }
 .h1-line{overflow:hidden;display:block}
-.h1-inner{
-  display:block;
-  transform:translateY(110%) skewY(4deg);
-  opacity:0;
-}
+.h1-inner{display:block;transform:translateY(110%) skewY(4deg);opacity:0}
 .h1-line:nth-child(1) .h1-inner{animation:lineUp 1s .3s cubic-bezier(.16,1,.3,1) forwards}
 .h1-line:nth-child(2) .h1-inner{
   color:var(--r);
-  animation:lineUp 1s .52s cubic-bezier(.16,1,.3,1) forwards;
-  /* glitch on load */
-}
-@keyframes lineUp{to{transform:translateY(0) skewY(0);opacity:1}}
-
-/* glitch on red line */
-.h1-line:nth-child(2) .h1-inner{
   animation:lineUp 1s .52s cubic-bezier(.16,1,.3,1) forwards,
             glitchIn .4s .52s steps(1) forwards;
 }
+@keyframes lineUp{to{transform:translateY(0) skewY(0);opacity:1}}
 @keyframes glitchIn{
   0%{text-shadow:3px 0 var(--rh),-3px 0 #001aff}
-  25%{text-shadow:-3px 0 var(--rh),3px 0 #001aff;transform:translateY(110%) skewY(4deg) translateX(4px)}
+  25%{text-shadow:-3px 0 var(--rh),3px 0 #001aff}
   50%{text-shadow:2px 0 #fff,-2px 0 var(--r)}
   100%{text-shadow:none}
 }
 
-/* bottom bar */
 .hero-bottom{
   display:flex;align-items:flex-end;justify-content:space-between;
-  margin-top:40px;gap:40px;
-  opacity:0;
-  animation:fadeUp .8s 1.1s cubic-bezier(.16,1,.3,1) forwards;
+  margin-top:40px;gap:32px;
+  opacity:0;animation:fadeUp .8s 1.1s cubic-bezier(.16,1,.3,1) forwards;
 }
 .hero-sub{
   font-family:var(--cond);font-size:1.05rem;font-weight:300;font-style:italic;
-  color:rgba(244,242,239,.5);max-width:380px;line-height:1.65;
+  /* ★ WAS semi-transparent, NOW full white */
+  color:var(--w);
+  max-width:380px;line-height:1.65;
 }
 .hero-btns{display:flex;gap:16px;align-items:center;flex-shrink:0}
 
@@ -330,8 +279,7 @@ nav.scrolled{
 .btn-red::after{
   content:'';position:absolute;inset:0;
   background:rgba(255,255,255,.12);
-  transform:translateX(-100%) skewX(-10deg);
-  transition:transform .4s;
+  transform:translateX(-100%) skewX(-10deg);transition:transform .4s;
 }
 .btn-red:hover{background:var(--rh);transform:translateX(4px)}
 .btn-red:hover::after{transform:translateX(100%) skewX(-10deg)}
@@ -339,27 +287,29 @@ nav.scrolled{
 .btn-ghost{
   font-family:var(--cond);font-size:.72rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(244,242,239,.5);
-  border-bottom:1px solid rgba(244,242,239,.2);
+  /* ★ WAS semi-transparent, NOW white */
+  color:var(--w);
+  border-bottom:1px solid rgba(244,242,239,.35);
   padding-bottom:3px;
   transition:color .25s,border-color .25s;
 }
-.btn-ghost:hover{color:var(--w);border-color:var(--w)}
+.btn-ghost:hover{color:var(--r);border-color:var(--r)}
 
-/* scroll indicator */
 .hero-scroll{
-  position:absolute;right:56px;bottom:80px;z-index:2;
+  position:absolute;right:48px;bottom:72px;z-index:2;
   display:flex;flex-direction:column;align-items:center;gap:10px;
   opacity:0;animation:fadeUp .8s 1.4s forwards;
 }
 .hero-scroll span{
   font-family:var(--cond);font-size:.58rem;font-weight:700;
-  letter-spacing:.35em;text-transform:uppercase;color:var(--g);
+  letter-spacing:.35em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:rgba(244,242,239,.6);
   writing-mode:vertical-rl;
 }
 .scroll-track{
   width:1px;height:64px;
-  background:rgba(255,255,255,.1);position:relative;overflow:hidden;
+  background:rgba(255,255,255,.15);position:relative;overflow:hidden;
 }
 .scroll-track::after{
   content:'';position:absolute;width:100%;height:35%;
@@ -367,26 +317,20 @@ nav.scrolled{
   animation:trackDrop 2s ease-in-out infinite;
 }
 @keyframes trackDrop{0%{top:-35%}100%{top:135%}}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(22px)}
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
 /* ================================================================
-   MARQUEE — bold red
+   MARQUEE
 ================================================================ */
 .marquee-wrap{
   overflow:hidden;background:var(--r);padding:13px 0;
-  border-top:1px solid rgba(0,0,0,.25);
-  border-bottom:1px solid rgba(0,0,0,.25);
+  border-top:1px solid rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.25);
   position:relative;
 }
-/* shine sweep */
 .marquee-wrap::after{
   content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
-  animation:shine 4s ease-in-out infinite;
-  pointer-events:none;
+  animation:shine 4s ease-in-out infinite;pointer-events:none;
 }
 @keyframes shine{0%{left:-100%}100%{left:200%}}
 .marquee-track{display:flex;white-space:nowrap;animation:mq 28s linear infinite}
@@ -399,12 +343,8 @@ nav.scrolled{
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ================================================================
-   PORTFOLIO
+   SECTION COMMONS
 ================================================================ */
-#portfolio{padding:140px 56px;background:var(--blk)}
-.section-head{
-  display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:72px;
-}
 .sec-label{
   font-family:var(--cond);font-size:.65rem;font-weight:700;
   letter-spacing:.4em;text-transform:uppercase;color:var(--r);
@@ -412,25 +352,36 @@ nav.scrolled{
 }
 .sec-label::before{content:'';width:20px;height:1px;background:var(--r)}
 .sec-h{
-  font-family:var(--head);font-size:clamp(3rem,7vw,6.5rem);
+  font-family:var(--head);font-size:clamp(2.8rem,7vw,6.5rem);
   line-height:.9;letter-spacing:.02em;text-transform:uppercase;
 }
 .sec-h em{color:var(--r);font-style:normal}
 
-.port-ig{
-  font-family:var(--cond);font-size:.7rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:var(--g);border-bottom:1px solid rgba(255,255,255,.12);
-  padding-bottom:3px;transition:color .25s,border-color .25s;
+/* scroll reveal */
+.rev{
+  opacity:0;transform:translateY(48px);
+  transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);
 }
-.port-ig:hover{color:var(--r);border-color:var(--r)}
+.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.22s}
+.rev.d3{transition-delay:.34s}.rev.d4{transition-delay:.46s}
+.rev.on{opacity:1;transform:none}
 
-/* masonry */
+/* ================================================================
+   PORTFOLIO
+================================================================ */
+#portfolio{padding:120px 48px;background:var(--blk)}
+
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px;
+}
+
+/* 3 col desktop, never more than 2 on mobile */
 .masonry{columns:3;column-gap:6px}
 .m-item{
   position:relative;overflow:hidden;
   background:var(--d2);margin-bottom:6px;
   break-inside:avoid;cursor:none;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
 }
 .m-item img{
   width:100%;height:auto;display:block;
@@ -438,34 +389,56 @@ nav.scrolled{
   filter:grayscale(30%) brightness(.85);
 }
 .m-item:hover img{transform:scale(1.09);filter:grayscale(0%) brightness(1)}
-
-/* overlay with sliding reveal */
 .m-overlay{
   position:absolute;inset:0;
   background:linear-gradient(to top,rgba(180,0,0,.75) 0%,transparent 60%);
-  opacity:0;
-  transition:opacity .4s;
-  display:flex;align-items:flex-end;
-  padding:20px;
+  opacity:0;transition:opacity .4s;
 }
 .m-item:hover .m-overlay{opacity:1}
-
-/* index number badge */
 .m-item::before{
   content:attr(data-idx);
   position:absolute;top:14px;right:14px;
   font-family:var(--head);font-size:.9rem;letter-spacing:.08em;
-  color:rgba(255,255,255,.15);
-  z-index:2;
+  color:rgba(255,255,255,.18);z-index:2;
   transition:color .3s,transform .3s;
 }
-.m-item:hover::before{color:rgba(255,255,255,.5);transform:scale(1.2)}
+.m-item:hover::before{color:rgba(255,255,255,.55);transform:scale(1.2)}
+
+/* ★ CTA block under portfolio — centrato */
+.port-cta{
+  margin-top:48px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  text-align:center;
+}
+.port-cta-label{
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,242,239,.5);
+}
+.port-ig-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--cond);font-size:.78rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--w);
+  border:1px solid rgba(255,255,255,.2);
+  padding:18px 44px;
+  position:relative;overflow:hidden;
+  transition:color .25s,border-color .25s,background .3s,transform .2s;
+}
+.port-ig-btn::before{
+  content:'';position:absolute;inset:0;background:var(--r);
+  transform:translateX(-100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.port-ig-btn:hover{border-color:var(--r);transform:translateY(-2px)}
+.port-ig-btn:hover::before{transform:translateX(0)}
+.port-ig-btn span{position:relative;z-index:1}
+.port-ig-btn svg{position:relative;z-index:1;flex-shrink:0}
 
 /* ================================================================
    PARALLAX BAND
 ================================================================ */
 .parallax-band{
-  position:relative;height:420px;overflow:hidden;
+  position:relative;height:400px;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
 .pb-inner{
@@ -475,8 +448,7 @@ nav.scrolled{
   will-change:transform;
 }
 .pb-bg{
-  font-family:var(--head);
-  font-size:clamp(10rem,22vw,28rem);
+  font-family:var(--head);font-size:clamp(9rem,22vw,28rem);
   color:rgba(244,242,239,.022);
   letter-spacing:-.02em;white-space:nowrap;user-select:none;
 }
@@ -486,10 +458,11 @@ nav.scrolled{
   background:linear-gradient(135deg,rgba(180,0,0,.1),transparent 60%);
 }
 .pb-quote{
-  font-family:var(--head);
-  font-size:clamp(2rem,5.5vw,5rem);
+  font-family:var(--head);font-size:clamp(1.8rem,5.5vw,5rem);
   letter-spacing:.08em;text-transform:uppercase;
-  text-align:center;line-height:1;color:var(--w);
+  text-align:center;line-height:1;
+  /* ★ WAS white/red, now cleaner */
+  color:var(--w);
 }
 .pb-quote em{color:var(--r);font-style:normal;display:block}
 .pb-line{
@@ -502,7 +475,7 @@ nav.scrolled{
    ABOUT
 ================================================================ */
 #about{
-  padding:160px 56px;background:var(--d1);
+  padding:140px 48px;background:var(--d1);
   position:relative;overflow:hidden;
 }
 .about-ghost{
@@ -514,8 +487,6 @@ nav.scrolled{
   display:grid;grid-template-columns:1fr 1.1fr;
   gap:100px;align-items:center;position:relative;z-index:1;
 }
-
-/* image frame */
 .about-frame{position:relative}
 .about-img{
   aspect-ratio:4/5;overflow:hidden;background:var(--d2);position:relative;
@@ -526,8 +497,6 @@ nav.scrolled{
   transition:filter .7s,transform .8s;
 }
 .about-img:hover img{filter:grayscale(0%) brightness(1);transform:scale(1.04)}
-
-/* corner brackets */
 .about-img::before,.about-img::after{
   content:'';position:absolute;
   width:44px;height:44px;
@@ -537,81 +506,87 @@ nav.scrolled{
 .about-img::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
 .about-img::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
 .about-img:hover::before,.about-img:hover::after{width:60px;height:60px}
-
-/* offset border */
 .about-frame::after{
   content:'';position:absolute;
-  bottom:-18px;right:-18px;
-  width:60%;height:60%;
+  bottom:-18px;right:-18px;width:60%;height:60%;
   border:1px solid rgba(204,0,0,.2);z-index:-1;
 }
-
-/* badge */
 .about-badge{
   position:absolute;bottom:-28px;left:-28px;
-  width:110px;height:110px;
-  background:var(--r);
+  width:110px;height:110px;background:var(--r);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;
   animation:badgePulse 4s ease-in-out infinite;
 }
 @keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,.4)}50%{box-shadow:0 0 0 16px rgba(204,0,0,0)}}
 .badge-n{font-family:var(--head);font-size:2.2rem;line-height:1;color:var(--w)}
-.badge-l{font-family:var(--cond);font-size:.5rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:4px}
+.badge-l{
+  font-family:var(--cond);font-size:.5rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  /* ★ WAS semi-opaque, NOW white */
+  color:rgba(255,255,255,.85);
+  margin-top:4px;
+}
 
-/* text */
-.about-text{}
 .about-body{
   font-size:1rem;line-height:1.85;
-  color:rgba(244,242,239,.65);margin-top:32px;
+  /* ★ WAS .65 opacity, NOW full white */
+  color:var(--w);
+  margin-top:32px;
 }
 .about-body p{margin-bottom:24px}
-.about-body strong{color:var(--w);font-weight:400}
-
-/* pull quote */
+.about-body strong{
+  /* ★ WAS white, NOW red */
+  color:var(--r);font-weight:600;
+}
 .pull-q{
   border-left:2px solid var(--r);
   margin:36px 0;padding:2px 0 2px 24px;
-  font-family:var(--cond);font-size:1.25rem;font-weight:300;font-style:italic;
+  font-family:var(--cond);font-size:1.2rem;font-weight:300;font-style:italic;
+  /* ★ WAS white, NOW full white still but stands out more */
   color:var(--w);line-height:1.5;
 }
 
-/* stats */
 .stats-row{
-  display:flex;gap:0;
-  margin-top:56px;
-  border-top:1px solid rgba(255,255,255,.07);
-  padding-top:44px;
+  display:flex;gap:0;margin-top:52px;
+  border-top:1px solid rgba(255,255,255,.1);padding-top:44px;
 }
-.stat{flex:1;padding-right:24px;border-right:1px solid rgba(255,255,255,.07)}
+.stat{flex:1;padding-right:24px;border-right:1px solid rgba(255,255,255,.1)}
 .stat:last-child{border-right:none;padding-right:0;padding-left:24px}
 .stat:not(:first-child){padding-left:24px}
-.stat-n{
-  font-family:var(--head);font-size:3.5rem;color:var(--r);line-height:1;
-  position:relative;
-}
+.stat-n{font-family:var(--head);font-size:3.5rem;color:var(--r);line-height:1}
 .stat-l{
   font-family:var(--cond);font-size:.6rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--g);margin-top:8px;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  margin-top:8px;
 }
 
 /* ================================================================
    SERVICES
 ================================================================ */
-#servizi{padding:160px 56px;background:var(--blk)}
+#servizi{padding:140px 48px;background:var(--blk)}
 .svc-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:2px;margin-top:64px;
-  background:var(--d3);
+  gap:2px;margin-top:64px;background:var(--d3);
 }
 .svc-card{
-  background:var(--blk);padding:52px 40px;
+  background:var(--blk);padding:48px 36px;
   position:relative;overflow:hidden;cursor:none;
-  transition:background .35s;
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),
+             transform .8s cubic-bezier(.16,1,.3,1),
+             background .35s;
+  opacity:0;transform:translateY(40px);
 }
+.svc-card.on{opacity:1;transform:none}
+.svc-card:nth-child(1){transition-delay:.05s}
+.svc-card:nth-child(2){transition-delay:.15s}
+.svc-card:nth-child(3){transition-delay:.25s}
+.svc-card:nth-child(4){transition-delay:.35s}
+.svc-card:nth-child(5){transition-delay:.45s}
+.svc-card:nth-child(6){transition-delay:.55s}
 .svc-card:hover{background:var(--d1)}
-
-/* top line reveal */
 .svc-card::before{
   content:'';position:absolute;top:0;left:0;
   width:0;height:2px;background:var(--r);
@@ -619,7 +594,6 @@ nav.scrolled{
 }
 .svc-card:hover::before{width:100%}
 
-/* ghost number */
 .svc-ghost{
   position:absolute;bottom:-24px;right:8px;
   font-family:var(--head);font-size:8rem;line-height:1;
@@ -631,25 +605,25 @@ nav.scrolled{
 .svc-eyebrow{
   font-family:var(--cond);font-size:.62rem;font-weight:700;
   letter-spacing:.35em;text-transform:uppercase;color:var(--r);
-  margin-bottom:24px;
-  display:flex;align-items:center;gap:10px;
+  margin-bottom:24px;display:flex;align-items:center;gap:10px;
 }
-.svc-eyebrow::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05);max-width:36px}
+.svc-eyebrow::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);max-width:36px}
 
 .svc-name{
-  font-family:var(--head);font-size:1.8rem;letter-spacing:.06em;
+  font-family:var(--head);font-size:1.75rem;letter-spacing:.06em;
   text-transform:uppercase;color:var(--w);margin-bottom:18px;line-height:1.05;
 }
 .svc-desc{
-  font-size:.88rem;line-height:1.78;color:var(--g);
-  transition:color .3s;
+  font-size:.88rem;line-height:1.78;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
 }
-.svc-card:hover .svc-desc{color:var(--lg)}
-
 .svc-arrow{
   display:inline-flex;align-items:center;gap:8px;margin-top:28px;
   font-family:var(--cond);font-size:.68rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--r);
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ arrow NOW red */
+  color:var(--r);
   opacity:0;transform:translateX(-10px);
   transition:opacity .3s,transform .35s;
 }
@@ -659,11 +633,11 @@ nav.scrolled{
    NUMBERS BAND
 ================================================================ */
 .nums-band{
-  background:var(--r);padding:80px 56px;
+  background:var(--r);padding:80px 48px;
   position:relative;overflow:hidden;
 }
 .nums-band::before{
-  content:'100+ 50+ 3+';
+  content:'100+  50+  3+';
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   font-family:var(--head);font-size:20vw;
@@ -672,7 +646,7 @@ nav.scrolled{
 }
 .nums-inner{
   display:flex;align-items:center;justify-content:space-around;
-  gap:40px;position:relative;z-index:1;
+  gap:40px;position:relative;z-index:1;flex-wrap:wrap;
 }
 .num-item{text-align:center}
 .num-n{
@@ -682,7 +656,7 @@ nav.scrolled{
 .num-l{
   font-family:var(--cond);font-size:.68rem;font-weight:700;
   letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(255,255,255,.6);margin-top:10px;
+  color:rgba(255,255,255,.75);margin-top:10px;
 }
 .num-div{width:1px;height:72px;background:rgba(255,255,255,.22)}
 
@@ -690,7 +664,7 @@ nav.scrolled{
    CONTACT
 ================================================================ */
 #contatti{
-  padding:180px 56px;background:var(--d1);
+  padding:160px 48px;background:var(--d1);
   text-align:center;position:relative;overflow:hidden;
 }
 #contatti::before{
@@ -701,7 +675,10 @@ nav.scrolled{
   pointer-events:none;
   animation:glowPulse 5s ease-in-out infinite;
 }
-@keyframes glowPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.8}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+@keyframes glowPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.8}
+  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}
+}
 .contact-inner{position:relative;z-index:1}
 .contact-pre{
   font-family:var(--cond);font-size:.68rem;font-weight:700;
@@ -709,17 +686,23 @@ nav.scrolled{
   display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;
 }
 .contact-pre::before,.contact-pre::after{content:'';width:24px;height:1px;background:var(--r)}
+
 .contact-h{
   font-family:var(--head);
-  font-size:clamp(3.5rem,10vw,10rem);
+  font-size:clamp(3rem,10vw,10rem);
   line-height:.88;text-transform:uppercase;letter-spacing:.03em;
   color:var(--w);margin-bottom:32px;
 }
 .contact-h em{color:var(--r);font-style:normal;display:block}
+
 .contact-sub{
   font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;
-  line-height:1.75;color:var(--g);max-width:480px;margin:0 auto 60px;
+  line-height:1.75;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  max-width:480px;margin:0 auto 60px;
 }
+
 .wa-btn{
   display:inline-flex;align-items:center;gap:14px;
   background:#25D366;color:var(--w);
@@ -737,84 +720,200 @@ nav.scrolled{
 .wa-btn:hover{background:#20bd5a;transform:translateY(-3px);box-shadow:0 16px 48px rgba(37,211,102,.25)}
 .wa-btn:hover::before{transform:translateX(0)}
 .wa-btn svg{width:22px;height:22px;flex-shrink:0}
+
 .contact-or{
   display:flex;align-items:center;justify-content:center;
   gap:20px;margin:36px 0;
 }
-.contact-or::before,.contact-or::after{content:'';width:48px;height:1px;background:rgba(255,255,255,.07)}
+.contact-or::before,.contact-or::after{content:'';width:48px;height:1px;background:rgba(255,255,255,.1)}
 .contact-or span{
   font-family:var(--cond);font-size:.62rem;font-weight:700;
-  letter-spacing:.35em;text-transform:uppercase;color:var(--g);
+  letter-spacing:.35em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
 }
+
 .ig-btn{
   display:inline-flex;align-items:center;gap:12px;
   font-family:var(--cond);font-size:.7rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;
-  color:var(--g);border:1px solid rgba(255,255,255,.08);
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  border:1px solid rgba(255,255,255,.2);
   padding:15px 36px;
   transition:color .25s,border-color .25s,background .25s;
 }
-.ig-btn:hover{color:var(--w);border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.03)}
+.ig-btn:hover{color:var(--w);border-color:var(--r);background:rgba(204,0,0,.08)}
 
 /* ================================================================
    FOOTER
 ================================================================ */
 footer{
   background:var(--blk);border-top:1px solid rgba(255,255,255,.04);
-  padding:36px 56px;
+  padding:36px 48px;
   display:flex;justify-content:space-between;align-items:center;
 }
 .f-logo{font-family:var(--head);font-size:1.3rem;letter-spacing:.18em}
 .f-logo em{color:var(--r);font-style:normal}
-.f-tagline{font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.18);margin-top:5px}
-footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right}
-
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
-.rev{
-  opacity:0;transform:translateY(48px);
-  transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);
+.f-tagline{
+  font-family:var(--cond);font-size:.55rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,242,239,.4);margin-top:5px;
 }
-.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.22s}
-.rev.d3{transition-delay:.34s}.rev.d4{transition-delay:.46s}
-.rev.on{opacity:1;transform:none}
-
-/* ================================================================
-   SPECIAL: STAGGERED CARD REVEAL
-================================================================ */
-.svc-card{
-  opacity:0;transform:translateY(40px);
-  transition:opacity .8s cubic-bezier(.16,1,.3,1),
-             transform .8s cubic-bezier(.16,1,.3,1),
-             background .35s;
+footer p{
+  font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);text-align:right;
 }
-.svc-card.on{opacity:1;transform:none}
-.svc-card:nth-child(1){transition-delay:.05s}
-.svc-card:nth-child(2){transition-delay:.15s}
-.svc-card:nth-child(3){transition-delay:.25s}
-.svc-card:nth-child(4){transition-delay:.35s}
-.svc-card:nth-child(5){transition-delay:.45s}
-.svc-card:nth-child(6){transition-delay:.55s}
 
 /* ================================================================
-   MOBILE
+   ★ MOBILE — tutto ripensato
 ================================================================ */
-@media(max-width:1100px){.masonry{columns:2}.svc-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){
-  nav{padding:20px 24px}nav.scrolled{padding:14px 24px}
-  .nav-links,.nav-btn{display:none}
-  .hero-content{padding:0 24px 64px}.hero-scroll{display:none}
+
+  /* cursore standard su touch */
+  #cur,#cur-ring{display:none}
+  body{cursor:auto}
+
+  /* ---- NAV ---- */
+  nav{padding:20px 24px}
+  nav.scrolled{padding:14px 24px}
+  .nav-links{display:none}
+  .nav-btn{
+    font-size:.62rem;padding:10px 18px;letter-spacing:.15em
+  }
+
+  /* ---- HERO ---- */
+  .hero{min-height:100svh}
+  .hero-content{padding:0 24px 56px}
   .hero-wm{display:none}
-  #portfolio,#about,#servizi,#contatti{padding:100px 24px}
-  .section-head{flex-direction:column;align-items:flex-start;gap:20px}
-  .masonry{columns:1}
-  .svc-grid{grid-template-columns:1fr}
-  .about-grid{grid-template-columns:1fr;gap:64px}
-  .nums-inner{flex-wrap:wrap}.num-div{display:none}
-  footer{flex-direction:column;gap:16px;text-align:center}
+  .hero-h1{font-size:clamp(64px,22vw,120px)}
+  .hero-tag{font-size:.6rem;letter-spacing:.25em;margin-bottom:20px}
+  .hero-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:24px;margin-top:28px;
+  }
+  .hero-sub{font-size:.95rem;max-width:100%}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:14px;width:100%}
+  .btn-red{width:100%;justify-content:center;padding:18px 24px;font-size:.75rem}
+  .btn-ghost{font-size:.75rem}
+  .hero-scroll{display:none}
+
+  /* ---- MARQUEE ---- */
+  .mq-item{font-size:.85rem;gap:20px}
+
+  /* ---- PORTFOLIO ---- */
+  #portfolio{padding:80px 24px}
+  .section-head{
+    flex-direction:column;align-items:flex-start;gap:20px;
+    margin-bottom:40px;
+  }
+  /* ★ Solo 2 colonne su mobile, max 2 foto visibili — gestito via JS */
+  .masonry{columns:2;column-gap:4px}
+  .m-item{margin-bottom:4px}
+  /* foto nascoste su mobile gestite da JS con classe .mob-hidden */
+  .m-item.mob-hidden{display:none}
+
+  .port-cta{margin-top:32px;gap:12px}
+  .port-ig-btn{
+    width:100%;justify-content:center;
+    padding:18px 24px;font-size:.72rem;letter-spacing:.15em;
+  }
+
+  /* ---- PARALLAX BAND ---- */
+  .parallax-band{height:220px}
+  .pb-quote{font-size:1.5rem;letter-spacing:.04em}
+
+  /* ---- ABOUT ---- */
+  #about{padding:80px 24px}
+  .about-ghost{display:none}
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  /* immagine profilo: più piccola, centrata, senza decorazioni che escono */
+  .about-frame{
+    margin-bottom:72px;/* spazio per il badge */
+  }
+  .about-img{
+    aspect-ratio:3/4;
+    max-width:300px;
+    margin:0 auto;
+  }
+  .about-frame::after{display:none}/* no offset box su mobile */
+  .about-badge{
+    bottom:-24px;left:50%;transform:translateX(-50%);
+    width:96px;height:96px;
+  }
+  .about-badge .badge-n{font-size:1.8rem}
+  .about-body{font-size:.95rem;margin-top:24px}
+  .pull-q{font-size:1rem;padding-left:16px;margin:24px 0}
+  .stats-row{
+    gap:0;padding-top:32px;margin-top:40px;
+  }
+  .stat{padding-right:12px}
+  .stat:not(:first-child){padding-left:12px}
+  .stat-n{font-size:2.4rem}
+  .stat-l{font-size:.52rem;letter-spacing:.15em}
+
+  /* ---- SERVICES ---- */
+  #servizi{padding:80px 24px}
+  .svc-grid{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+  .svc-card{padding:36px 28px}
+  .svc-name{font-size:1.5rem}
+  .svc-desc{font-size:.9rem}
+
+  /* ---- NUMBERS BAND ---- */
+  .nums-band{padding:60px 24px}
+  .num-div{display:none}
+  .nums-inner{gap:32px;justify-content:center}
+  .num-item{width:45%}
+  .num-n{font-size:2.8rem}
+  .num-l{font-size:.6rem;letter-spacing:.15em}
+
+  /* ---- CONTACT ---- */
+  #contatti{padding:100px 24px}
+  .contact-h{font-size:clamp(2.4rem,12vw,4.5rem)}
+  .contact-sub{font-size:.92rem;margin-bottom:44px}
+  .wa-btn{
+    width:100%;justify-content:center;
+    padding:20px 24px;font-size:.72rem;letter-spacing:.15em;
+  }
+  .ig-btn{
+    width:100%;justify-content:center;
+    padding:14px 24px;font-size:.68rem;letter-spacing:.12em;
+  }
+
+  /* ---- FOOTER ---- */
+  footer{
+    flex-direction:column;gap:20px;text-align:center;
+    padding:32px 24px;
+  }
   footer p{text-align:center}
-  #cur,#cur-ring{display:none}body{cursor:auto}
+  .f-tagline{text-align:center}
+}
+
+/* ----------------------------------------------------------------
+   Small phones (< 400px)
+---------------------------------------------------------------- */
+@media(max-width:400px){
+  .hero-h1{font-size:clamp(56px,20vw,90px)}
+  .masonry{columns:1}
+  .about-img{max-width:260px}
+}
+
+/* ----------------------------------------------------------------
+   Tablet range
+---------------------------------------------------------------- */
+@media(min-width:769px) and (max-width:1100px){
+  .masonry{columns:2}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .nums-inner{flex-wrap:wrap}
+  .num-div{display:none}
+  #portfolio,#about,#servizi,#contatti{padding:100px 40px}
 }
 </style>
 </head>
@@ -823,11 +922,9 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- ================================================================
-     LOADER
-================================================================ -->
+<!-- LOADER -->
 <div id="loader">
-  <div class="ld-logo"><span class="ld-logo-inner">REV<span>.</span>CULTURE</span></div>
+  <div class="ld-logo"><span class="ld-logo-inner">REV<em>.</em>CULTURE</span></div>
   <div class="ld-bar-outer"><div class="ld-bar" id="ldBar"></div></div>
   <div class="ld-pct" id="ldPct">0%</div>
 </div>
@@ -844,9 +941,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   <a href="https://wa.me/3931289124" target="_blank" class="nav-btn">Book Now →</a>
 </nav>
 
-<!-- ================================================================
-     HERO
-================================================================ -->
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-grid"></div>
   <div class="hero-glow hero-glow-1"></div>
@@ -854,7 +949,6 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   <div class="hero-stripe"></div>
   <div class="hero-wm">REV</div>
   <div class="hero-scan"></div>
-
   <div class="hero-content">
     <div class="hero-tag">Automotive &amp; Luxury Photography — Italy</div>
     <h1 class="hero-h1">
@@ -864,12 +958,11 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
     <div class="hero-bottom">
       <p class="hero-sub">Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.</p>
       <div class="hero-btns">
-        <a href="#portfolio" class="btn-red">Scopri il Portfolio <span>↗</span></a>
+        <a href="#portfolio" class="btn-red">Scopri il Portfolio ↗</a>
         <a href="#contatti" class="btn-ghost">Contattaci</a>
       </div>
     </div>
   </div>
-
   <div class="hero-scroll">
     <div class="scroll-track"></div>
     <span>Scroll</span>
@@ -898,27 +991,37 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </div>
 
-<!-- ================================================================
-     PORTFOLIO
-================================================================ -->
+<!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="section-head rev">
     <div>
       <div class="sec-label">Portfolio</div>
       <h2 class="sec-h">I nostri<br/><em>Scatti</em></h2>
     </div>
-    <a href="https://instagram.com/revculture.it" target="_blank" class="port-ig">Vedi tutto su Instagram →</a>
   </div>
 
-  <div class="masonry rev d2">
-    <div class="m-item" data-idx="01"><img src="images/foto01.JPG" alt="Ferrari supercar track day REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
+  <div class="masonry rev d2" id="masonryGrid">
+    <div class="m-item" data-idx="01"><img src="images/foto01.JPG" alt="Supercar track day REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="02"><img src="images/foto02.JPG" alt="Luxury car detail REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="03"><img src="images/foto03.JPG" alt="Sports car motion REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="04"><img src="images/foto04.JPG" alt="Cars lifestyle REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
-    <div class="m-item" data-idx="05"><img src="images/foto05.JPG" alt="Night car photography REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="05"><img src="images/foto05.JPG" alt="Night car REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="06"><img src="images/foto06.JPG" alt="Classic car REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="07"><img src="images/foto07.JPG" alt="Cars and coffee REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
     <div class="m-item" data-idx="08"><img src="images/foto08.JPG" alt="Supercar photoshoot REV Culture" loading="lazy"/><div class="m-overlay"></div></div>
+  </div>
+
+  <!-- CTA visibile sempre, prominente su mobile -->
+  <div class="port-cta rev d3">
+    <p class="port-cta-label">Guarda tutto il portfolio completo su Instagram</p>
+    <a href="https://instagram.com/revculture.it" target="_blank" class="port-ig-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span>@revculture.it — Vedi tutto →</span>
+    </a>
   </div>
 </section>
 
@@ -934,22 +1037,19 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </div>
 
-<!-- ================================================================
-     ABOUT
-================================================================ -->
+<!-- ABOUT -->
 <section id="about">
   <div class="about-ghost">REV</div>
   <div class="about-grid">
     <div class="about-frame rev">
       <div class="about-img">
-        <img src="images/profilo.jpg" alt="REV Culture automotive photographer Italy" loading="lazy"/>
+        <img src="images/profilo.jpg" alt="REV Culture photographer Italy" loading="lazy"/>
       </div>
       <div class="about-badge">
         <div class="badge-n">3+</div>
         <div class="badge-l">Anni di<br/>esperienza</div>
       </div>
     </div>
-
     <div class="rev d2">
       <div class="sec-label">Chi siamo</div>
       <h2 class="sec-h">La Visione<br/><em>REV</em></h2>
@@ -976,21 +1076,19 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </section>
 
-<!-- ================================================================
-     SERVICES
-================================================================ -->
+<!-- SERVICES -->
 <section id="servizi">
   <div class="rev">
     <div class="sec-label">Servizi</div>
     <h2 class="sec-h">Cosa<br/><em>offriamo</em></h2>
   </div>
   <div class="svc-grid" id="svcGrid">
-    <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name">Shooting<br/>Privato</div><div class="svc-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name">Content<br/>Creator</div><div class="svc-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name">Events<br/>Coverage</div><div class="svc-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name">Brand<br/>&amp; Dealer</div><div class="svc-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name">Luxury<br/>Lifestyle</div><div class="svc-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name">Post-<br/>Produzione</div><div class="svc-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name">Shooting Privato</div><div class="svc-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name">Content Creator</div><div class="svc-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name">Events Coverage</div><div class="svc-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name">Brand &amp; Dealer</div><div class="svc-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name">Luxury Lifestyle</div><div class="svc-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name">Post-Produzione</div><div class="svc-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow">Inizia →</div></div>
   </div>
 </section>
 
@@ -1007,21 +1105,23 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </div>
 
-<!-- ================================================================
-     CONTACT
-================================================================ -->
+<!-- CONTACT -->
 <section id="contatti">
   <div class="contact-inner rev">
     <div class="contact-pre">Pronti a collaborare?</div>
     <h2 class="contact-h">Parliamo<br/><em>del tuo progetto</em></h2>
-    <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo insieme la soluzione perfetta.</p>
+    <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.</p>
     <a href="https://wa.me/3931289124" target="_blank" class="wa-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Scrivici su WhatsApp
     </a>
     <div class="contact-or"><span>oppure</span></div>
     <a href="https://instagram.com/revculture.it" target="_blank" class="ig-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
       Seguici — @revculture.it
     </a>
   </div>
@@ -1039,140 +1139,153 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </footer>
 
-<!-- ================================================================
-     SCRIPTS
-================================================================ -->
 <script>
-// ---- LOADER w/ animated progress ----
-const ldBar = document.getElementById('ldBar');
-const ldPct = document.getElementById('ldPct');
-const loader = document.getElementById('loader');
-let prog = 0;
-const ldInt = setInterval(() => {
-  prog += Math.random() * 14 + 3;
-  if (prog >= 100) {
-    prog = 100;
-    clearInterval(ldInt);
-    ldBar.style.width = '100%';
-    ldPct.textContent = '100%';
-    setTimeout(() => loader.classList.add('gone'), 300);
-  } else {
-    ldBar.style.width = prog + '%';
-    ldPct.textContent = Math.floor(prog) + '%';
-  }
-}, 60);
+// ---- LOADER ----
+const ldBar=document.getElementById('ldBar');
+const ldPct=document.getElementById('ldPct');
+const loader=document.getElementById('loader');
+let prog=0;
+const ldInt=setInterval(()=>{
+  prog+=Math.random()*14+3;
+  if(prog>=100){
+    prog=100;clearInterval(ldInt);
+    ldBar.style.width='100%';ldPct.textContent='100%';
+    setTimeout(()=>loader.classList.add('gone'),300);
+  }else{ldBar.style.width=prog+'%';ldPct.textContent=Math.floor(prog)+'%'}
+},60);
 
-// ---- CURSOR ----
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
+// ---- CURSOR (desktop) ----
+const isMobile=()=>window.innerWidth<=768;
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cur.style.left = mx+'px'; cur.style.top = my+'px';
-});
-(function animRing(){
-  rx += (mx-rx)*.1; ry += (my-ry)*.1;
-  ring.style.left = rx+'px'; ring.style.top = ry+'px';
-  requestAnimationFrame(animRing);
-})();
-document.querySelectorAll('a,button,.m-item,.svc-card').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
+if(!isMobile()){
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function ar(){
+    rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(ar);
+  })();
+  document.querySelectorAll('a,button,.m-item,.svc-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+// ---- NAV: smart show/hide + scrolled ----
+const nav=document.getElementById('nav');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const cur=scrollY;
+  nav.classList.toggle('scrolled',cur>60);
+  if(cur>lastScroll&&cur>200){
+    nav.classList.add('hidden');
+  }else{
+    nav.classList.remove('hidden');
+  }
+  lastScroll=cur;
 });
 
-// ---- NAV ----
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+// ---- PORTFOLIO: nascondi foto su mobile ----
+function handleMobilePortfolio(){
+  const items=document.querySelectorAll('.m-item');
+  if(window.innerWidth<=768){
+    // mostra solo le prime 4 (2 colonne × 2 righe)
+    items.forEach((item,i)=>{
+      if(i>=4) item.classList.add('mob-hidden');
+      else item.classList.remove('mob-hidden');
+    });
+  } else {
+    items.forEach(item=>item.classList.remove('mob-hidden'));
+  }
+}
+handleMobilePortfolio();
+window.addEventListener('resize',handleMobilePortfolio);
 
 // ---- PARALLAX ----
-const pbInner = document.getElementById('pbInner');
-window.addEventListener('scroll', () => {
-  if (!pbInner) return;
-  const band = pbInner.closest('.parallax-band');
-  const r = band.getBoundingClientRect();
-  const offset = r.top * 0.28;
-  pbInner.style.transform = `translateY(${offset}px)`;
+const pbInner=document.getElementById('pbInner');
+window.addEventListener('scroll',()=>{
+  if(!pbInner||isMobile())return;
+  const band=pbInner.closest('.parallax-band');
+  const r=band.getBoundingClientRect();
+  pbInner.style.transform=`translateY(${r.top*.28}px)`;
 });
 
 // ---- SCROLL REVEAL ----
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.rev, .svc-card').forEach(el => ro.observe(el));
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.1});
+document.querySelectorAll('.rev,.svc-card').forEach(el=>ro.observe(el));
 
 // ---- COUNT UP ----
-function countUp(el, target, duration) {
-  let start = null;
-  const step = ts => {
-    if (!start) start = ts;
-    const p = Math.min((ts - start) / duration, 1);
-    const e = 1 - Math.pow(1 - p, 4);
-    el.textContent = Math.round(e * target) + '+';
-    if (p < 1) requestAnimationFrame(step);
+function countUp(el,target,duration){
+  let start=null;
+  const step=ts=>{
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/duration,1);
+    const ease=1-Math.pow(1-p,4);
+    el.textContent=Math.round(ease*target)+'+';
+    if(p<1)requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
 }
-const co = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      countUp(e.target, +e.target.dataset.count, 2000);
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      countUp(e.target,+e.target.dataset.count,2000);
       co.unobserve(e.target);
     }
   });
-}, { threshold: 0.6 });
-document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
 
-// ---- TILT on photo items ----
-document.querySelectorAll('.m-item').forEach(el => {
-  el.addEventListener('mousemove', e => {
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.02)`;
+// ---- TILT su foto (desktop) ----
+if(!isMobile()){
+  document.querySelectorAll('.m-item').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='';
+      el.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94)';
+      setTimeout(()=>el.style.transition='',600);
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    el.style.transform = '';
-    el.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
-    setTimeout(() => el.style.transition = '', 600);
-  });
-});
+}
 
-// ---- MAGNETIC buttons ----
-document.querySelectorAll('.btn-red, .wa-btn, .nav-btn').forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    const r = btn.getBoundingClientRect();
-    const x = (e.clientX - r.left - r.width/2) * 0.3;
-    const y = (e.clientY - r.top - r.height/2) * 0.3;
-    btn.style.transform = `translate(${x}px, ${y}px)`;
+// ---- MAGNETIC buttons (desktop) ----
+if(!isMobile()){
+  document.querySelectorAll('.btn-red,.wa-btn,.nav-btn').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.3;
+      const y=(e.clientY-r.top-r.height/2)*.3;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{
+      btn.style.transform='';
+      btn.style.transition='transform .5s cubic-bezier(.25,.46,.45,.94),background .25s';
+      setTimeout(()=>btn.style.transition='',500);
+    });
   });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = '';
-    btn.style.transition = 'transform .5s cubic-bezier(.25,.46,.45,.94), background .25s';
-    setTimeout(() => btn.style.transition = '', 500);
+}
+
+// ---- HERO GRID mouse parallax (desktop) ----
+if(!isMobile()){
+  const grid=document.querySelector('.hero-grid');
+  document.addEventListener('mousemove',e=>{
+    if(!grid)return;
+    const x=e.clientX/window.innerWidth;
+    const y=e.clientY/window.innerHeight;
+    grid.style.backgroundPosition=`${x*20}px ${y*20}px`;
   });
-});
-
-// ---- NAV smooth hide on scroll down / show on up ----
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const current = scrollY;
-  if (current > lastScroll && current > 200) {
-    nav.style.transform = 'translateY(-100%)';
-    nav.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1), padding .4s, background .4s, backdrop-filter .4s';
-  } else {
-    nav.style.transform = 'translateY(0)';
-  }
-  lastScroll = current;
-});
-
-// ---- HERO GRID parallax on mouse ----
-const grid = document.querySelector('.hero-grid');
-document.addEventListener('mousemove', e => {
-  if (!grid) return;
-  const x = e.clientX / window.innerWidth;
-  const y = e.clientY / window.innerHeight;
-  grid.style.backgroundPosition = `${x * 20}px ${y * 20}px`;
-});
+}
 </script>
 </body>
 </html>
