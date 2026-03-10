@@ -3,924 +3,1408 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REV Culture — Automotive & Luxury Photography</title>
+  <title>REV CULTURE — Automotive & Luxury Photography</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Druk+Wide+Bold:wght@700&family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
   <style>
+
+    /* ============================================================
+       RESET & TOKENS
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
     :root {
-      --red: #CC0000;
-      --red-hot: #FF1A1A;
-      --black: #080808;
-      --dark: #111111;
-      --dark2: #1a1a1a;
-      --white: #F5F5F5;
-      --gray: #888;
-      --font-display: 'Bebas Neue', sans-serif;
+      --r: #CC0000;
+      --rh: #FF0000;
+      --blk: #050505;
+      --d1: #0e0e0e;
+      --d2: #161616;
+      --d3: #1e1e1e;
+      --w: #F2F0EC;
+      --gray: #666;
+      --lgray: #999;
+      --font-head: 'Anton', sans-serif;
       --font-body: 'Barlow', sans-serif;
+      --font-cond: 'Barlow Condensed', sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
     body {
-      background: var(--black);
-      color: var(--white);
+      background: var(--blk);
+      color: var(--w);
       font-family: var(--font-body);
       font-weight: 300;
       overflow-x: hidden;
       cursor: none;
     }
 
-    /* CUSTOM CURSOR */
-    .cursor {
+    a { text-decoration: none; color: inherit; }
+
+    /* ============================================================
+       NOISE OVERLAY (texture)
+    ============================================================ */
+    body::after {
+      content: '';
       position: fixed;
-      width: 12px; height: 12px;
-      background: var(--red);
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    /* ============================================================
+       CUSTOM CURSOR
+    ============================================================ */
+    #cur {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--r);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      transform: translate(-50%,-50%);
+      transition: transform .08s, width .2s, height .2s, background .2s, border-radius .2s;
+      mix-blend-mode: normal;
     }
-    .cursor-ring {
+    #cur-ring {
       position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(204,0,0,0.5);
+      width: 40px; height: 40px;
+      border: 1px solid rgba(204,0,0,.45);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.12s ease-out, width 0.3s, height 0.3s;
+      transform: translate(-50%,-50%);
+      transition: width .35s cubic-bezier(.25,.46,.45,.94), height .35s cubic-bezier(.25,.46,.45,.94);
     }
-    .cursor.hover { width: 20px; height: 20px; background: var(--red-hot); }
-    .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--red); }
+    body.hovering #cur { width: 14px; height: 14px; background: var(--rh); }
+    body.hovering #cur-ring { width: 64px; height: 64px; border-color: var(--r); }
 
-    /* NAV */
+    /* ============================================================
+       LOADING SCREEN
+    ============================================================ */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--blk);
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 32px;
+      transition: opacity .6s .2s, visibility .6s .2s;
+    }
+    #loader.done { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-family: var(--font-head);
+      font-size: 4rem;
+      letter-spacing: 0.15em;
+      color: var(--w);
+      overflow: hidden;
+    }
+    .loader-logo span { color: var(--r); }
+    .loader-bar-wrap {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: var(--r);
+      width: 0%;
+      animation: loadBar 1.4s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    @keyframes loadBar { to { width: 100%; } }
+    .loader-num {
+      font-family: var(--font-cond);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--gray);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 500;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 24px 48px;
-      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
-      backdrop-filter: blur(2px);
+      padding: 28px 56px;
+      transition: padding .4s, background .4s, backdrop-filter .4s;
     }
-
+    nav.scrolled {
+      padding: 18px 56px;
+      background: rgba(5,5,5,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
     .nav-logo {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-decoration: none;
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: .15em;
+      color: var(--w);
     }
-    .nav-logo span { color: var(--red); }
-
+    .nav-logo em { color: var(--r); font-style: normal; }
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 48px;
       list-style: none;
     }
     .nav-links a {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      font-family: var(--font-cond);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .25em;
       text-transform: uppercase;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color 0.25s;
+      color: var(--lgray);
+      position: relative;
+      transition: color .25s;
     }
-    .nav-links a:hover { color: var(--red); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--r);
+      transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--w); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-family: var(--font-cond);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--w);
+      background: var(--r);
+      padding: 10px 24px;
+      transition: background .25s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--rh); transform: translateY(-1px); }
 
-    /* HERO */
+    /* ============================================================
+       HERO
+    ============================================================ */
     .hero {
       position: relative;
       height: 100vh;
-      display: flex;
-      align-items: flex-end;
-      padding: 80px 48px;
+      min-height: 700px;
       overflow: hidden;
-      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
+    /* Animated gradient BG */
     .hero-bg {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(135deg, rgba(204,0,0,0.08) 0%, transparent 50%),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 80px,
-          rgba(255,255,255,0.012) 80px,
-          rgba(255,255,255,0.012) 81px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 80px,
-          rgba(255,255,255,0.012) 80px,
-          rgba(255,255,255,0.012) 81px
-        );
+      background: var(--blk);
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,0,0,.18) 0%, transparent 70%);
+      top: -200px; left: -200px;
+      animation: glowDrift 8s ease-in-out infinite alternate;
+    }
+    .hero-bg-glow2 {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(204,0,0,.1) 0%, transparent 70%);
+      bottom: -100px; right: 10%;
+      animation: glowDrift2 10s ease-in-out infinite alternate;
+    }
+    @keyframes glowDrift {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(80px, 60px) scale(1.15); }
+    }
+    @keyframes glowDrift2 {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(-60px, -40px) scale(1.2); }
     }
 
-    /* Animated red line */
-    .hero-bg::after {
+    /* Grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+
+    /* Big bg text */
+    .hero-watermark {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      font-family: var(--font-head);
+      font-size: clamp(180px, 28vw, 360px);
+      line-height: 1;
+      letter-spacing: -.02em;
+      color: rgba(204,0,0,.05);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* Red diagonal accent */
+    .hero-stripe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--r), transparent 80%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 56px 80px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-cond);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--r);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeSlideUp .7s .3s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--r);
+    }
+
+    .hero-h1 {
+      font-family: var(--font-head);
+      font-size: clamp(80px, 16vw, 220px);
+      line-height: .88;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      color: var(--w);
+      overflow: hidden;
+    }
+    .hero-h1 .line { display: block; }
+    .hero-h1 .line-inner {
+      display: block;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    .hero-h1 .line:nth-child(1) .line-inner { animation: lineReveal .9s .5s cubic-bezier(.16,1,.3,1) forwards; }
+    .hero-h1 .line:nth-child(2) .line-inner {
+      color: var(--r);
+      animation: lineReveal .9s .7s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    @keyframes lineReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 48px;
+      opacity: 0;
+      animation: fadeSlideUp .8s 1.1s forwards;
+    }
+    .hero-sub {
+      font-family: var(--font-cond);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(242,240,236,.5);
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .hero-cta-wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-red {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--r);
+      color: var(--w);
+      font-family: var(--font-cond);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background .25s, transform .2s;
+    }
+    .btn-red::before {
       content: '';
       position: absolute;
-      bottom: 0; left: 0;
-      width: 40%; height: 3px;
-      background: linear-gradient(to right, var(--red), transparent);
-      animation: linePulse 3s ease-in-out infinite;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: rgba(255,255,255,.12);
+      transition: left .4s;
     }
-    @keyframes linePulse {
-      0%, 100% { opacity: 1; width: 40%; }
-      50% { opacity: 0.4; width: 55%; }
-    }
-
-    .hero-content { position: relative; z-index: 2; max-width: 900px; }
-
-    .hero-tag {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--red);
-      border: 1px solid var(--red);
-      padding: 6px 16px;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(5rem, 14vw, 13rem);
-      line-height: 0.88;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--white);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.4s forwards;
-    }
-    .hero-title .accent { color: var(--red); display: block; }
-
-    .hero-sub {
-      margin-top: 32px;
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--gray);
-      letter-spacing: 0.05em;
-      max-width: 480px;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.7s forwards;
-    }
-
-    .hero-cta {
-      margin-top: 48px;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.9s 1s forwards;
-    }
-
-    .btn-primary {
+    .btn-red:hover { background: var(--rh); transform: translateX(4px); }
+    .btn-red:hover::before { left: 0; }
+    .btn-outline {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: var(--red);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      gap: 8px;
+      font-family: var(--font-cond);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      padding: 16px 32px;
-      transition: background 0.25s, transform 0.2s;
+      color: rgba(242,240,236,.55);
+      border-bottom: 1px solid rgba(242,240,236,.2);
+      padding-bottom: 4px;
+      transition: color .25s, border-color .25s;
     }
-    .btn-primary:hover { background: var(--red-hot); transform: translateX(4px); }
+    .btn-outline:hover { color: var(--w); border-color: var(--w); }
 
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--gray);
-      transition: color 0.25s, border-color 0.25s;
-    }
-    .btn-ghost:hover { color: var(--red); border-color: var(--red); }
-
+    /* Scroll indicator */
     .hero-scroll {
       position: absolute;
-      right: 48px;
-      bottom: 48px;
+      right: 56px;
+      bottom: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      z-index: 2;
       opacity: 0;
-      animation: fadeUp 1s 1.4s forwards;
+      animation: fadeSlideUp .8s 1.4s forwards;
     }
-    .hero-scroll span {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
+    .hero-scroll-label {
+      font-family: var(--font-cond);
+      font-size: .58rem;
+      letter-spacing: .35em;
       text-transform: uppercase;
       color: var(--gray);
       writing-mode: vertical-rl;
     }
-    .scroll-line {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, var(--red), transparent);
-      animation: scrollLine 2s ease-in-out infinite;
-    }
-    @keyframes scrollLine {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SECTION COMMON */
-    section { padding: 120px 48px; }
-
-    .section-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--red);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .section-label::after {
-      content: '';
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: var(--red);
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      letter-spacing: 0.06em;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    /* PORTFOLIO - MASONRY LAYOUT */
-    #portfolio { background: var(--black); }
-
-    .portfolio-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    /* MASONRY GRID */
-    .portfolio-masonry {
-      column-count: 3;
-      column-gap: 4px;
-    }
-
-    .photo-item {
+    .scroll-track {
+      width: 1px; height: 70px;
+      background: rgba(255,255,255,.08);
       position: relative;
       overflow: hidden;
-      background: var(--dark2);
-      cursor: none;
-      margin-bottom: 4px;
-      break-inside: avoid;
+    }
+    .scroll-track::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 40%;
+      background: var(--r);
+      top: -40%;
+      animation: scrollTrack 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollTrack {
+      0% { top: -40%; }
+      100% { top: 140%; }
     }
 
-    .photo-item img {
+    /* ============================================================
+       MARQUEE / TICKER
+    ============================================================ */
+    .marquee-section {
+      background: var(--r);
+      padding: 14px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(0,0,0,.3);
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      padding-right: 32px;
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.92);
+    }
+    .marquee-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      display: inline-block;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       PORTFOLIO
+    ============================================================ */
+    #portfolio {
+      padding: 120px 56px;
+      background: var(--blk);
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+    .sec-label {
+      font-family: var(--font-cond);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--r);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .sec-label::before { content: ''; width: 20px; height: 1px; background: var(--r); }
+    .sec-title {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: .92;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: var(--w);
+    }
+    .sec-title em { color: var(--r); font-style: normal; }
+
+    /* Masonry grid */
+    .masonry {
+      columns: 3;
+      column-gap: 6px;
+    }
+    .m-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--d2);
+      margin-bottom: 6px;
+      break-inside: avoid;
+      cursor: none;
+    }
+    .m-item img {
       width: 100%;
       height: auto;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
-      filter: grayscale(20%);
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94), filter .5s;
+      filter: grayscale(25%) brightness(.9);
     }
-
-    .photo-item:hover img {
-      transform: scale(1.05);
-      filter: grayscale(0%);
+    .m-item:hover img {
+      transform: scale(1.08);
+      filter: grayscale(0%) brightness(1);
     }
-
-    /* Overlay nascosto, visibile solo su hover senza testo */
-    .photo-overlay {
+    .m-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(204,0,0,0.6) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(200,0,0,.7) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
       opacity: 0;
-      transition: opacity 0.35s;
+      transition: opacity .4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
     }
-    .photo-item:hover .photo-overlay { opacity: 1; }
+    .m-item:hover .m-overlay { opacity: 1; }
 
-    /* ABOUT */
+    /* ============================================================
+       PARALLAX BAND
+    ============================================================ */
+    .parallax-band {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+    }
+    .parallax-inner {
+      position: absolute;
+      inset: -30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--d1);
+      will-change: transform;
+    }
+    .parallax-bg-text {
+      font-family: var(--font-head);
+      font-size: clamp(8rem, 18vw, 20rem);
+      color: rgba(255,255,255,.025);
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .parallax-overlay-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      background: linear-gradient(135deg, rgba(180,0,0,.12), transparent 60%);
+    }
+    .parallax-quote {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 5rem);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      text-align: center;
+      line-height: 1;
+      color: var(--w);
+    }
+    .parallax-quote em { color: var(--r); font-style: normal; display: block; }
+    .parallax-line {
+      width: 80px; height: 2px;
+      background: var(--r);
+      animation: widthPulse 2s ease-in-out infinite;
+    }
+    @keyframes widthPulse {
+      0%,100% { width: 80px; opacity: 1; }
+      50% { width: 140px; opacity: .6; }
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
     #about {
-      background: var(--dark);
+      padding: 140px 56px;
+      background: var(--d1);
       position: relative;
       overflow: hidden;
     }
-    #about::before {
-      content: 'REV';
+    .about-watermark {
       position: absolute;
-      right: -40px;
-      top: 50%;
+      left: -40px; top: 50%;
       transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: 30vw;
-      color: rgba(204,0,0,0.04);
+      font-family: var(--font-head);
+      font-size: 28vw;
+      color: rgba(204,0,0,.035);
       pointer-events: none;
+      user-select: none;
       line-height: 1;
     }
-
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 100px;
       align-items: center;
       position: relative;
       z-index: 1;
     }
-
-    .about-image {
+    .about-img-wrap {
       position: relative;
     }
-    .about-image-wrap {
+    .about-img-frame {
       aspect-ratio: 4/5;
-      background: var(--dark2);
       overflow: hidden;
       position: relative;
+      background: var(--d2);
     }
-    .about-image-wrap img {
+    .about-img-frame img {
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: grayscale(30%);
-      transition: filter 0.5s, transform 0.6s;
+      filter: grayscale(20%);
+      transition: filter .6s, transform .7s;
     }
-    .about-image-wrap:hover img { filter: grayscale(0%); transform: scale(1.04); }
-    .about-image::after {
+    .about-img-frame:hover img { filter: grayscale(0%); transform: scale(1.04); }
+
+    /* Corner accents */
+    .about-img-frame::before,
+    .about-img-frame::after {
       content: '';
       position: absolute;
-      bottom: -16px; right: -16px;
-      width: 60%;
-      height: 60%;
-      border: 2px solid var(--red);
-      z-index: -1;
+      width: 40px; height: 40px;
+      border-color: var(--r);
+      border-style: solid;
+      z-index: 2;
+    }
+    .about-img-frame::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+    .about-img-frame::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+    .about-img-badge {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      width: 120px; height: 120px;
+      background: var(--r);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .badge-num {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      line-height: 1;
+      color: var(--w);
+    }
+    .badge-label {
+      font-family: var(--font-cond);
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      margin-top: 4px;
     }
 
+    .about-text { }
     .about-text p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: rgba(245,245,245,0.75);
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(242,240,236,.65);
       margin-bottom: 24px;
     }
-    .about-text p strong { color: var(--white); font-weight: 600; }
+    .about-text p strong { color: var(--w); font-weight: 600; }
 
-    .about-stats {
+    .stats-row {
       display: flex;
-      gap: 40px;
-      margin-top: 48px;
-      padding-top: 40px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 48px;
     }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      letter-spacing: 0.06em;
-      color: var(--red);
+    .stat {
+      flex: 1;
+      padding-right: 32px;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .stat:last-child { border-right: none; padding-right: 0; padding-left: 32px; }
+    .stat:not(:first-child) { padding-left: 32px; }
+    .stat-n {
+      font-family: var(--font-head);
+      font-size: 3.5rem;
+      color: var(--r);
       line-height: 1;
     }
-    .stat-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+    .stat-l {
+      font-family: var(--font-cond);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--gray);
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
-    /* SERVICES */
+    /* ============================================================
+       SERVICES
+    ============================================================ */
     #servizi {
-      background: var(--black);
+      padding: 140px 56px;
+      background: var(--blk);
     }
-
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2px;
-      margin-top: 60px;
+      margin-top: 64px;
     }
-
-    .service-card {
-      background: var(--dark2);
-      padding: 48px 36px;
+    .svc-card {
+      background: var(--d2);
+      padding: 52px 40px;
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: background .3s;
+      cursor: none;
     }
-    .service-card::before {
+    .svc-card::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0;
-      width: 0%; height: 3px;
-      background: var(--red);
-      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      width: 0; height: 3px;
+      background: var(--r);
+      transition: width .5s cubic-bezier(.25,.46,.45,.94);
     }
-    .service-card:hover { background: #1c1c1c; }
-    .service-card:hover::before { width: 100%; }
+    .svc-card:hover { background: #191919; }
+    .svc-card:hover::after { width: 100%; }
 
-    .service-num {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      color: rgba(204,0,0,0.2);
+    /* big number watermark */
+    .svc-bg-num {
+      position: absolute;
+      right: -10px; bottom: -20px;
+      font-family: var(--font-head);
+      font-size: 9rem;
       line-height: 1;
-      margin-bottom: 24px;
-      transition: color 0.3s;
+      color: rgba(204,0,0,.06);
+      transition: color .4s;
+      pointer-events: none;
     }
-    .service-card:hover .service-num { color: rgba(204,0,0,0.5); }
+    .svc-card:hover .svc-bg-num { color: rgba(204,0,0,.12); }
 
-    .service-name {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 0.1em;
-      color: var(--white);
+    .svc-icon {
+      width: 40px; height: 40px;
+      margin-bottom: 28px;
+      opacity: .5;
+      transition: opacity .3s;
+    }
+    .svc-card:hover .svc-icon { opacity: 1; }
+    .svc-num {
+      font-family: var(--font-cond);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      color: var(--r);
       margin-bottom: 16px;
+    }
+    .svc-name {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: .06em;
       text-transform: uppercase;
+      color: var(--w);
+      margin-bottom: 16px;
     }
-    .service-desc {
-      font-size: 0.9rem;
-      line-height: 1.7;
+    .svc-desc {
+      font-size: .9rem;
+      line-height: 1.75;
       color: var(--gray);
+      transition: color .3s;
     }
+    .svc-card:hover .svc-desc { color: var(--lgray); }
 
-    /* CONTACT */
+    .svc-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      font-family: var(--font-cond);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--r);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity .3s, transform .3s;
+    }
+    .svc-card:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ============================================================
+       NUMBERS BAND
+    ============================================================ */
+    .numbers-band {
+      background: var(--r);
+      padding: 80px 56px;
+    }
+    .numbers-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 40px;
+    }
+    .n-item { text-align: center; }
+    .n-num {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 7vw, 6rem);
+      color: var(--w);
+      line-height: 1;
+    }
+    .n-label {
+      font-family: var(--font-cond);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      margin-top: 10px;
+    }
+    .n-divider { width: 1px; height: 80px; background: rgba(255,255,255,.25); }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
     #contatti {
-      background: var(--dark);
+      padding: 160px 56px;
+      background: var(--d1);
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    #contatti::before {
-      content: '';
+    .contact-glow {
       position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,0,0,.14) 0%, transparent 70%);
       top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(204,0,0,0.1) 0%, transparent 70%);
+      transform: translate(-50%,-50%);
       pointer-events: none;
+      animation: glowDrift 6s ease-in-out infinite alternate;
     }
-
     .contact-inner { position: relative; z-index: 1; }
-
-    .contact-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 7rem);
-      letter-spacing: 0.06em;
-      line-height: 1;
+    .contact-h {
+      font-family: var(--font-head);
+      font-size: clamp(3.5rem, 10vw, 10rem);
+      line-height: .88;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      letter-spacing: .03em;
+      color: var(--w);
+      margin-bottom: 32px;
     }
-    .contact-title span { color: var(--red); }
-
+    .contact-h em { color: var(--r); font-style: normal; display: block; }
     .contact-sub {
       font-size: 1rem;
       color: var(--gray);
-      max-width: 500px;
+      max-width: 480px;
       margin: 0 auto 56px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    .wa-button {
+    .wa-btn {
       display: inline-flex;
       align-items: center;
-      gap: 16px;
-      background: var(--red);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      gap: 14px;
+      background: #25D366;
+      color: var(--w);
+      font-family: var(--font-cond);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      padding: 22px 56px;
+      padding: 22px 52px;
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: background .25s, transform .2s, box-shadow .3s;
+      box-shadow: 0 0 0 rgba(37,211,102,0);
     }
-    .wa-button::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      transform: translateX(-100%);
-      transition: transform 0.4s;
+    .wa-btn:hover {
+      background: #20bd5a;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(37,211,102,.25);
     }
-    .wa-button:hover { background: var(--red-hot); }
-    .wa-button:hover::after { transform: translateX(0); }
+    .wa-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
 
-    .wa-icon {
-      width: 22px; height: 22px;
-    }
-
-    .contact-ig {
-      margin-top: 40px;
+    .contact-or {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 24px;
+      margin: 40px 0 32px;
     }
-    .contact-ig a {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+    .contact-or::before,
+    .contact-or::after {
+      content: '';
+      width: 60px; height: 1px;
+      background: rgba(255,255,255,.08);
+    }
+    .contact-or span {
+      font-family: var(--font-cond);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .3em;
       text-transform: uppercase;
       color: var(--gray);
-      text-decoration: none;
-      transition: color 0.25s;
     }
-    .contact-ig a:hover { color: var(--red); }
 
-    /* FOOTER */
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-cond);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--lgray);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 14px 32px;
+      transition: color .25s, border-color .25s, background .25s;
+    }
+    .ig-link:hover { color: var(--w); border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
     footer {
-      background: var(--black);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 32px 48px;
+      background: var(--blk);
+      border-top: 1px solid rgba(255,255,255,.04);
+      padding: 36px 56px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.15em;
-      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      letter-spacing: .15em;
+      color: var(--w);
     }
-    .footer-logo span { color: var(--red); }
+    .footer-logo em { color: var(--r); font-style: normal; }
+    .footer-right {
+      text-align: right;
+    }
     footer p {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.25);
-      letter-spacing: 0.1em;
+      font-family: var(--font-cond);
+      font-size: .62rem;
+      letter-spacing: .15em;
+      color: rgba(255,255,255,.2);
+      text-transform: uppercase;
     }
 
-    /* PARALLAX */
-    .parallax-wrap {
-      position: relative;
-      overflow: hidden;
-      height: 50vh;
-    }
-    .parallax-img {
-      position: absolute;
-      inset: -20%;
-      background: var(--dark2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .parallax-text {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 9rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.04);
-      white-space: nowrap;
-    }
-    .parallax-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(204,0,0,0.08), transparent);
-    }
-    .parallax-quote {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 4rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: center;
-      color: var(--white);
-    }
-    .parallax-quote span { color: var(--red); }
-
-    /* SCROLL REVEAL */
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(48px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.r-delay-1 { transition-delay: .1s; }
+    .reveal.r-delay-2 { transition-delay: .2s; }
+    .reveal.r-delay-3 { transition-delay: .3s; }
+    .reveal.r-delay-4 { transition-delay: .4s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* MOBILE */
-    @media (max-width: 1024px) {
-      .portfolio-masonry { column-count: 2; }
+    /* ============================================================
+       MOBILE
+    ============================================================ */
+    @media (max-width: 1100px) {
+      .masonry { columns: 2; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .numbers-inner { flex-wrap: wrap; }
+      .n-divider { display: none; }
     }
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
-      .nav-links { display: none; }
-      section { padding: 80px 24px; }
-      .hero { padding: 60px 24px; }
-      .portfolio-masonry { column-count: 2; gap: 2px; }
-      .photo-item { margin-bottom: 2px; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      nav.scrolled { padding: 16px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      #portfolio, #about, #servizi, #contatti { padding: 80px 24px; }
+      .hero-content { padding: 0 24px 60px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 64px; }
       .services-grid { grid-template-columns: 1fr; }
+      .masonry { columns: 1; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-right { text-align: center; }
       .hero-scroll { display: none; }
       body { cursor: auto; }
-      .cursor, .cursor-ring { display: none; }
-    }
-    @media (max-width: 480px) {
-      .portfolio-masonry { column-count: 1; }
+      #cur, #cur-ring { display: none; }
+      .numbers-band { padding: 60px 24px; }
+      .parallax-band { height: 280px; }
     }
   </style>
 </head>
 <body>
 
   <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">REV<span>.</span>CULTURE</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <div class="loader-num" id="loader-num">0%</div>
+  </div>
 
   <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">REV<span>.</span>CULTURE</a>
+  <nav id="nav">
+    <a href="#" class="nav-logo">REV<em>.</em>CULTURE</a>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#servizi">Servizi</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
+    <a href="https://wa.me/3931289124" target="_blank" class="nav-cta">Book Now →</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="home">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <div class="hero-bg-glow"></div>
+      <div class="hero-bg-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-stripe"></div>
+    <div class="hero-watermark">REV</div>
+
     <div class="hero-content">
-      <div class="hero-tag">Automotive &amp; Luxury Photography</div>
-      <h1 class="hero-title">
-        REV
-        <span class="accent">Culture</span>
+      <div class="hero-eyebrow">Automotive &amp; Luxury Photography — Italy</div>
+      <h1 class="hero-h1">
+        <span class="line"><span class="line-inner">REV</span></span>
+        <span class="line"><span class="line-inner">Culture</span></span>
       </h1>
-      <p class="hero-sub">Fotografia che cattura l'anima delle macchine. Ogni scatto racconta velocità, lusso, e passione autentica.</p>
-      <div class="hero-cta">
-        <a href="#portfolio" class="btn-primary">
-          <span>Guarda il portfolio</span>
-          <span>→</span>
-        </a>
-        <a href="#contatti" class="btn-ghost">Contattaci</a>
+      <div class="hero-bottom">
+        <p class="hero-sub">Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.</p>
+        <div class="hero-cta-wrap">
+          <a href="#portfolio" class="btn-red">Scopri il Portfolio <span>↗</span></a>
+          <a href="#contatti" class="btn-outline">Contattaci</a>
+        </div>
       </div>
     </div>
+
     <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
+      <div class="scroll-track"></div>
+      <div class="hero-scroll-label">Scroll</div>
     </div>
   </section>
 
-  <!-- PORTFOLIO - MASONRY -->
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-item">Automotive Photography <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Luxury Lifestyle <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Events Coverage <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Content Creation <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Supercar Shooting <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Post-Produzione <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Track Day <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Brand & Dealer <span class="marquee-dot"></span></div>
+      <!-- duplicato per loop -->
+      <div class="marquee-item">Automotive Photography <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Luxury Lifestyle <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Events Coverage <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Content Creation <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Supercar Shooting <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Post-Produzione <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Track Day <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Brand & Dealer <span class="marquee-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
   <section id="portfolio">
-    <div class="portfolio-header reveal">
+    <div class="section-header reveal">
       <div>
-        <div class="section-label">Portfolio</div>
-        <h2 class="section-title">I nostri<br/><span style="color:var(--red)">Scatti</span></h2>
+        <div class="sec-label">Portfolio</div>
+        <h2 class="sec-title">I nostri<br/><em>Scatti</em></h2>
       </div>
-      <a href="https://instagram.com/revculture.it" target="_blank" class="btn-ghost">Vedi tutto su Instagram →</a>
+      <a href="https://instagram.com/revculture.it" target="_blank" class="btn-outline">Vedi tutto su Instagram →</a>
     </div>
 
-    <div class="portfolio-masonry reveal">
-      <!-- FOTO 1 - Solo SEO, no testo visibile -->
-      <div class="photo-item">
-        <img src="images/foto01.JPG" alt="Ferrari supercar track day racing automotive photography" />
-        <div class="photo-overlay"></div>
+    <div class="masonry reveal r-delay-2">
+      <div class="m-item">
+        <img src="images/foto01.JPG" alt="Ferrari supercar track day racing automotive photography REV Culture" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 2 -->
-      <div class="photo-item">
-        <img src="images/foto02.JPG" alt="Luxury car detail interior leather automotive photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto02.JPG" alt="Luxury car detail interior automotive photography Italy" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 3 -->
-      <div class="photo-item">
-        <img src="images/foto03.JPG" alt="Sports car motion speed panning automotive photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto03.JPG" alt="Sports car motion speed panning automotive photography" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 4 -->
-      <div class="photo-item">
-        <img src="images/foto04.JPG" alt="Lifestyle automotive cars coffee luxury lifestyle photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto04.JPG" alt="Lifestyle cars coffee luxury lifestyle photography Italy" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 5 -->
-      <div class="photo-item">
-        <img src="images/foto05.JPG" alt="Night car photography light painting automotive supercar" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto05.JPG" alt="Night car photography light painting automotive supercar" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 6 -->
-      <div class="photo-item">
-        <img src="images/foto06.JPG" alt="Classic vintage car restoration automotive photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto06.JPG" alt="Classic vintage car automotive photography Italy" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 7 -->
-      <div class="photo-item">
-        <img src="images/foto07.JPG" alt="Cars and coffee event automotive gathering photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto07.JPG" alt="Cars and coffee event automotive gathering photography" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
-      <!-- FOTO 8 -->
-      <div class="photo-item">
-        <img src="images/foto08.JPG" alt="Exclusive supercar photoshoot luxury automotive photography" />
-        <div class="photo-overlay"></div>
+      <div class="m-item">
+        <img src="images/foto08.JPG" alt="Exclusive supercar photoshoot luxury automotive photography" loading="lazy"/>
+        <div class="m-overlay"></div>
       </div>
     </div>
   </section>
 
-  <!-- PARALLAX QUOTE -->
-  <div class="parallax-wrap">
-    <div class="parallax-img">
-      <div class="parallax-text">SPEED POWER PASSION LUXURY</div>
+  <!-- PARALLAX BAND -->
+  <div class="parallax-band">
+    <div class="parallax-inner" id="parallaxInner">
+      <div class="parallax-bg-text">SPEED · POWER · PASSION · LUXURY</div>
     </div>
-    <div class="parallax-overlay">
-      <div class="parallax-quote">Non fotografie.<br/><span>Emozioni su pixel.</span></div>
+    <div class="parallax-overlay-content">
+      <div class="parallax-line"></div>
+      <div class="parallax-quote">
+        Non fotografie.
+        <em>Emozioni su pixel.</em>
+      </div>
+      <div class="parallax-line"></div>
     </div>
   </div>
 
   <!-- ABOUT -->
   <section id="about">
+    <div class="about-watermark">REV</div>
     <div class="about-grid">
-      <div class="about-image reveal">
-        <div class="about-image-wrap">
-          <img src="images/profilo.jpg" alt="REV Culture automotive photographer Italy" />
+      <div class="about-img-wrap reveal">
+        <div class="about-img-frame">
+          <img src="images/profilo.jpg" alt="REV Culture automotive photographer Italy" loading="lazy"/>
+        </div>
+        <div class="about-img-badge">
+          <div class="badge-num">3+</div>
+          <div class="badge-label">Anni di<br/>Esperienza</div>
         </div>
       </div>
-      <div class="about-text reveal">
-        <div class="section-label">Chi siamo</div>
-        <h2 class="section-title">La Visione<br/><span style="color:var(--red)">REV</span></h2>
-        <p style="margin-top:32px">
-          siamo un team di due specializzato in <strong>automotive e luxury lifestyle</strong>. Il nostro obiettivo è catturare l'anima di ogni vettura — la tensione muscolare di una sportiva, l'eleganza silenziosa di una berlina di lusso, la brutalità pura di una supercar.
+      <div class="about-text reveal r-delay-2">
+        <div class="sec-label">Chi siamo</div>
+        <h2 class="sec-title" style="margin-bottom:32px">La Visione<br/><em>REV</em></h2>
+        <p>
+          Siamo un team di due specializzato in <strong>automotive e luxury lifestyle</strong>. Il nostro obiettivo è catturare l'anima di ogni vettura — la tensione muscolare di una sportiva, l'eleganza silenziosa di una berlina di lusso, la brutalità pura di una supercar.
         </p>
         <p>
           Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia — è un racconto visivo che fa venire voglia di mettere la chiave nel quadro.
         </p>
-        <div class="about-stats">
-          <div class="stat-item">
-            <div class="stat-num">100+</div>
-            <div class="stat-label">Vetture fotografate</div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-n" data-count="100">0</div>
+            <div class="stat-l">Vetture fotografate</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-num">50+</div>
-            <div class="stat-label">Clienti soddisfatti</div>
+          <div class="stat">
+            <div class="stat-n" data-count="50">0</div>
+            <div class="stat-l">Clienti soddisfatti</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-num">3+</div>
-            <div class="stat-label">Anni di esperienza</div>
+          <div class="stat">
+            <div class="stat-n" data-count="3">0</div>
+            <div class="stat-l">Anni di esperienza</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVIZI -->
+  <!-- SERVICES -->
   <section id="servizi">
     <div class="reveal">
-      <div class="section-label">Servizi</div>
-      <h2 class="section-title">Cosa<br/><span style="color:var(--red)">offriamo</span></h2>
+      <div class="sec-label">Servizi</div>
+      <h2 class="sec-title">Cosa<br/><em>offriamo</em></h2>
     </div>
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <div class="service-num">01</div>
-        <div class="service-name">Shooting Privato</div>
-        <div class="service-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div>
+    <div class="services-grid reveal r-delay-2">
+
+      <div class="svc-card">
+        <div class="svc-bg-num">01</div>
+        <div class="svc-num">01 — Shooting</div>
+        <div class="svc-name">Shooting Privato</div>
+        <div class="svc-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">02</div>
-        <div class="service-name">Content Creator</div>
-        <div class="service-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o del tuo stile di vita.</div>
+
+      <div class="svc-card">
+        <div class="svc-bg-num">02</div>
+        <div class="svc-num">02 — Social</div>
+        <div class="svc-name">Content Creator</div>
+        <div class="svc-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">03</div>
-        <div class="service-name">Events Coverage</div>
-        <div class="service-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div>
+
+      <div class="svc-card">
+        <div class="svc-bg-num">03</div>
+        <div class="svc-num">03 — Events</div>
+        <div class="svc-name">Events Coverage</div>
+        <div class="svc-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">04</div>
-        <div class="service-name">Brand &amp; Dealer</div>
-        <div class="service-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div>
+
+      <div class="svc-card">
+        <div class="svc-bg-num">04</div>
+        <div class="svc-num">04 — Business</div>
+        <div class="svc-name">Brand &amp; Dealer</div>
+        <div class="svc-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">05</div>
-        <div class="service-name">Luxury Lifestyle</div>
-        <div class="service-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div>
+
+      <div class="svc-card">
+        <div class="svc-bg-num">05</div>
+        <div class="svc-num">05 — Luxury</div>
+        <div class="svc-name">Luxury Lifestyle</div>
+        <div class="svc-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">06</div>
-        <div class="service-name">Post-Produzione</div>
-        <div class="service-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nel minimo dettaglio.</div>
+
+      <div class="svc-card">
+        <div class="svc-bg-num">06</div>
+        <div class="svc-num">06 — Post</div>
+        <div class="svc-name">Post-Produzione</div>
+        <div class="svc-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nel minimo dettaglio.</div>
+        <div class="svc-arrow">Scopri →</div>
       </div>
+
     </div>
   </section>
 
+  <!-- NUMBERS BAND -->
+  <div class="numbers-band">
+    <div class="numbers-inner">
+      <div class="n-item">
+        <div class="n-num">100+</div>
+        <div class="n-label">Vetture fotografate</div>
+      </div>
+      <div class="n-divider"></div>
+      <div class="n-item">
+        <div class="n-num">50+</div>
+        <div class="n-label">Clienti soddisfatti</div>
+      </div>
+      <div class="n-divider"></div>
+      <div class="n-item">
+        <div class="n-num">3+</div>
+        <div class="n-label">Anni di esperienza</div>
+      </div>
+      <div class="n-divider"></div>
+      <div class="n-item">
+        <div class="n-num">∞</div>
+        <div class="n-label">Passione per i motori</div>
+      </div>
+    </div>
+  </div>
+
   <!-- CONTACT -->
   <section id="contatti">
+    <div class="contact-glow"></div>
     <div class="contact-inner reveal">
-      <div class="section-label" style="justify-content:center">Contatti</div>
-      <h2 class="contact-title">Parliamo<br/><span>del tuo progetto</span></h2>
-      <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivimi su WhatsApp e troviamo insieme la soluzione perfetta.</p>
-      <a href="https://wa.me/3931289124" target="_blank" class="wa-button">
-        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+      <div class="sec-label" style="justify-content:center;margin-bottom:24px">Contatti</div>
+      <h2 class="contact-h">
+        Parliamo
+        <em>del tuo progetto</em>
+      </h2>
+      <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo insieme la soluzione perfetta.</p>
+
+      <a href="https://wa.me/3931289124" target="_blank" class="wa-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
         Scrivici su WhatsApp
       </a>
-      <div class="contact-ig">
-        <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray)">Seguimi su</span>
-        <a href="https://instagram.com/revculture.it" target="_blank">@revculture.it</a>
-      </div>
+
+      <div class="contact-or"><span>oppure</span></div>
+
+      <a href="https://instagram.com/revculture.it" target="_blank" class="ig-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Seguici su Instagram @revculture.it
+      </a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">REV<span>.</span>CULTURE</div>
-    <p>© 2026 revculture.it — Tutti i diritti riservati</p>
-    <p style="color:rgba(255,255,255,0.15);font-size:0.65rem;letter-spacing:0.1em;">AUTOMOTIVE PHOTOGRAPHY</p>
+    <div class="footer-logo">REV<em>.</em>CULTURE</div>
+    <div class="footer-right">
+      <p>© 2026 revculture.it — Tutti i diritti riservati</p>
+      <p style="margin-top:4px">Automotive Photography — Italy</p>
+    </div>
   </footer>
 
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
   <script>
-    // CURSOR
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    // ---- LOADER ----
+    const loader = document.getElementById('loader');
+    const loaderNum = document.getElementById('loader-num');
+    let progress = 0;
+    const loaderInterval = setInterval(() => {
+      progress += Math.random() * 18;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(loaderInterval);
+        loaderNum.textContent = '100%';
+        setTimeout(() => { loader.classList.add('done'); }, 200);
+      }
+      loaderNum.textContent = Math.floor(progress) + '%';
+    }, 80);
 
+    // ---- CURSOR ----
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
+      cur.style.left = mx + 'px';
+      cur.style.top = my + 'px';
     });
-
-    function animRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
+    (function animRing() {
+      rx += (mx - rx) * .1;
+      ry += (my - ry) * .1;
       ring.style.left = rx + 'px';
       ring.style.top = ry + 'px';
       requestAnimationFrame(animRing);
-    }
-    animRing();
-
-    document.querySelectorAll('a, button, .photo-item, .service-card').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
-      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    })();
+    document.querySelectorAll('a,button,.m-item,.svc-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
     });
 
-    // PARALLAX
+    // ---- NAV SCROLL ----
+    const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      const wrap = document.querySelector('.parallax-img');
-      if (wrap) {
-        const offset = window.scrollY * 0.3;
-        wrap.style.transform = `translateY(${offset}px)`;
-      }
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // SCROLL REVEAL
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
+    // ---- PARALLAX ----
+    const parallaxInner = document.getElementById('parallaxInner');
+    window.addEventListener('scroll', () => {
+      if (!parallaxInner) return;
+      const band = parallaxInner.closest('.parallax-band');
+      const rect = band.getBoundingClientRect();
+      const offset = (rect.top / window.innerHeight) * 60;
+      parallaxInner.style.transform = `translateY(${offset}px)`;
+    });
+
+    // ---- SCROLL REVEAL ----
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ---- COUNT-UP NUMBERS ----
+    function countUp(el, target, duration, suffix) {
+      let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    const countObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          const target = parseInt(e.target.dataset.count);
+          const suffix = e.target.dataset.suffix || '+';
+          countUp(e.target, target, 1800, suffix);
+          countObs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
-    reveals.forEach(r => obs.observe(r));
-
-    // NAV scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 80) {
-        nav.style.background = 'rgba(8,8,8,0.97)';
-        nav.style.backdropFilter = 'blur(12px)';
-      } else {
-        nav.style.background = '';
-        nav.style.backdropFilter = 'blur(2px)';
-      }
-    });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
   </script>
 </body>
 </html>
