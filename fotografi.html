@@ -3,581 +3,204 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>REV CULTURE — I Nostri Fotografi</title>
+<title>RevCulture — I Nostri Fotografi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
-<!-- Leaflet for map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-
-/* ================================================================
-   TOKENS — identici a index.html
-================================================================ */
-:root {
-  --r:   #CC0000;
-  --rh:  #FF1111;
-  --blk: #060606;
-  --d1:  #0e0e0e;
-  --d2:  #161616;
-  --d3:  #1f1f1f;
-  --w:   #F4F2EF;
-  --head:'Anton', sans-serif;
-  --cond:'Barlow Condensed', sans-serif;
-  --body:'Barlow', sans-serif;
+:root{
+  --r:#CC0000;--rh:#FF1111;--blk:#060606;--d1:#0e0e0e;--d2:#161616;--d3:#1f1f1f;
+  --w:#F4F2EF;--head:'Anton',sans-serif;--cond:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:var(--blk);color:var(--w);
-  font-family:var(--body);font-weight:300;
-  overflow-x:hidden;cursor:none;
-}
+body{background:var(--blk);color:var(--w);font-family:var(--body);font-weight:300;overflow-x:hidden;cursor:none}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
-/* noise */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity:.03;pointer-events:none;z-index:9001;
-}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9001}
 
-/* hamburger */
-.hamburger{
-  display:none;flex-direction:column;justify-content:center;gap:5px;
-  width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;z-index:600;
-}
-.hamburger span{
-  display:block;width:100%;height:1.5px;background:var(--w);
-  transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;
-  transform-origin:center;
-}
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;z-index:600}
+.hamburger span{display:block;width:100%;height:1.5px;background:var(--w);transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0;width:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-#mobile-menu{
-  position:fixed;top:0;right:0;bottom:0;
-  width:min(300px,82vw);
-  background:rgba(8,8,8,.98);backdrop-filter:blur(20px);
-  border-left:1px solid rgba(255,255,255,.06);
-  z-index:590;display:flex;flex-direction:column;
-  padding:88px 36px 48px;
-  transform:translateX(100%);
-  transition:transform .45s cubic-bezier(.16,1,.3,1);
-  pointer-events:none;
-}
+#mobile-menu{position:fixed;top:0;right:0;bottom:0;width:min(300px,82vw);background:rgba(8,8,8,.98);backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,.06);z-index:590;display:flex;flex-direction:column;padding:88px 36px 48px;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
 #mobile-menu.open{transform:translateX(0);pointer-events:all}
-#mobile-menu a{
-  font-family:var(--head);font-size:2rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--w);
-  display:block;padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  transition:color .25s;
-}
+#mobile-menu a{font-family:var(--head);font-size:2rem;letter-spacing:.08em;text-transform:uppercase;color:var(--w);display:block;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .25s}
 #mobile-menu a:hover{color:var(--r)}
 #mobile-menu a.menu-team{color:var(--r)}
-.menu-lang{display:flex;gap:4px;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;}
-.menu-lang-btn{
-  font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
-  flex:1;padding:12px;text-align:center;
-  background:transparent;border:1px solid rgba(255,255,255,.15);
-  color:rgba(244,242,239,.5);cursor:pointer;
-  transition:background .2s,color .2s,border-color .2s;
-}
+.menu-lang{display:flex;gap:4px;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:28px}
+.menu-lang-btn{font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;flex:1;padding:12px;text-align:center;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(244,242,239,.5);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .menu-lang-btn.active{background:var(--r);color:var(--w);border-color:var(--r)}
-.menu-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  font-family:var(--cond);font-size:.68rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--w);background:#25D366;padding:16px;margin-top:16px;
-  transition:background .2s;
-}
-#menu-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.5);
-  z-index:580;opacity:0;pointer-events:none;transition:opacity .4s;
-}
+.menu-wa{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:#25D366;padding:16px;margin-top:16px;transition:background .2s}
+.menu-wa:hover{background:#20bd5a}
+#menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:580;opacity:0;pointer-events:none;transition:opacity .4s}
 #menu-overlay.open{opacity:1;pointer-events:all}
 
-/* ================================================================
-   CURSOR
-================================================================ */
-#cur{
-  position:fixed;width:8px;height:8px;background:var(--r);border-radius:50%;
-  pointer-events:none;z-index:9999;left:0;top:0;
-  transform:translate(-50%,-50%);
-  transition:width .15s,height .15s,background .15s,border-radius .2s;
-  mix-blend-mode:screen;
-}
-#cur-ring{
-  position:fixed;width:36px;height:36px;
-  border:1px solid rgba(204,0,0,.5);border-radius:50%;
-  pointer-events:none;z-index:9998;left:0;top:0;
-  transform:translate(-50%,-50%);
-  transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s;
-}
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--r);border-radius:50%;pointer-events:none;z-index:9999;left:0;top:0;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s,border-radius .2s;mix-blend-mode:screen}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(204,0,0,.5);border-radius:50%;pointer-events:none;z-index:9998;left:0;top:0;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s}
 body.hov #cur{width:16px;height:16px;background:var(--rh);border-radius:3px}
 body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
 
-/* ================================================================
-   NAV
-================================================================ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:28px 48px;
-  transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s,transform .4s;
-  border-bottom:1px solid transparent;
-}
-nav.scrolled{
-  padding:16px 48px;background:rgba(6,6,6,.94);
-  backdrop-filter:blur(20px);border-color:rgba(255,255,255,.04);
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s,transform .4s;border-bottom:1px solid transparent}
+nav.scrolled{padding:16px 48px;background:rgba(6,6,6,.94);backdrop-filter:blur(20px);border-color:rgba(255,255,255,.04)}
 nav.hidden{transform:translateY(-100%)}
-
 .nav-logo{font-family:var(--head);font-size:1.4rem;letter-spacing:.16em;color:var(--w)}
 .nav-logo em{color:var(--r);font-style:normal}
-
 .nav-links{display:flex;gap:36px;list-style:none;align-items:center}
-.nav-links a{
-  font-family:var(--cond);font-size:.7rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(244,242,239,.7);position:relative;transition:color .25s;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:-5px;left:0;
-  width:0;height:1px;background:var(--r);
-  transition:width .35s cubic-bezier(.25,.46,.45,.94);
-}
-.nav-links a:hover{color:var(--w)}
-.nav-links a:hover::after{width:100%}
-.nav-links a.active{color:var(--r)}
-.nav-links a.active::after{width:100%}
-
-/* ---- LANG SWITCH ---- */
-.lang-switch{
-  display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden;
-}
-.lang-btn{
-  font-family:var(--cond);font-size:.62rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(244,242,239,.5);background:transparent;
-  border:none;padding:8px 14px;cursor:pointer;
-  transition:background .2s,color .2s;
-}
+.nav-links a{font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,242,239,.7);position:relative;transition:color .25s}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:var(--r);transition:width .35s cubic-bezier(.25,.46,.45,.94)}
+.nav-links a:hover{color:var(--w)}.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--r)}.nav-links a.active::after{width:100%}
+.lang-switch{display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden}
+.lang-btn{font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:none;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s}
 .lang-btn.active{background:var(--r);color:var(--w)}
 .lang-btn:hover:not(.active){color:var(--w);background:rgba(255,255,255,.05)}
-
-.nav-btn{
-  font-family:var(--cond);font-size:.7rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:var(--w);background:var(--r);
-  padding:11px 24px;
-  position:relative;overflow:hidden;
-  transition:background .25s,transform .2s;border:none;cursor:pointer;
-}
-.nav-btn::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,.12);transform:translateX(-100%);transition:transform .35s;
-}
+.nav-btn{font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--w);background:var(--r);padding:11px 24px;position:relative;overflow:hidden;transition:background .25s,transform .2s;border:none;cursor:pointer}
+.nav-btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-100%);transition:transform .35s}
 .nav-btn:hover{background:var(--rh);transform:translateY(-1px)}
 .nav-btn:hover::before{transform:translateX(0)}
 
-/* ================================================================
-   PAGE HERO — slim
-================================================================ */
-.page-hero{
-  padding:160px 48px 80px;
-  position:relative;overflow:hidden;
-  background:var(--blk);
-}
-.page-hero-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
-  background-size:90px 90px;
-  animation:gridDrift 20s linear infinite;
-}
+/* PAGE HERO */
+.page-hero{padding:160px 48px 80px;position:relative;overflow:hidden;background:var(--blk)}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:90px 90px;animation:gridDrift 20s linear infinite}
 @keyframes gridDrift{from{background-position:0 0}to{background-position:90px 90px}}
-.page-hero-glow{
-  position:absolute;width:800px;height:800px;border-radius:50%;
-  top:-300px;left:-200px;
-  background:radial-gradient(circle,rgba(180,0,0,.14) 0%,transparent 65%);
-  pointer-events:none;animation:glowDrift 9s ease-in-out infinite alternate;
-}
+.page-hero-glow{position:absolute;width:800px;height:800px;border-radius:50%;top:-300px;left:-200px;background:radial-gradient(circle,rgba(180,0,0,.14) 0%,transparent 65%);pointer-events:none;animation:glowDrift 9s ease-in-out infinite alternate}
 @keyframes glowDrift{from{transform:translate(0,0)}to{transform:translate(60px,40px) scale(1.1)}}
-.page-hero-stripe{
-  position:absolute;top:0;left:0;width:4px;height:100%;
-  background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent);
-}
-
+.page-hero-stripe{position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent)}
 .ph-content{position:relative;z-index:2}
-.ph-eyebrow{
-  display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--cond);font-size:.68rem;font-weight:700;
-  letter-spacing:.4em;text-transform:uppercase;color:var(--r);margin-bottom:20px;
-}
+.ph-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);margin-bottom:20px}
 .ph-eyebrow::before{content:'';width:24px;height:1px;background:var(--r)}
-.ph-title{
-  font-family:var(--head);font-size:clamp(3.5rem,9vw,9rem);
-  line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--w);
-}
+.ph-title{font-family:var(--head);font-size:clamp(3.5rem,9vw,9rem);line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--w)}
 .ph-title em{color:var(--r);font-style:normal;display:block}
-.ph-sub{
-  font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;
-  color:var(--w);margin-top:24px;max-width:560px;line-height:1.7;
-}
+.ph-sub{font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;color:var(--w);margin-top:24px;max-width:560px;line-height:1.7}
 
-/* ================================================================
-   MAP SECTION
-================================================================ */
-.map-section{
-  padding:0 48px 80px;background:var(--blk);
-}
-.map-label{
-  font-family:var(--cond);font-size:.65rem;font-weight:700;
-  letter-spacing:.4em;text-transform:uppercase;color:var(--r);
-  display:flex;align-items:center;gap:12px;margin-bottom:24px;
-}
+/* MAP */
+.map-section{padding:0 48px 80px;background:var(--blk)}
+.map-label{font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .map-label::before{content:'';width:20px;height:1px;background:var(--r)}
-
-#map{
-  width:100%;height:480px;
-  background:var(--d2);
-  border:1px solid rgba(255,255,255,.06);
-  position:relative;
-}
-
-/* Leaflet dark override */
+#map{width:100%;height:480px;background:var(--d2);border:1px solid rgba(255,255,255,.06);position:relative}
 .leaflet-container{background:#0a0a0a!important;font-family:var(--cond)!important}
 .leaflet-tile{filter:grayscale(100%) brightness(.45) contrast(1.1) sepia(.15)!important}
-.leaflet-control-zoom a{
-  background:var(--d2)!important;color:var(--w)!important;
-  border-color:rgba(255,255,255,.1)!important;
-}
+.leaflet-control-zoom a{background:var(--d2)!important;color:var(--w)!important;border-color:rgba(255,255,255,.1)!important}
 .leaflet-control-zoom a:hover{background:var(--r)!important}
 .leaflet-control-attribution{background:rgba(6,6,6,.7)!important;color:rgba(255,255,255,.3)!important}
-.leaflet-popup-content a { color: #F4F2EF !important; text-decoration: none !important; }
+/* FIX: override all Leaflet popup link colors to white */
+.leaflet-popup-content a{color:#F4F2EF!important;text-decoration:none!important}
 .leaflet-control-attribution a{color:rgba(255,255,255,.4)!important}
-.leaflet-popup-content-wrapper{
-  background:var(--d2)!important;border:1px solid rgba(204,0,0,.4)!important;
-  border-radius:0!important;padding:0!important;box-shadow:0 8px 32px rgba(0,0,0,.6)!important;
-}
+.leaflet-popup-content-wrapper{background:var(--d2)!important;border:1px solid rgba(204,0,0,.4)!important;border-radius:0!important;padding:0!important;box-shadow:0 8px 32px rgba(0,0,0,.6)!important}
 .leaflet-popup-tip-container{display:none!important}
 .leaflet-popup-content{margin:0!important}
-.leaflet-popup-close-button{
-  color:var(--w)!important;font-size:18px!important;
-  top:8px!important;right:10px!important;
-}
-
-/* popup content */
+.leaflet-popup-close-button{color:var(--w)!important;font-size:18px!important;top:8px!important;right:10px!important}
 .map-popup{padding:20px 24px;min-width:220px}
-.map-popup-name{
-  font-family:var(--head);font-size:1.2rem;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--w);margin-bottom:4px;
-}
-.map-popup-loc{
-  font-family:var(--cond);font-size:.65rem;font-weight:700;
-  letter-spacing:.25em;text-transform:uppercase;color:var(--r);margin-bottom:12px;
-}
-.map-popup-spec{
-  font-family:var(--cond);font-size:.72rem;font-weight:400;
-  letter-spacing:.1em;color:rgba(244,242,239,.6);margin-bottom:16px;line-height:1.5;
-}
-.map-popup-btn{
-  display:block;width:100%;text-align:center;
-  font-family:var(--cond);font-size:.65rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:#F4F2EF !important;background:var(--r);padding:11px 16px;
-  transition:background .2s;
-  text-decoration:none !important;
-}
-.map-popup-btn:hover{background:var(--rh);color:#F4F2EF !important}
+.map-popup-name{font-family:var(--head);font-size:1.2rem;letter-spacing:.06em;text-transform:uppercase;color:var(--w);margin-bottom:4px}
+.map-popup-loc{font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--r);margin-bottom:12px}
+.map-popup-spec{font-family:var(--cond);font-size:.72rem;font-weight:400;letter-spacing:.1em;color:rgba(244,242,239,.6);margin-bottom:16px;line-height:1.5}
+/* FIX #9: explicit !important on map popup button to beat Leaflet */
+.map-popup-btn{display:block;width:100%;text-align:center;font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#F4F2EF!important;background:var(--r);padding:11px 16px;transition:background .2s;text-decoration:none!important}
+.map-popup-btn:hover{background:var(--rh)}
 
-/* ================================================================
-   PHOTOGRAPHERS GRID
-================================================================ */
-.photographers-section{
-  padding:80px 48px 140px;background:var(--d1);
-  position:relative;overflow:hidden;
-}
-.photographers-section::before{
-  content:'TEAM';position:absolute;right:-40px;bottom:-60px;
-  font-family:var(--head);font-size:28vw;
-  color:rgba(204,0,0,.04);pointer-events:none;user-select:none;line-height:1;
-}
-
-.ph-grid-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:60px;flex-wrap:wrap;gap:20px;
-}
-.ph-grid-title{
-  font-family:var(--head);font-size:clamp(2.5rem,6vw,5.5rem);
-  line-height:.9;letter-spacing:.02em;text-transform:uppercase;
-}
+/* PHOTOGRAPHERS GRID */
+.photographers-section{padding:80px 48px 140px;background:var(--d1);position:relative;overflow:hidden}
+.photographers-section::before{content:'TEAM';position:absolute;right:-40px;bottom:-60px;font-family:var(--head);font-size:28vw;color:rgba(204,0,0,.04);pointer-events:none;user-select:none;line-height:1}
+.ph-grid-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px;flex-wrap:wrap;gap:20px}
+.ph-grid-title{font-family:var(--head);font-size:clamp(2.5rem,6vw,5.5rem);line-height:.9;letter-spacing:.02em;text-transform:uppercase}
 .ph-grid-title em{color:var(--r);font-style:normal}
-
-/* filter tabs */
 .filter-tabs{display:flex;gap:4px;flex-wrap:wrap}
-.filter-tab{
-  font-family:var(--cond);font-size:.62rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(244,242,239,.5);background:transparent;
-  border:1px solid rgba(255,255,255,.1);
-  padding:8px 18px;cursor:pointer;
-  transition:all .25s;
-}
+.filter-tab{font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:1px solid rgba(255,255,255,.1);padding:8px 18px;cursor:pointer;transition:all .25s}
 .filter-tab:hover{color:var(--w);border-color:rgba(255,255,255,.3)}
 .filter-tab.active{color:var(--w);background:var(--r);border-color:var(--r)}
-
-/* photographer cards */
-.ph-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
-}
-
-.ph-card{
-  background:var(--blk);
-  position:relative;overflow:hidden;cursor:none;
-  opacity:0;transform:translateY(40px);
-  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
-}
+.ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.ph-card{background:var(--blk);position:relative;overflow:hidden;cursor:none;opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
 .ph-card.on{opacity:1;transform:none}
-.ph-card:nth-child(1){transition-delay:.05s}
-.ph-card:nth-child(2){transition-delay:.15s}
-.ph-card:nth-child(3){transition-delay:.25s}
-.ph-card:nth-child(4){transition-delay:.35s}
-.ph-card:nth-child(5){transition-delay:.45s}
-.ph-card:nth-child(6){transition-delay:.55s}
-
-/* portfolio image */
-.ph-card-img{
-  aspect-ratio:4/3;overflow:hidden;background:var(--d2);
-  position:relative;
-}
-.ph-card-img img{
-  width:100%;height:100%;object-fit:cover;
-  filter:grayscale(25%) brightness(.85);
-  transition:transform .85s cubic-bezier(.25,.46,.45,.94),filter .5s;
-}
-.ph-card:hover .ph-card-img img{
-  transform:scale(1.08);filter:grayscale(0%) brightness(1);
-}
-/* red overlay on hover */
-.ph-card-img::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(180,0,0,.8) 0%,transparent 55%);
-  opacity:0;transition:opacity .4s;
-}
+.ph-card:nth-child(1){transition-delay:.05s}.ph-card:nth-child(2){transition-delay:.15s}.ph-card:nth-child(3){transition-delay:.25s}
+.ph-card:nth-child(4){transition-delay:.35s}.ph-card:nth-child(5){transition-delay:.45s}.ph-card:nth-child(6){transition-delay:.55s}
+.ph-card-img{aspect-ratio:4/3;overflow:hidden;background:var(--d2);position:relative}
+.ph-card-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(25%) brightness(.85);transition:transform .85s cubic-bezier(.25,.46,.45,.94),filter .5s}
+.ph-card:hover .ph-card-img img{transform:scale(1.08);filter:grayscale(0%) brightness(1)}
+.ph-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(180,0,0,.8) 0%,transparent 55%);opacity:0;transition:opacity .4s}
 .ph-card:hover .ph-card-img::after{opacity:1}
-
-/* bottom info */
-.ph-card-info{
-  padding:28px 28px 24px;
-  border-bottom:1px solid rgba(255,255,255,.05);
-  position:relative;
-}
-/* top accent line reveal */
-.ph-card-info::before{
-  content:'';position:absolute;top:0;left:0;
-  width:0;height:2px;background:var(--r);
-  transition:width .5s cubic-bezier(.25,.46,.45,.94);
-}
+.ph-card-info{padding:28px 28px 24px;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
+.ph-card-info::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--r);transition:width .5s cubic-bezier(.25,.46,.45,.94)}
 .ph-card:hover .ph-card-info::before{width:100%}
-
-.ph-card-name{
-  font-family:var(--head);font-size:1.5rem;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--w);
-  margin-bottom:6px;
-}
-.ph-card-location{
-  display:flex;align-items:center;gap:8px;
-  font-family:var(--cond);font-size:.65rem;font-weight:700;
-  letter-spacing:.25em;text-transform:uppercase;color:var(--r);
-  margin-bottom:14px;
-}
+.ph-card-name{font-family:var(--head);font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--w);margin-bottom:6px}
+.ph-card-location{display:flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--r);margin-bottom:14px}
 .ph-card-location svg{flex-shrink:0;opacity:.7}
-.ph-card-spec{
-  font-family:var(--cond);font-size:.78rem;
-  letter-spacing:.08em;color:rgba(244,242,239,.6);
-  line-height:1.5;
-}
-
-/* langs + ig row */
-.ph-card-meta{
-  padding:16px 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;
-}
-.ph-card-langs{
-  display:flex;gap:6px;flex-wrap:wrap;
-}
-.lang-pill{
-  font-family:var(--cond);font-size:.55rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(244,242,239,.5);
-  border:1px solid rgba(255,255,255,.1);
-  padding:4px 10px;
-  transition:color .25s,border-color .25s;
-}
+.ph-card-spec{font-family:var(--cond);font-size:.78rem;letter-spacing:.08em;color:rgba(244,242,239,.6);line-height:1.5}
+.ph-card-meta{padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ph-card-langs{display:flex;gap:6px;flex-wrap:wrap}
+.lang-pill{font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);border:1px solid rgba(255,255,255,.1);padding:4px 10px;transition:color .25s,border-color .25s}
 .ph-card:hover .lang-pill{color:var(--w);border-color:rgba(255,255,255,.25)}
-
-.ph-ig-link{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--cond);font-size:.6rem;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(244,242,239,.5);
-  transition:color .25s;flex-shrink:0;
-}
+.ph-ig-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,242,239,.5);transition:color .25s;flex-shrink:0}
 .ph-ig-link:hover{color:var(--r)}
 .ph-ig-link svg{flex-shrink:0}
-
-/* BOOK NOW button */
-.ph-book-btn{
-  display:block;
-  margin:0 28px 28px;
-  font-family:var(--cond);font-size:.68rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;
-  text-align:center;color:var(--w);
-  background:transparent;
-  border:1px solid rgba(255,255,255,.15);
-  padding:14px;
-  position:relative;overflow:hidden;
-  transition:border-color .25s,transform .2s;
-}
-.ph-book-btn::before{
-  content:'';position:absolute;inset:0;
-  background:var(--r);transform:translateX(-100%);
-  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
-}
+.ph-book-btn{display:block;margin:0 28px 28px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;color:var(--w);background:transparent;border:1px solid rgba(255,255,255,.15);padding:14px;position:relative;overflow:hidden;transition:border-color .25s,transform .2s}
+.ph-book-btn::before{content:'';position:absolute;inset:0;background:var(--r);transform:translateX(-100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
 .ph-book-btn:hover{border-color:var(--r);transform:translateY(-2px)}
 .ph-book-btn:hover::before{transform:translateX(0)}
 .ph-book-btn span{position:relative;z-index:1}
 
-/* coming soon card */
-.ph-card.coming-soon{opacity:.4!important;transform:none!important;pointer-events:none}
-.ph-card.coming-soon .ph-card-img{
-  background:var(--d3);
-  display:flex;align-items:center;justify-content:center;
-}
-.coming-soon-label{
-  font-family:var(--head);font-size:1.2rem;letter-spacing:.15em;
-  color:rgba(244,242,239,.2);text-transform:uppercase;
-}
+/* FIX #10: coming-soon uses opacity:.35 without !important so .on can override if needed,
+   but pointer-events still none. We keep them always slightly visible as placeholders. */
+.ph-card.coming-soon{opacity:.35;transform:none;pointer-events:none}
+.ph-card.coming-soon .ph-card-img{background:var(--d3);display:flex;align-items:center;justify-content:center}
+.coming-soon-label{font-family:var(--head);font-size:1.2rem;letter-spacing:.15em;color:rgba(244,242,239,.2);text-transform:uppercase}
 
-/* ================================================================
-   MARQUEE (same as index)
-================================================================ */
-.marquee-wrap{
-  overflow:hidden;background:var(--r);padding:13px 0;
-  border-top:1px solid rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.25);
-  position:relative;
-}
-.marquee-wrap::after{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
-  animation:shine 4s ease-in-out infinite;pointer-events:none;
-}
+/* FIX #8: coming soon hidden when filter active */
+.ph-card.coming-soon.filter-hidden{display:none}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:var(--r);padding:13px 0;border-top:1px solid rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.25);position:relative}
+.marquee-wrap::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shine 4s ease-in-out infinite;pointer-events:none}
 @keyframes shine{0%{left:-100%}100%{left:200%}}
 .marquee-track{display:flex;white-space:nowrap;animation:mq 28s linear infinite}
 .marquee-track:hover{animation-play-state:paused}
-.mq-item{
-  display:inline-flex;align-items:center;gap:28px;padding-right:28px;
-  font-family:var(--head);font-size:1rem;letter-spacing:.18em;color:rgba(255,255,255,.92);
-}
+.mq-item{display:inline-flex;align-items:center;gap:28px;padding-right:28px;font-family:var(--head);font-size:1rem;letter-spacing:.18em;color:rgba(255,255,255,.92)}
 .mq-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);display:inline-block}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ================================================================
-   FOOTER CTA
-================================================================ */
-.footer-cta{
-  background:var(--blk);padding:100px 48px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.footer-cta::before{
-  content:'';position:absolute;
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(180,0,0,.1) 0%,transparent 70%);
-  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
-}
+/* FOOTER CTA */
+.footer-cta{background:var(--blk);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
+.footer-cta::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(180,0,0,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .fcta-inner{position:relative;z-index:1}
-.fcta-pre{
-  font-family:var(--cond);font-size:.68rem;font-weight:700;
-  letter-spacing:.4em;text-transform:uppercase;color:var(--r);
-  display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;
-}
+.fcta-pre{font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
 .fcta-pre::before,.fcta-pre::after{content:'';width:24px;height:1px;background:var(--r)}
-.fcta-h{
-  font-family:var(--head);font-size:clamp(2.5rem,7vw,7rem);
-  line-height:.9;text-transform:uppercase;color:var(--w);margin-bottom:24px;
-}
+.fcta-h{font-family:var(--head);font-size:clamp(2.5rem,7vw,7rem);line-height:.9;text-transform:uppercase;color:var(--w);margin-bottom:24px}
 .fcta-h em{color:var(--r);font-style:normal;display:block}
-.fcta-sub{
-  font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;
-  color:var(--w);max-width:480px;margin:0 auto 48px;line-height:1.7;
-}
-.wa-btn{
-  display:inline-flex;align-items:center;gap:14px;
-  background:#25D366;color:var(--w);
-  font-family:var(--cond);font-size:.75rem;font-weight:700;
-  letter-spacing:.25em;text-transform:uppercase;
-  padding:22px 52px;
-  position:relative;overflow:hidden;
-  transition:background .25s,transform .2s,box-shadow .3s;
-}
-.wa-btn::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,.12);transform:translateX(-100%);transition:transform .4s;
-}
+.fcta-sub{font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;color:var(--w);max-width:480px;margin:0 auto 48px;line-height:1.7}
+.wa-btn{display:inline-flex;align-items:center;gap:14px;background:#25D366;color:var(--w);font-family:var(--cond);font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;padding:22px 52px;position:relative;overflow:hidden;transition:background .25s,transform .2s,box-shadow .3s}
+.wa-btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-100%);transition:transform .4s}
 .wa-btn:hover{background:#20bd5a;transform:translateY(-3px);box-shadow:0 16px 48px rgba(37,211,102,.25)}
 .wa-btn:hover::before{transform:translateX(0)}
 .wa-btn svg{width:22px;height:22px;flex-shrink:0}
 
-footer{
-  background:var(--blk);border-top:1px solid rgba(255,255,255,.04);
-  padding:32px 48px;
-  display:flex;justify-content:space-between;align-items:center;
-}
+footer{background:var(--blk);border-top:1px solid rgba(255,255,255,.04);padding:32px 48px;display:flex;justify-content:space-between;align-items:center}
 .f-logo{font-family:var(--head);font-size:1.3rem;letter-spacing:.18em}
 .f-logo em{color:var(--r);font-style:normal}
 .f-tagline{font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-top:5px}
 footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:right}
 
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
-.rev{
-  opacity:0;transform:translateY(44px);
-  transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);
-}
+/* SCROLL REVEAL */
+.rev{opacity:0;transform:translateY(44px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
 .rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.22s}.rev.d3{transition-delay:.34s}
 .rev.on{opacity:1;transform:none}
 
-/* ================================================================
-   MOBILE
-================================================================ */
+/* MOBILE */
 @media(max-width:768px){
   #cur,#cur-ring{display:none}body{cursor:auto}
   nav{padding:18px 20px}nav.scrolled{padding:14px 20px}
-  .nav-links{display:none}
-  .nav-btn{display:none}
-  .hamburger{display:flex}
-
-  .page-hero{padding:120px 24px 60px}
-  .ph-sub{font-size:.9rem}
-
-  .map-section{padding:0 24px 60px}
-  #map{height:320px}
-
+  .nav-links{display:none}.nav-btn{display:none}.hamburger{display:flex}
+  .page-hero{padding:120px 24px 60px}.ph-sub{font-size:.9rem}
+  .map-section{padding:0 24px 60px}#map{height:320px}
   .photographers-section{padding:60px 24px 100px}
   .ph-grid-header{flex-direction:column;align-items:flex-start;gap:24px;margin-bottom:40px}
   .ph-grid{grid-template-columns:1fr;gap:2px}
   .ph-card-img{aspect-ratio:16/9}
-
   .footer-cta{padding:80px 24px}
   .fcta-h{font-size:clamp(2rem,10vw,4rem)}
   .wa-btn{width:100%;justify-content:center;padding:20px 24px;font-size:.7rem;letter-spacing:.15em}
@@ -586,9 +209,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   footer div[style*="text-align:right"]{text-align:center!important}
   footer a[style*="inline-flex"]{width:100%;justify-content:center}
 }
-@media(min-width:769px) and (max-width:1100px){
-  .ph-grid{grid-template-columns:1fr 1fr}
-}
+@media(min-width:769px) and (max-width:1100px){.ph-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -596,16 +217,13 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- ================================================================
-     NAV
-================================================================ -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">Rev<em>C</em>ulture</a>
   <ul class="nav-links">
-    <li><a href="index.html#portfolio" id="nl-portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
-    <li><a href="fotografi.html" class="active" id="nl-team" data-i18n="nav.team">Il Team</a></li>
-    <li><a href="index.html#servizi" id="nl-services" data-i18n="nav.services">Servizi</a></li>
-    <li><a href="index.html#contatti" id="nl-contact" data-i18n="nav.contact">Contatti</a></li>
+    <li><a href="index.html#portfolio" id="nl-portfolio" class="">Portfolio</a></li>
+    <li><a href="fotografi.html" class="active" id="nl-team">Il Team</a></li>
+    <li><a href="index.html#servizi" id="nl-services">Servizi</a></li>
+    <li><a href="index.html#contatti" id="nl-contact">Contatti</a></li>
     <li>
       <div class="lang-switch">
         <button class="lang-btn active" data-lang="it">IT</button>
@@ -613,22 +231,19 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
       </div>
     </li>
   </ul>
-  <a href="https://wa.me/393931289124" target="_blank" class="nav-btn" data-i18n="nav.book">Prenota Ora →</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <!-- FIX #1: correct WA number -->
+  <a href="https://wa.me/393931289124" target="_blank" class="nav-btn" id="nav-book-btn">Prenota Ora →</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- OVERLAY -->
 <div id="menu-overlay"></div>
-
-<!-- MOBILE DRAWER -->
 <div id="mobile-menu">
   <a href="index.html#portfolio" class="mm-link" id="mm-portfolio">Portfolio</a>
-  <a href="fotografi.html"       class="mm-link menu-team" id="mm-team">Il Team</a>
-  <a href="index.html#servizi"   class="mm-link" id="mm-services">Servizi</a>
-  <a href="index.html#contatti"  class="mm-link" id="mm-contact">Contatti</a>
-  <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20vorrei%20prenotare%20una%20sessione." target="_blank" class="menu-wa">
+  <a href="fotografi.html" class="mm-link menu-team" id="mm-team">Il Team</a>
+  <a href="index.html#servizi" class="mm-link" id="mm-services">Servizi</a>
+  <a href="index.html#contatti" class="mm-link" id="mm-contact">Contatti</a>
+  <!-- FIX #1: correct WA number -->
+  <a href="https://wa.me/393931289124" target="_blank" class="menu-wa">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     <span id="mm-wa-text">Scrivici su WhatsApp</span>
   </a>
@@ -638,34 +253,25 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </div>
 
-<!-- ================================================================
-     PAGE HERO
-================================================================ -->
 <div class="page-hero">
   <div class="page-hero-grid"></div>
   <div class="page-hero-glow"></div>
   <div class="page-hero-stripe"></div>
   <div class="ph-content">
-    <div class="ph-eyebrow" data-i18n="hero.eyebrow">Il Nostro Network</div>
+    <div class="ph-eyebrow" id="ph-eyebrow-el">Il Nostro Network</div>
     <h1 class="ph-title">
-      <span data-i18n="hero.title1">I Nostri</span>
-      <em data-i18n="hero.title2">Fotografi</em>
+      <span id="ph-title1-el">I Nostri</span>
+      <em id="ph-title2-el">Fotografi</em>
     </h1>
-    <p class="ph-sub" data-i18n="hero.sub">
-      Un network di fotografi selezionati in tutta Europa. RevCulture gestisce ogni prenotazione — tu scegli il fotografo, noi organizziamo tutto.
-    </p>
+    <p class="ph-sub" id="ph-sub-el">Un network selezionato di fotografi automotive in Europa. RevCulture fa da ponte tra i migliori fotografi e i clienti — tu scegli, noi organizziamo tutto.</p>
   </div>
 </div>
 
-<!-- ================================================================
-     MAP
-================================================================ -->
 <div class="map-section">
-  <div class="map-label rev" data-i18n="map.label">Distribuzione geografica</div>
+  <div class="map-label rev" id="map-label-el">Distribuzione geografica</div>
   <div id="map"></div>
 </div>
 
-<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
     <div class="mq-item">Automotive Photography <span class="mq-dot"></span></div>
@@ -687,104 +293,95 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </div>
 
-<!-- ================================================================
-     PHOTOGRAPHERS GRID
-================================================================ -->
 <section class="photographers-section">
   <div class="ph-grid-header rev">
     <div>
       <div style="font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:16px">
         <span style="width:20px;height:1px;background:var(--r);display:inline-block"></span>
-        <span data-i18n="grid.label">Il Network</span>
+        <span id="grid-label-el">Il Network</span>
       </div>
       <div class="ph-grid-title">
-        <span data-i18n="grid.title1">Book a</span><br/>
-        <em data-i18n="grid.title2">Photographer</em>
+        <span id="grid-title1-el">Prenota un</span><br/>
+        <em id="grid-title2-el">Fotografo</em>
       </div>
     </div>
     <div class="filter-tabs" id="filterTabs">
-      <button class="filter-tab active" data-filter="all" data-i18n="filter.all">All</button>
-      <button class="filter-tab" data-filter="supercar" data-i18n="filter.supercar">Supercar</button>
-      <button class="filter-tab" data-filter="events" data-i18n="filter.events">Events</button>
-      <button class="filter-tab" data-filter="lifestyle" data-i18n="filter.lifestyle">Lifestyle</button>
+      <button class="filter-tab active" data-filter="all" id="ft-all">Tutti</button>
+      <button class="filter-tab" data-filter="supercar" id="ft-supercar">Supercar</button>
+      <button class="filter-tab" data-filter="events" id="ft-events">Eventi</button>
+      <button class="filter-tab" data-filter="lifestyle" id="ft-lifestyle">Lifestyle</button>
     </div>
   </div>
 
   <div class="ph-grid" id="phGrid">
 
-    <!-- ★ FILOZ — Sion, Switzerland -->
+    <!-- FILOZ — Switzerland -->
     <div class="ph-card" data-tags="supercar lifestyle events">
       <div class="ph-card-img">
-        <img src="images/foto01.JPG" alt="Portfolio FILOZ — Automotive Photography Sion"/>
+        <img src="images/filoz.jpg" onerror="this.src='images/foto01.JPG'" alt="Portfolio FILOZ — Automotive Photography Switzerland" loading="lazy"/>
       </div>
       <div class="ph-card-info">
         <div class="ph-card-name">FILOZ</div>
         <div class="ph-card-location">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          Sion, Switzerland
+          Switzerland — Nationwide
         </div>
         <div class="ph-card-spec">Supercar · Luxury Lifestyle · Alpine Locations</div>
       </div>
       <div class="ph-card-meta">
         <div class="ph-card-langs">
-          <span class="lang-pill">FR</span>
           <span class="lang-pill">EN</span>
-          <span class="lang-pill">IT</span>
+          <span class="lang-pill">FR</span>
         </div>
         <a href="https://instagram.com/photo.by.filoz" target="_blank" class="ph-ig-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           @photo.by.filoz
         </a>
       </div>
-      <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20vorrei%20prenotare%20una%20sessione%20fotografica%20con%20FILOZ%20(Sion%2C%20Svizzera)."
-         target="_blank" class="ph-book-btn">
-        <span class="book-label" data-loc="Sion, CH">Book Now — Sion, CH →</span>
+      <a href="https://wa.me/393931289124?text=Hi%20RevCulture%2C%20I%20would%20like%20to%20book%20a%20photography%20session%20with%20FILOZ%20(Switzerland)."
+         target="_blank" class="ph-book-btn filoz-book">
+        <span class="book-label" data-loc="Switzerland">Prenota Ora — Switzerland →</span>
       </a>
     </div>
 
-    <!-- ★ COMING SOON — più fotografi in arrivo -->
-
-    <div class="ph-card coming-soon">
-      <div class="ph-card-img">
-        <span class="coming-soon-label" data-i18n="card.soon">Coming Soon</span>
-      </div>
+    <!-- COMING SOON — France -->
+    <div class="ph-card coming-soon" data-tags="all">
+      <div class="ph-card-img"><span class="coming-soon-label" id="cs-label-1">Prossimamente</span></div>
       <div class="ph-card-info">
-        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" data-i18n="card.soon_name">TBA — France</div>
+        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" id="cs-name-1">TBA — Francia</div>
         <div class="ph-card-location" style="color:rgba(204,0,0,.4)">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           Paris, France
         </div>
-        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" data-i18n="card.soon_spec">Expanding network</div>
+        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" id="cs-spec-1">Network in espansione</div>
       </div>
       <div class="ph-card-meta"><div class="ph-card-langs"></div></div>
     </div>
 
-    <div class="ph-card coming-soon">
-      <div class="ph-card-img">
-        <span class="coming-soon-label" data-i18n="card.soon">Coming Soon</span>
-      </div>
+    <!-- COMING SOON — Germany -->
+    <div class="ph-card coming-soon" data-tags="all">
+      <div class="ph-card-img"><span class="coming-soon-label" id="cs-label-2">Prossimamente</span></div>
       <div class="ph-card-info">
-        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" data-i18n="card.soon_name2">TBA — Germany</div>
+        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" id="cs-name-2">TBA — Germania</div>
         <div class="ph-card-location" style="color:rgba(204,0,0,.4)">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           München, Germany
         </div>
-        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" data-i18n="card.soon_spec">Expanding network</div>
+        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" id="cs-spec-2">Network in espansione</div>
       </div>
       <div class="ph-card-meta"><div class="ph-card-langs"></div></div>
     </div>
 
-    <div class="ph-card coming-soon">
-      <div class="ph-card-img">
-        <span class="coming-soon-label" data-i18n="card.soon">Coming Soon</span>
-      </div>
+    <!-- COMING SOON — Spain -->
+    <div class="ph-card coming-soon" data-tags="all">
+      <div class="ph-card-img"><span class="coming-soon-label" id="cs-label-3">Prossimamente</span></div>
       <div class="ph-card-info">
-        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" data-i18n="card.soon_name3">TBA — Spain</div>
+        <div class="ph-card-name" style="color:rgba(244,242,239,.3)" id="cs-name-3">TBA — Spagna</div>
         <div class="ph-card-location" style="color:rgba(204,0,0,.4)">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           Barcelona, Spain
         </div>
-        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" data-i18n="card.soon_spec">Expanding network</div>
+        <div class="ph-card-spec" style="color:rgba(244,242,239,.25)" id="cs-spec-3">Network in espansione</div>
       </div>
       <div class="ph-card-meta"><div class="ph-card-langs"></div></div>
     </div>
@@ -792,18 +389,15 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </section>
 
-<!-- FOOTER CTA -->
 <div class="footer-cta">
   <div class="fcta-inner rev">
-    <div class="fcta-pre" data-i18n="fcta.pre">Non trovi un fotografo vicino a te?</div>
-    <h2 class="fcta-h">
-      <span data-i18n="fcta.title1">Contattaci</span>
-      <em data-i18n="fcta.title2">lo troviamo noi</em>
-    </h2>
-    <p class="fcta-sub" data-i18n="fcta.sub">Il network RevCulture cresce ogni mese. Scrivici e ti mettiamo in contatto con il fotografo giusto per la tua area.</p>
-    <a href="https://wa.me/3931289124?text=Ciao%20REV%20Culture%2C%20cerco%20un%20fotografo%20nella%20mia%20zona." target="_blank" class="wa-btn">
+    <div class="fcta-pre" id="fcta-pre-el">Non trovi un fotografo vicino a te?</div>
+    <h2 class="fcta-h" id="fcta-h-el">Contattaci<br/><em>lo troviamo noi</em></h2>
+    <p class="fcta-sub" id="fcta-sub-el">Il network RevCulture cresce ogni mese. Scrivici e ti mettiamo in contatto con il fotografo giusto per la tua zona.</p>
+    <!-- FIX #1 + #6: correct number AND RevCulture in message -->
+    <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20cerco%20un%20fotografo%20nella%20mia%20zona." target="_blank" class="wa-btn" id="fcta-wa-btn">
       <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span data-i18n="fcta.btn">Scrivici su WhatsApp</span>
+      <span id="fcta-wa-text">Scrivici su WhatsApp</span>
     </a>
   </div>
 </div>
@@ -811,393 +405,237 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 <footer>
   <div>
     <div class="f-logo">Rev<em>C</em>ulture</div>
-    <div class="f-tagline" data-i18n="footer.tagline">Automotive Photography Network</div>
+    <div class="f-tagline" id="f-tagline-el">Automotive Photography Network</div>
   </div>
   <div style="text-align:center">
-    <p>© 2026 revculture.it — <span data-i18n="footer.rights">Tutti i diritti riservati</span></p>
+    <!-- FIX #9: use ID instead of querySelector('footer p') -->
+    <p id="f-rights-el">© 2026 revculture.it — Tutti i diritti riservati</p>
     <p style="margin-top:4px;color:rgba(255,255,255,.18)">Made with passion — Italy</p>
   </div>
-  <!-- WORK WITH US -->
   <div>
-    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-bottom:10px;text-align:right" data-i18n="footer.wwa_label">Sei un fotografo?</div>
-    <a href="https://wa.me/393931289124?text=Ciao%20REV%20Culture%2C%20sono%20un%20fotografo%20e%20vorrei%20collaborare%20con%20il%20vostro%20network."
-       target="_blank"
-       style="display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--w);border:1px solid rgba(204,0,0,.4);padding:10px 22px;position:relative;overflow:hidden;transition:border-color .25s,background .25s"
+    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-bottom:10px;text-align:right" id="f-wwa-label">Sei un fotografo?</div>
+    <!-- FIX #1: correct WA number -->
+    <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20sono%20un%20fotografo%20e%20vorrei%20collaborare%20con%20il%20vostro%20network."
+       target="_blank" id="f-wwa-btn"
+       style="display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--w);border:1px solid rgba(204,0,0,.4);padding:10px 22px;transition:border-color .25s,background .25s"
        onmouseover="this.style.borderColor='var(--r)';this.style.background='rgba(204,0,0,.1)'"
        onmouseout="this.style.borderColor='rgba(204,0,0,.4)';this.style.background='transparent'">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span data-i18n="footer.wwa_btn">Work With Us →</span>
+      <span id="f-wwa-btn-text">Lavora con Noi →</span>
     </a>
   </div>
 </footer>
 
-<!-- ================================================================
-     SCRIPTS
-================================================================ -->
 <script>
-
-/* ================================================================
-   TRANSLATIONS
-================================================================ */
-const i18n = {
-  it: {
-    "nav.portfolio":   "Portfolio",
-    "nav.team":        "Il Team",
-    "nav.services":    "Servizi",
-    "nav.contact":     "Contatti",
-    "nav.book":        "Prenota Ora →",
-    "hero.eyebrow":    "Il Nostro Network",
-    "hero.title1":     "I Nostri",
-    "hero.title2":     "Fotografi",
-    "hero.sub":        "Un network selezionato di fotografi automotive in Europa. RevCulture fa da ponte tra i migliori fotografi e i clienti — tu scegli, noi organizziamo tutto.",
-    "map.label":       "Distribuzione geografica",
-    "grid.label":      "Il Network",
-    "grid.title1":     "Prenota un",
-    "grid.title2":     "Fotografo",
-    "filter.all":      "Tutti",
-    "filter.supercar": "Supercar",
-    "filter.events":   "Eventi",
-    "filter.lifestyle":"Lifestyle",
-    "card.book":       "Prenota Ora — Sion, CH →",
-    "card.soon":       "Prossimamente",
-    "card.soon_name":  "TBA — Francia",
-    "card.soon_name2": "TBA — Germania",
-    "card.soon_name3": "TBA — Spagna",
-    "card.soon_spec":  "Network in espansione",
-    "fcta.pre":        "Non trovi un fotografo vicino a te?",
-    "fcta.title1":     "Contattaci",
-    "fcta.title2":     "lo troviamo noi",
-    "fcta.sub":        "Il network RevCulture cresce ogni mese. Scrivici e ti mettiamo in contatto con il fotografo giusto per la tua zona.",
-    "fcta.btn":        "Scrivici su WhatsApp",
-    "popup.book":      "Prenota con RevCulture →",
-    "footer.tagline":  "Automotive Photography Network",
-    "footer.rights":   "Tutti i diritti riservati",
-    "footer.wwa_label":"Sei un fotografo?",
-    "footer.wwa_btn":  "Lavora con Noi →"
-  },
-  en: {
-    "nav.portfolio":   "Portfolio",
-    "nav.team":        "The Team",
-    "nav.services":    "Services",
-    "nav.contact":     "Contact",
-    "nav.book":        "Book Now →",
-    "hero.eyebrow":    "Our Network",
-    "hero.title1":     "Our",
-    "hero.title2":     "Photographers",
-    "hero.sub":        "A curated network of automotive photographers across Europe. RevCulture bridges the gap between top photographers and clients — you choose, we handle everything.",
-    "map.label":       "Geographic coverage",
-    "grid.label":      "The Network",
-    "grid.title1":     "Book a",
-    "grid.title2":     "Photographer",
-    "filter.all":      "All",
-    "filter.supercar": "Supercar",
-    "filter.events":   "Events",
-    "filter.lifestyle":"Lifestyle",
-    "card.book":       "Book Now — Sion, CH →",
-    "card.soon":       "Coming Soon",
-    "card.soon_name":  "TBA — France",
-    "card.soon_name2": "TBA — Germany",
-    "card.soon_name3": "TBA — Spain",
-    "card.soon_spec":  "Expanding network",
-    "fcta.pre":        "Can't find a photographer near you?",
-    "fcta.title1":     "Contact us —",
-    "fcta.title2":     "we'll find one",
-    "fcta.sub":        "The RevCulture network grows every month. Message us and we'll connect you with the right photographer for your area.",
-    "fcta.btn":        "Message us on WhatsApp",
-    "popup.book":      "Book via RevCulture →",
-    "footer.tagline":  "Automotive Photography Network",
-    "footer.rights":   "All rights reserved",
-    "footer.wwa_label":"Are you a photographer?",
-    "footer.wwa_btn":  "Work With Us →"
-  }
-};
-
-let currentLang = 'it';
-
-function applyLang(lang) {
-  currentLang = lang;
-  const dict = i18n[lang];
-
-  // translate all data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if (dict[key] !== undefined) el.textContent = dict[key];
-  });
-
-  // nav book button
-  const navBookBtn = document.querySelector('.nav-btn');
-  if (navBookBtn) navBookBtn.textContent = dict['nav.book'];
-
-  // mobile menu links
-  const mm = {
-    'mm-portfolio': lang==='en' ? 'Portfolio'  : 'Portfolio',
-    'mm-team':      lang==='en' ? 'The Team'   : 'Il Team',
-    'mm-services':  lang==='en' ? 'Services'   : 'Servizi',
-    'mm-contact':   lang==='en' ? 'Contact'    : 'Contatti',
-    'mm-wa-text':   lang==='en' ? 'Message us on WhatsApp' : 'Scrivici su WhatsApp',
-  };
-  Object.entries(mm).forEach(([id, txt]) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = txt;
-  });
-
-  // book labels on cards
-  document.querySelectorAll('.book-label').forEach(el => {
-    const loc = el.dataset.loc;
-    el.textContent = lang==='en' ? `Book Now — ${loc} →` : `Prenota Ora — ${loc} →`;
-  });
-
-  // sync ALL lang toggle buttons (desktop + mobile)
-  document.querySelectorAll('.lang-btn, .menu-lang-btn').forEach(btn => {
-    const isActive = btn.dataset.lang === lang || btn.id === `mm-btn-${lang}` ||
-      btn.id === `btn-${lang}`;
-    // use class for menu-lang-btn, style for lang-btn
-    if (btn.classList.contains('menu-lang-btn')) {
-      btn.classList.toggle('active', btn.id === `mm-btn-${lang}`);
-    } else {
-      btn.classList.toggle('active', btn.dataset.lang === lang);
-    }
-  });
-
-  // update map popups
-  updateMapPopups();
-
-  // footer
-  const ftag = document.querySelector('.f-tagline');
-  if (ftag) ftag.textContent = dict['footer.tagline'];
-  const frights = document.querySelector('footer p');
-  if (frights) frights.innerHTML = `© 2026 revculture.it — <span>${dict['footer.rights']}</span>`;
-  document.querySelectorAll('[data-i18n="footer.wwa_label"]').forEach(el => el.textContent = dict['footer.wwa_label']);
-  document.querySelectorAll('[data-i18n="footer.wwa_btn"]').forEach(el => el.textContent = dict['footer.wwa_btn']);
-
-  document.documentElement.lang = lang;
-}
-
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-});
-
-/* ================================================================
-   CURSOR
-================================================================ */
-const isMobile = () => window.innerWidth <= 768;
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
+// FIX #5: renamed to avoid any shadowing
+const isMobile=()=>window.innerWidth<=768;
+const cursorEl=document.getElementById('cur');
+const ringEl=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
-if (!isMobile()) {
-  document.addEventListener('mousemove', e => {
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
-  });
-  (function ar(){
-    rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(ar);
-  })();
+if(!isMobile()){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px'});
+  (function ar(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(ar)})();
   document.querySelectorAll('a,button,.ph-card').forEach(el=>{
     el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
     el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
   });
 }
 
-/* ================================================================
-   NAV
-================================================================ */
-const nav = document.getElementById('nav');
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const cs = scrollY;
-  nav.classList.toggle('scrolled', cs > 60);
-  if (cs > lastScroll && cs > 200) nav.classList.add('hidden');
+// NAV — FIX #5: use scrollY directly
+const nav=document.getElementById('nav');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>60);
+  if(scrollY>lastScroll&&scrollY>200) nav.classList.add('hidden');
   else nav.classList.remove('hidden');
-  lastScroll = cs;
+  lastScroll=scrollY;
 });
 
-/* ================================================================
-   MAP — Leaflet dark + custom markers
-================================================================ */
-// Photographers data — aggiorna qui quando aggiungi nuovi fotografi
-const photographers = [
-  {
-    name: "FILOZ",
-    city: "Sion",
-    country: "Switzerland",
-    lat: 46.2289,
-    lng: 7.3594,
-    spec: "Supercar · Luxury Lifestyle · Alpine Locations",
-    ig: "@photo.by.filoz",
-    waMsg_it: "Ciao RevCulture, vorrei prenotare una sessione fotografica con FILOZ (Sion, Svizzera).",
-    waMsg_en: "Hi RevCulture, I'd like to book a photography session with FILOZ (Sion, Switzerland).",
-    active: true
-  }
-  // ← Aggiungi altri fotografi qui quando si uniscono al network
-];
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
 
-// Custom red dot marker
-function createMarker(active) {
-  return L.divIcon({
-    className: '',
-    html: `<div style="
-      width:${active ? 16 : 12}px;
-      height:${active ? 16 : 12}px;
-      background:${active ? '#CC0000' : '#333'};
-      border:2px solid ${active ? '#FF1111' : '#555'};
-      border-radius:50%;
-      box-shadow:0 0 ${active ? '12px rgba(204,0,0,.6)' : 'none'};
-      cursor:pointer;
-      transition:transform .2s;
-    "></div>`,
-    iconSize: [active ? 16 : 12, active ? 16 : 12],
-    iconAnchor: [active ? 8 : 6, active ? 8 : 6]
-  });
+// FIX #10: ph-cards revealed via separate observer (coming-soon excluded)
+const cardRo=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.08});
+document.querySelectorAll('.ph-card:not(.coming-soon)').forEach(el=>cardRo.observe(el));
+
+// MAP
+const photographers=[{
+  name:"FILOZ",city:"Switzerland",country:"",
+  lat:46.8182,lng:8.2275,
+  spec:"Supercar · Luxury Lifestyle · Alpine Locations",
+  waMsg_it:"Hi RevCulture, I would like to book a photography session with FILOZ (Switzerland).",
+  waMsg_en:"Hi RevCulture, I would like to book a photography session with FILOZ (Switzerland).",
+  active:true
+}];
+
+let map,mapMarkers=[];
+
+function buildPopupHtml(ph){
+  const msg=currentLang==='en'?ph.waMsg_en:ph.waMsg_it;
+  const waUrl=`https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
+  const bookTxt=currentLang==='en'?'Book via RevCulture →':'Book via RevCulture →';
+  const loc=ph.country?`${ph.city}, ${ph.country}`:ph.city;
+  return `<div class="map-popup"><div class="map-popup-name">${ph.name}</div><div class="map-popup-loc">${loc}</div><div class="map-popup-spec">${ph.spec}</div><a href="${waUrl}" target="_blank" class="map-popup-btn">${bookTxt}</a></div>`;
 }
+function updateMapPopups(){mapMarkers.forEach(({marker,ph})=>marker.setPopupContent(buildPopupHtml(ph));}
 
-let map;
-let mapMarkers = [];
-
-function buildPopupHtml(ph) {
-  const dict = i18n[currentLang];
-  const msg = currentLang === 'en' ? ph.waMsg_en : ph.waMsg_it;
-  const waUrl = `https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
-  return `
-    <div class="map-popup">
-      <div class="map-popup-name">${ph.name}</div>
-      <div class="map-popup-loc">${ph.city}, ${ph.country}</div>
-      <div class="map-popup-spec">${ph.spec}</div>
-      <a href="${waUrl}" target="_blank" class="map-popup-btn">${dict['popup.book'] || 'Book via RevCulture →'}</a>
-    </div>`;
-}
-
-function updateMapPopups() {
-  mapMarkers.forEach(({marker, ph}) => {
-    marker.setPopupContent(buildPopupHtml(ph));
-  });
-}
-
-function initMap() {
-  map = L.map('map', {
-    center: [46.5, 10.5],
-    zoom: 5,
-    zoomControl: true,
-    scrollWheelZoom: false,
-    attributionControl: true
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(map);
-
-  photographers.forEach(ph => {
-    const marker = L.marker([ph.lat, ph.lng], {icon: createMarker(ph.active)})
-      .addTo(map)
-      .bindPopup(buildPopupHtml(ph), {
-        closeButton: true,
-        autoPan: true,
-        maxWidth: 280
-      });
-
-    // pulse ring on active markers
-    if (ph.active) {
-      const pulseMarker = L.divIcon({
-        className: '',
-        html: `<div style="
-          width:32px;height:32px;
-          border:1px solid rgba(204,0,0,.35);
-          border-radius:50%;
-          position:absolute;
-          top:-8px;left:-8px;
-          animation:mapPulse 2s ease-out infinite;
-          pointer-events:none;
-        "></div>`,
-        iconSize: [32,32],
-        iconAnchor: [16,16]
-      });
-      L.marker([ph.lat, ph.lng], {icon: pulseMarker, interactive: false, zIndexOffset: -1}).addTo(map);
-    }
-
-    mapMarkers.push({marker, ph});
-  });
-
-  // inject pulse keyframe
-  const style = document.createElement('style');
-  style.textContent = `@keyframes mapPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.5);opacity:0}}`;
+function initMap(){
+  map=L.map('map',{center:[46.5,10.5],zoom:5,zoomControl:true,scrollWheelZoom:false});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:18}).addTo(map);
+  const style=document.createElement('style');
+  style.textContent='@keyframes mapPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.5);opacity:0}}';
   document.head.appendChild(style);
+  photographers.forEach(ph=>{
+    const marker=L.marker([ph.lat,ph.lng],{icon:L.divIcon({className:'',html:`<div style="width:16px;height:16px;background:#CC0000;border:2px solid #FF1111;border-radius:50%;box-shadow:0 0 12px rgba(204,0,0,.6);cursor:pointer"></div>`,iconSize:[16,16],iconAnchor:[8,8]})})
+      .addTo(map).bindPopup(buildPopupHtml(ph),{closeButton:true,autoPan:true,maxWidth:280});
+    L.marker([ph.lat,ph.lng],{icon:L.divIcon({className:'',html:`<div style="width:32px;height:32px;border:1px solid rgba(204,0,0,.35);border-radius:50%;position:absolute;top:-8px;left:-8px;animation:mapPulse 2s ease-out infinite;pointer-events:none"></div>`,iconSize:[32,32],iconAnchor:[16,16]}),interactive:false,zIndexOffset:-1}).addTo(map);
+    mapMarkers.push({marker,ph});
+  });
 }
+window.addEventListener('load',initMap);
 
-// Init map after Leaflet loads
-window.addEventListener('load', initMap);
-
-/* ================================================================
-   FILTER TABS
-================================================================ */
-document.querySelectorAll('.filter-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+// FIX #8: filter hides coming-soon cards when a specific filter is active
+document.querySelectorAll('.filter-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    const filter = tab.dataset.filter;
-    document.querySelectorAll('.ph-card:not(.coming-soon)').forEach(card => {
-      if (filter === 'all' || card.dataset.tags.includes(filter)) {
-        card.style.display = '';
+    const filter=tab.dataset.filter;
+    document.querySelectorAll('.ph-card').forEach(card=>{
+      if(card.classList.contains('coming-soon')){
+        // FIX #8: hide coming-soon when filtering by category
+        card.classList.toggle('filter-hidden', filter!=='all');
       } else {
-        card.style.display = 'none';
+        card.style.display=(filter==='all'||card.dataset.tags.includes(filter))?'':'none';
       }
     });
   });
 });
 
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.rev, .ph-card').forEach(el => ro.observe(el));
-
-/* ================================================================
-   TILT on cards (desktop)
-================================================================ */
-if (!isMobile()) {
-  document.querySelectorAll('.ph-card:not(.coming-soon)').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(800px) rotateY(${x*4}deg) rotateX(${-y*4}deg) scale(1.01)`;
-    });
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
-      el.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94), opacity .8s, background .35s';
-      setTimeout(() => el.style.transition = '', 600);
-    });
+// TILT
+if(!isMobile()){
+  document.querySelectorAll('.ph-card:not(.coming-soon)').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateY(${x*4}deg) rotateX(${-y*4}deg) scale(1.01)`});
+    el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94),opacity .8s';setTimeout(()=>el.style.transition='',600)});
   });
 }
 
-/* ================================================================
-   HAMBURGER
-================================================================ */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobile-menu');
-const menuOverlay = document.getElementById('menu-overlay');
+// LANG
+let currentLang='it';
+const LNG={
+  it:{
+    navPortfolio:'Portfolio',navTeam:'Il Team',navServices:'Servizi',navContact:'Contatti',navBook:'Prenota Ora →',
+    phEyebrow:'Il Nostro Network',phTitle1:'I Nostri',phTitle2:'Fotografi',
+    phSub:'Un network selezionato di fotografi automotive in Europa. RevCulture fa da ponte tra i migliori fotografi e i clienti — tu scegli, noi organizziamo tutto.',
+    mapLabel:'Distribuzione geografica',
+    gridLabel:'Il Network',gridTitle1:'Prenota un',gridTitle2:'Fotografo',
+    ftAll:'Tutti',ftSupercar:'Supercar',ftEvents:'Eventi',ftLifestyle:'Lifestyle',
+    bookLabel:'Prenota Ora',csLabel:'Prossimamente',csSpec:'Network in espansione',
+    csName1:'TBA — Francia',csName2:'TBA — Germania',csName3:'TBA — Spagna',
+    fctaPre:'Non trovi un fotografo vicino a te?',
+    fctaH:'Contattaci<br/><em>lo troviamo noi</em>',
+    fctaSub:'Il network RevCulture cresce ogni mese. Scrivici e ti mettiamo in contatto con il fotografo giusto per la tua zona.',
+    fctaWa:'Scrivici su WhatsApp',mmWa:'Scrivici su WhatsApp',
+    fTagline:'Automotive Photography Network',fRights:'© 2026 revculture.it — Tutti i diritti riservati',
+    fWwaLabel:'Sei un fotografo?',fWwaBtn:'Lavora con Noi →'
+  },
+  en:{
+    navPortfolio:'Portfolio',navTeam:'The Team',navServices:'Services',navContact:'Contact',navBook:'Book Now →',
+    phEyebrow:'Our Network',phTitle1:'Our',phTitle2:'Photographers',
+    phSub:'A curated network of automotive photographers across Europe. RevCulture bridges the gap between top photographers and clients — you choose, we handle everything.',
+    mapLabel:'Geographic coverage',
+    gridLabel:'The Network',gridTitle1:'Book a',gridTitle2:'Photographer',
+    ftAll:'All',ftSupercar:'Supercar',ftEvents:'Events',ftLifestyle:'Lifestyle',
+    bookLabel:'Book Now',csLabel:'Coming Soon',csSpec:'Expanding network',
+    csName1:'TBA — France',csName2:'TBA — Germany',csName3:'TBA — Spain',
+    fctaPre:"Can't find a photographer near you?",
+    fctaH:'Contact us —<br/><em>we\'ll find one</em>',
+    fctaSub:'The RevCulture network grows every month. Message us and we\'ll connect you with the right photographer for your area.',
+    fctaWa:'Message us on WhatsApp',mmWa:'Message us on WhatsApp',
+    fTagline:'Automotive Photography Network',fRights:'© 2026 revculture.it — All rights reserved',
+    fWwaLabel:'Are you a photographer?',fWwaBtn:'Work With Us →'
+  }
+};
 
-function openMobileMenu() {
-  hamburger.classList.add('open');
-  mobileMenu.classList.add('open');
-  menuOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMobileMenu() {
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  menuOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
-});
-menuOverlay.addEventListener('click', closeMobileMenu);
-document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', closeMobileMenu));
+function setText(id,txt,html=false){const el=document.getElementById(id);if(el){if(html)el.innerHTML=txt;else el.textContent=txt}}
 
+function applyLang(lang){
+  currentLang=lang;
+  const d=LNG[lang];
+
+  // nav
+  setText('nl-portfolio',d.navPortfolio);setText('nl-team',d.navTeam);
+  setText('nl-services',d.navServices);setText('nl-contact',d.navContact);
+  setText('nav-book-btn',d.navBook);
+
+  // page hero
+  setText('ph-eyebrow-el',d.phEyebrow);setText('ph-title1-el',d.phTitle1);
+  setText('ph-title2-el',d.phTitle2);setText('ph-sub-el',d.phSub);
+  setText('map-label-el',d.mapLabel);
+
+  // grid header
+  setText('grid-label-el',d.gridLabel);setText('grid-title1-el',d.gridTitle1);setText('grid-title2-el',d.gridTitle2);
+  setText('ft-all',d.ftAll);setText('ft-supercar',d.ftSupercar);setText('ft-events',d.ftEvents);setText('ft-lifestyle',d.ftLifestyle);
+
+  // book labels on photographer cards
+  document.querySelectorAll('.book-label').forEach(el=>{
+    const loc=el.dataset.loc;
+    el.textContent=`${d.bookLabel} — ${loc} →`;
+  });
+
+  // coming soon
+  [1,2,3].forEach(i=>{
+    setText(`cs-label-${i}`,d.csLabel);
+    setText(`cs-spec-${i}`,d.csSpec);
+  });
+  setText('cs-name-1',d.csName1);setText('cs-name-2',d.csName2);setText('cs-name-3',d.csName3);
+
+  // footer CTA
+  setText('fcta-pre-el',d.fctaPre);
+  document.getElementById('fcta-h-el').innerHTML=d.fctaH;
+  setText('fcta-sub-el',d.fctaSub);
+  // FIX #4: only update text span, SVG is untouched
+  setText('fcta-wa-text',d.fctaWa);
+
+  // footer
+  setText('f-tagline-el',d.fTagline);
+  // FIX #9: use ID, not querySelector
+  setText('f-rights-el',d.fRights);
+  setText('f-wwa-label',d.fWwaLabel);setText('f-wwa-btn-text',d.fWwaBtn);
+  const wwaLink=document.getElementById('f-wwa-btn');
+  if(wwaLink){
+    const msg=lang==='en'?"Hi RevCulture, I'm a photographer and I'd like to join your network.":"Ciao RevCulture, sono un fotografo e vorrei collaborare con il vostro network.";
+    wwaLink.href=`https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
+  }
+
+  // mobile menu
+  setText('mm-portfolio',d.navPortfolio);setText('mm-team',d.navTeam);
+  setText('mm-services',d.navServices);setText('mm-contact',d.navContact);
+  setText('mm-wa-text',d.mmWa);
+
+  // update map popups
+  updateMapPopups();
+
+  // sync all lang buttons
+  document.querySelectorAll('.lang-btn,.menu-lang-btn').forEach(btn=>{
+    const isIt=btn.dataset.lang==='it'||btn.id==='mm-btn-it';
+    const isEn=btn.dataset.lang==='en'||btn.id==='mm-btn-en';
+    const active=(lang==='it'&&isIt)||(lang==='en'&&isEn);
+    btn.classList.toggle('active',active);
+  });
+
+  document.documentElement.lang=lang;
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.dataset.lang)));
+
+// HAMBURGER
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu'),menuOverlay=document.getElementById('menu-overlay');
+function openMobileMenu(){hamburger.classList.add('open');mobileMenu.classList.add('open');menuOverlay.classList.add('open');document.body.style.overflow='hidden'}
+function closeMobileMenu(){hamburger.classList.remove('open');mobileMenu.classList.remove('open');menuOverlay.classList.remove('open');document.body.style.overflow=''}
+hamburger.addEventListener('click',()=>mobileMenu.classList.contains('open')?closeMobileMenu():openMobileMenu());
+menuOverlay.addEventListener('click',closeMobileMenu);
+document.querySelectorAll('.mm-link').forEach(a=>a.addEventListener('click',closeMobileMenu));
 </script>
 </body>
 </html>
