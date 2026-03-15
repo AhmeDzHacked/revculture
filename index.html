@@ -467,12 +467,12 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
     <h2 class="sec-h" id="svc-h-el">Cosa<br/><em>offriamo</em></h2>
   </div>
   <div class="svc-grid">
-    <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name">Shooting Privato</div><div class="svc-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name">Content Creator</div><div class="svc-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name">Events Coverage</div><div class="svc-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name">Brand &amp; Dealer</div><div class="svc-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name">Luxury Lifestyle</div><div class="svc-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name">Post-Produzione</div><div class="svc-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name" id="svc-name-1">Shooting Privato</div><div class="svc-desc" id="svc-desc-1">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow" id="svc-arrow-1">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name" id="svc-name-2">Content Creator</div><div class="svc-desc" id="svc-desc-2">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow" id="svc-arrow-2">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name" id="svc-name-3">Events Coverage</div><div class="svc-desc" id="svc-desc-3">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow" id="svc-arrow-3">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name" id="svc-name-4">Brand &amp; Dealer</div><div class="svc-desc" id="svc-desc-4">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow" id="svc-arrow-4">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name" id="svc-name-5">Luxury Lifestyle</div><div class="svc-desc" id="svc-desc-5">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow" id="svc-arrow-5">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name" id="svc-name-6">Post-Produzione</div><div class="svc-desc" id="svc-desc-6">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow" id="svc-arrow-6">Inizia →</div></div>
   </div>
 </section>
 
@@ -636,6 +636,14 @@ const T = {
     stat1:'Vetture fotografate', stat2:'Clienti soddisfatti', stat3:'Anni di esperienza',
     numL1:'Vetture fotografate', numL2:'Clienti soddisfatti', numL3:'Anni di esperienza', numL4:'Passione per i motori',
     svcLabel:'Servizi', svcH:'Cosa<br/><em>offriamo</em>',
+    svc:[
+      {name:'Shooting Privato',     desc:'Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.',          arrow:'Inizia →'},
+      {name:'Content Creator',      desc:'Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.',          arrow:'Inizia →'},
+      {name:'Events Coverage',      desc:'Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.',               arrow:'Inizia →'},
+      {name:'Brand & Dealer',       desc:'Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.',              arrow:'Inizia →'},
+      {name:'Luxury Lifestyle',     desc:'Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.',                 arrow:'Inizia →'},
+      {name:'Post-Produzione',      desc:'Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.',             arrow:'Inizia →'},
+    ],
     ctaPre:'Pronti a collaborare?', ctaH:'Parliamo<br/><em>del tuo progetto</em>',
     ctaSub:'Hai una vettura da fotografare? Un evento? Un\'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.',
     waBtn:'Scrivici su WhatsApp', ctaOr:'oppure', igBtn:'Seguici — @revculture.it',
@@ -659,6 +667,14 @@ const T = {
     stat1:'Cars photographed', stat2:'Satisfied clients', stat3:'Years of experience',
     numL1:'Cars photographed', numL2:'Satisfied clients', numL3:'Years of experience', numL4:'Passion for motors',
     svcLabel:'Services', svcH:'What<br/><em>we offer</em>',
+    svc:[
+      {name:'Private Shooting',     desc:'Dedicated photography session for your car, in selected locations. Professional results for personal or social use.',                   arrow:'Start →'},
+      {name:'Content Creator',      desc:'Photography and video content for your social profiles, designed to showcase your car brand or lifestyle.',                              arrow:'Start →'},
+      {name:'Events Coverage',      desc:'Photography coverage of automotive events, meetups, track days and luxury evenings. Every moment captured with precision.',             arrow:'Start →'},
+      {name:'Brand & Dealer',       desc:'Photography services for dealerships, brands and automotive companies. Commercial portfolio and visual campaigns.',                     arrow:'Start →'},
+      {name:'Luxury Lifestyle',     desc:'Shoots integrating cars and lifestyle: watches, fashion, yachts, villas. A coherent and aspirational visual universe.',                arrow:'Start →'},
+      {name:'Post-Production',      desc:'Professional editing and advanced retouching. Every image goes through a carefully refined development process.',                       arrow:'Start →'},
+    ],
     ctaPre:'Ready to collaborate?', ctaH:'Let\'s talk<br/><em>about your project</em>',
     ctaSub:'Got a car to photograph? An event? An idea? Message us on WhatsApp and we\'ll find the perfect solution.',
     waBtn:'Message us on WhatsApp', ctaOr:'or', igBtn:'Follow us — @revculture.it',
@@ -712,6 +728,13 @@ function setLang(lang){
   // services
   setText('svc-label-el',d.svcLabel);
   document.getElementById('svc-h-el').innerHTML=d.svcH;
+  // service cards
+  d.svc.forEach((s,i)=>{
+    const n=i+1;
+    setText(`svc-name-${n}`,s.name);
+    setText(`svc-desc-${n}`,s.desc);
+    setText(`svc-arrow-${n}`,s.arrow);
+  });
 
   // contact — FIX #4: safe updates via span IDs, no innerHTML destroy of SVG
   setText('contact-pre-el',d.ctaPre);
