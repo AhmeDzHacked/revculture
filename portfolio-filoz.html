@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>FILOZ — Portfolio | RevCulture Automotive Photography Switzerland</title>
+<meta name="description" content="Portfolio di FILOZ, fotografo automotive di RevCulture. Supercar, luxury lifestyle e location alpine in tutta la Svizzera. Prenota la tua sessione."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://revculture.it/portfolio-filoz.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://revculture.it/portfolio-filoz.html"/>
+<meta property="og:title" content="FILOZ — Automotive Photography Portfolio | RevCulture"/>
+<meta property="og:description" content="Supercar, luxury lifestyle e location alpine in tutta la Svizzera."/>
+<meta property="og:image" content="https://revculture.it/images/og-image.jpg"/>
+<meta property="og:site_name" content="RevCulture"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://revculture.it/images/og-image.jpg"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --r:#CC0000;--rh:#FF1111;--blk:#060606;--d1:#0e0e0e;--d2:#161616;--d3:#1f1f1f;
+  --w:#F4F2EF;--head:'Anton',sans-serif;--cond:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--blk);color:var(--w);font-family:var(--body);font-weight:300;overflow-x:hidden;cursor:none}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9001}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--r);border-radius:50%;pointer-events:none;z-index:9999;left:0;top:0;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s,border-radius .2s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(204,0,0,.5);border-radius:50%;pointer-events:none;z-index:9998;left:0;top:0;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s}
+body.hov #cur{width:16px;height:16px;background:var(--rh);border-radius:3px}
+body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 48px;transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{padding:14px 48px;background:rgba(6,6,6,.94);backdrop-filter:blur(20px);border-color:rgba(255,255,255,.04)}
+.nav-logo{font-family:var(--head);font-size:1.4rem;letter-spacing:.16em;color:var(--w)}
+.nav-logo em{color:var(--r);font-style:normal}
+.nav-back{display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,242,239,.6);transition:color .25s}
+.nav-back:hover{color:var(--w)}
+.nav-back svg{flex-shrink:0;transition:transform .25s}
+.nav-back:hover svg{transform:translateX(-3px)}
+.nav-book-fixed{font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:var(--r);padding:10px 22px;transition:background .25s}
+.nav-book-fixed:hover{background:var(--rh)}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;z-index:600}
+.hamburger span{display:block;width:100%;height:1.5px;background:var(--w);transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{position:fixed;top:0;right:0;bottom:0;width:min(300px,82vw);background:rgba(8,8,8,.98);backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,.06);z-index:590;display:flex;flex-direction:column;padding:88px 36px 48px;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
+#mobile-menu.open{transform:translateX(0);pointer-events:all}
+#mobile-menu a{font-family:var(--head);font-size:1.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--w);display:block;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .25s}
+#mobile-menu a:hover{color:var(--r)}
+.menu-wa-mob{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:#25D366;padding:16px;margin-top:auto;transition:background .2s}
+#menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:580;opacity:0;pointer-events:none;transition:opacity .4s}
+#menu-overlay.open{opacity:1;pointer-events:all}
+
+/* PAGE HERO */
+.page-hero{
+  padding:140px 48px 60px;
+  position:relative;overflow:hidden;background:var(--blk);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:90px 90px;animation:gridDrift 20s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:90px 90px}}
+.page-hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;top:-300px;left:-200px;background:radial-gradient(circle,rgba(180,0,0,.14) 0%,transparent 65%);pointer-events:none;animation:glowDrift 9s ease-in-out infinite alternate}
+@keyframes glowDrift{from{transform:translate(0,0)}to{transform:translate(60px,40px) scale(1.1)}}
+.page-hero-stripe{position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent)}
+
+.hero-inner{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.hero-left{}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);margin-bottom:16px}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--r)}
+.hero-name{font-family:var(--head);font-size:clamp(4rem,11vw,10rem);line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--w);overflow:hidden}
+.hero-name-inner{display:block;transform:translateY(110%);animation:lineUp .9s .2s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes lineUp{to{transform:translateY(0)}}
+.hero-meta{display:flex;align-items:center;gap:24px;margin-top:20px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .6s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-location{display:inline-flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.72rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--r)}
+.hero-langs{display:flex;gap:6px}
+.lang-pill{font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);border:1px solid rgba(255,255,255,.1);padding:4px 10px}
+.hero-ig{display:inline-flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,242,239,.5);transition:color .25s}
+.hero-ig:hover{color:var(--r)}
+.hero-right{opacity:0;animation:fadeUp .7s .8s forwards;text-align:right}
+.hero-count{font-family:var(--head);font-size:clamp(2rem,4vw,3.5rem);color:var(--r);line-height:1}
+.hero-count-label{font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.4);margin-top:6px}
+.hero-spec{font-family:var(--cond);font-size:.78rem;letter-spacing:.08em;color:rgba(244,242,239,.5);margin-top:8px;line-height:1.5}
+
+/* FILTER BAR */
+.filter-bar{
+  padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--d1);
+  border-bottom:1px solid rgba(255,255,255,.05);
+  gap:16px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(12px);
+  background:rgba(14,14,14,.95);
+}
+.filter-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.filter-tab{font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:1px solid rgba(255,255,255,.1);padding:8px 18px;cursor:pointer;transition:all .25s}
+.filter-tab:hover{color:var(--w);border-color:rgba(255,255,255,.3)}
+.filter-tab.active{color:var(--w);background:var(--r);border-color:var(--r)}
+.filter-count{font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.3)}
+
+/* MASONRY GRID */
+.gallery-wrap{padding:6px;background:var(--blk);min-height:60vh}
+.masonry{columns:3;column-gap:6px}
+.m-item{
+  position:relative;overflow:hidden;background:var(--d2);
+  margin-bottom:6px;break-inside:avoid;cursor:none;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+}
+.m-item.on{opacity:1;transform:none}
+.m-item img{
+  width:100%;height:auto;display:block;
+  transition:transform .85s cubic-bezier(.25,.46,.45,.94),filter .5s;
+  filter:grayscale(20%) brightness(.88);
+}
+.m-item:hover img{transform:scale(1.06);filter:grayscale(0%) brightness(1)}
+.m-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(180,0,0,.7) 0%,transparent 55%);opacity:0;transition:opacity .35s}
+.m-item:hover::after{opacity:1}
+
+/* expand icon on hover */
+.m-expand{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.7);
+  opacity:0;z-index:3;
+  width:44px;height:44px;
+  border:1.5px solid rgba(255,255,255,.7);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .3s,transform .3s;
+  pointer-events:none;
+}
+.m-expand svg{color:var(--w);flex-shrink:0}
+.m-item:hover .m-expand{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* category badge */
+.m-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-family:var(--cond);font-size:.52rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--w);background:rgba(204,0,0,.8);
+  padding:4px 10px;
+  opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s;
+}
+.m-item:hover .m-badge{opacity:1;transform:translateY(0)}
+
+/* hidden items */
+.m-item.filtered-out{display:none}
+
+/* ── LIGHTBOX ── */
+#lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,.96);
+  z-index:8000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s;
+}
+#lightbox.open{opacity:1;pointer-events:all}
+body.lb-open{overflow:hidden}
+
+.lb-img-wrap{
+  position:relative;
+  max-width:92vw;max-height:88vh;
+  display:flex;align-items:center;justify-content:center;
+}
+#lb-img{
+  max-width:92vw;max-height:88vh;
+  object-fit:contain;
+  display:block;
+  transition:opacity .25s;
+}
+#lb-img.switching{opacity:0}
+
+/* close */
+#lb-close{
+  position:fixed;top:24px;right:24px;
+  width:44px;height:44px;
+  border:1px solid rgba(255,255,255,.2);border-radius:50%;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:8001;
+  transition:background .2s,border-color .2s;color:var(--w);
+}
+#lb-close:hover{background:var(--r);border-color:var(--r)}
+
+/* arrows */
+.lb-arrow{
+  position:fixed;top:50%;
+  transform:translateY(-50%);
+  width:52px;height:52px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:8001;color:var(--w);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.lb-arrow:hover{background:var(--r);border-color:var(--r)}
+#lb-prev{left:20px}.lb-arrow:hover{transform:translateY(-50%) scale(1.05)}
+#lb-next{right:20px}
+
+/* counter + caption */
+.lb-footer{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:20px;
+  font-family:var(--cond);font-size:.65rem;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);
+  white-space:nowrap;
+}
+#lb-counter{color:var(--r)}
+.lb-footer-dots{display:flex;gap:6px;align-items:center}
+.lb-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .2s,transform .2s}
+.lb-dot.active{background:var(--r);transform:scale(1.4)}
+
+/* BOOK STICKY BAR */
+.book-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:rgba(6,6,6,.95);backdrop-filter:blur(16px);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:16px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+  transform:translateY(100%);
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.book-bar.visible{transform:translateY(0)}
+.book-bar-left{display:flex;flex-direction:column}
+.book-bar-name{font-family:var(--head);font-size:1.1rem;letter-spacing:.1em;color:var(--w)}
+.book-bar-loc{font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--r);margin-top:2px}
+.book-bar-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:#25D366;color:var(--w);
+  font-family:var(--cond);font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:14px 32px;
+  position:relative;overflow:hidden;
+  transition:background .25s,transform .2s;flex-shrink:0;
+}
+.book-bar-btn:hover{background:#20bd5a;transform:translateY(-2px)}
+.book-bar-btn svg{flex-shrink:0}
+
+/* FOOTER */
+footer{background:var(--blk);border-top:1px solid rgba(255,255,255,.04);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;padding-bottom:100px}
+.f-logo{font-family:var(--head);font-size:1.3rem;letter-spacing:.18em}
+.f-logo em{color:var(--r);font-style:normal}
+footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:right}
+
+/* MOBILE */
+@media(max-width:768px){
+  #cur,#cur-ring{display:none}body{cursor:auto}
+  nav{padding:18px 20px}.nav-book-fixed{display:none}.hamburger{display:flex}
+  .page-hero{padding:110px 24px 48px}
+  .hero-inner{flex-direction:column;align-items:flex-start;gap:24px}
+  .hero-right{text-align:left;opacity:1;transform:none}
+  .filter-bar{padding:20px 24px;position:relative}
+  .gallery-wrap{padding:4px}
+  .masonry{columns:2;column-gap:4px}
+  .m-item{margin-bottom:4px}
+  .book-bar{padding:14px 20px;flex-direction:column;gap:12px;align-items:stretch}
+  .book-bar-btn{justify-content:center}
+  footer{padding:28px 24px 120px;flex-direction:column;gap:14px;text-align:center}
+  footer p{text-align:center}
+  #lb-prev{left:8px}#lb-next{right:8px}
+  .lb-arrow{width:40px;height:40px}
+}
+@media(max-width:400px){.masonry{columns:1}}
+@media(min-width:769px) and (max-width:1100px){.masonry{columns:2}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="fotografi.html" class="nav-back" id="nav-back-el">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <span id="nav-back-text">I Nostri Fotografi</span>
+  </a>
+  <a href="index.html" class="nav-logo">Rev<em>C</em>ulture</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <!-- lang switch -->
+    <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden">
+      <button onclick="setLang('it')" id="btn-it" style="font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:var(--r);border:none;padding:7px 12px;cursor:pointer">IT</button>
+      <button onclick="setLang('en')" id="btn-en" style="font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:none;padding:7px 12px;cursor:pointer;transition:background .2s,color .2s">EN</button>
+    </div>
+    <a href="https://wa.me/393931289124?text=Hi%20RevCulture%2C%20I%20would%20like%20to%20book%20a%20session%20with%20FILOZ%20(Switzerland)." target="_blank" class="nav-book-fixed" id="nav-book-el">Book FILOZ →</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="menu-overlay"></div>
+<div id="mobile-menu">
+  <a href="fotografi.html" id="mm-back-link">← I Nostri Fotografi</a>
+  <a href="index.html">Home</a>
+  <a href="index.html#portfolio">Portfolio</a>
+  <a href="index.html#contatti">Contatti</a>
+  <a href="https://wa.me/393931289124?text=Hi%20RevCulture%2C%20I%20would%20like%20to%20book%20a%20session%20with%20FILOZ." target="_blank" class="menu-wa-mob">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Book FILOZ
+  </a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-stripe"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow" id="hero-eyebrow-el">RevCulture — Fotografo</div>
+      <div class="hero-name"><span class="hero-name-inner">FILOZ</span></div>
+      <div class="hero-meta">
+        <div class="hero-location">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span id="hero-loc-el">Switzerland — Nationwide</span>
+        </div>
+        <div class="hero-langs">
+          <span class="lang-pill">EN</span>
+          <span class="lang-pill">FR</span>
+        </div>
+        <a href="https://instagram.com/photo.by.filoz" target="_blank" class="hero-ig">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @photo.by.filoz
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-count" id="photoCount">5</div>
+      <div class="hero-count-label" id="photo-count-label">Foto nel portfolio</div>
+      <div class="hero-spec" id="hero-spec-el">Supercar · Luxury Lifestyle<br/>Alpine Locations</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-filter="all" id="ft-all">Tutte</button>
+    <button class="filter-tab" data-filter="supercar" id="ft-supercar">Supercar</button>
+    <button class="filter-tab" data-filter="lifestyle" id="ft-lifestyle">Lifestyle</button>
+    <button class="filter-tab" data-filter="events" id="ft-events">Events</button>
+  </div>
+  <span class="filter-count" id="filterCount">5 foto</span>
+</div>
+
+<!-- GALLERY
+     ★ Per aggiungere foto: copia un blocco .m-item e cambia:
+        - src="images/filozNN.jpg"
+        - data-cat="supercar" oppure "lifestyle" oppure "events"
+        - alt con descrizione
+-->
+<div class="gallery-wrap">
+  <div class="masonry" id="gallery">
+
+    <div class="m-item" data-cat="supercar" data-idx="0">
+      <img src="images/filoz01.jpg" alt="FILOZ — Supercar Photography Switzerland" loading="lazy"/>
+      <div class="m-expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      <div class="m-badge">Supercar</div>
+    </div>
+
+    <div class="m-item" data-cat="lifestyle" data-idx="1">
+      <img src="images/filoz02.jpg" alt="FILOZ — Luxury Lifestyle Photography Switzerland" loading="lazy"/>
+      <div class="m-expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      <div class="m-badge">Lifestyle</div>
+    </div>
+
+    <div class="m-item" data-cat="supercar" data-idx="2">
+      <img src="images/filoz03.jpg" alt="FILOZ — Automotive Photography Alps" loading="lazy"/>
+      <div class="m-expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      <div class="m-badge">Supercar</div>
+    </div>
+
+    <div class="m-item" data-cat="events" data-idx="3">
+      <img src="images/filoz04.jpg" alt="FILOZ — Car Event Coverage Switzerland" loading="lazy"/>
+      <div class="m-expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      <div class="m-badge">Events</div>
+    </div>
+
+    <div class="m-item" data-cat="lifestyle" data-idx="4">
+      <img src="images/filoz05.jpg" alt="FILOZ — Luxury Car Photography Switzerland" loading="lazy"/>
+      <div class="m-expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      <div class="m-badge">Lifestyle</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lb-close" aria-label="Chiudi">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lb-arrow" id="lb-prev" aria-label="Precedente">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="lb-img-wrap">
+    <img id="lb-img" src="" alt=""/>
+  </div>
+  <button class="lb-arrow" id="lb-next" aria-label="Successiva">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lb-footer">
+    <span id="lb-counter">1 / 5</span>
+    <div class="lb-footer-dots" id="lbDots"></div>
+  </div>
+</div>
+
+<!-- STICKY BOOK BAR -->
+<div class="book-bar" id="bookBar">
+  <div class="book-bar-left">
+    <div class="book-bar-name">FILOZ</div>
+    <div class="book-bar-loc" id="book-bar-loc">Switzerland — Nationwide</div>
+  </div>
+  <a href="https://wa.me/393931289124?text=Hi%20RevCulture%2C%20I%20would%20like%20to%20book%20a%20photography%20session%20with%20FILOZ%20(Switzerland)."
+     target="_blank" class="book-bar-btn" id="book-bar-btn-el">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span id="book-bar-btn-text">Book Now — WhatsApp</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">Rev<em>C</em>ulture</div>
+    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-top:5px">Automotive Photography Network</div>
+  </div>
+  <div>
+    <p>© 2026 revculture.it — Tutti i diritti riservati</p>
+    <p style="margin-top:4px">Made with passion — Italy</p>
+  </div>
+</footer>
+
+<script>
+// ── LANG SWITCH ──
+const PF_T = {
+  it:{
+    navBack:'I Nostri Fotografi',
+    navBook:'Prenota FILOZ →',
+    heroEyebrow:'RevCulture — Fotografo',
+    heroLoc:'Switzerland — Nationwide',
+    photoCountLabel:'Foto nel portfolio',
+    heroSpec:'Supercar · Luxury Lifestyle<br/>Location Alpine',
+    ftAll:'Tutte',ftSupercar:'Supercar',ftLifestyle:'Lifestyle',ftEvents:'Events',
+    filterSuffix:'foto',
+    bookBarLoc:'Switzerland — Nazionale',
+    bookBarBtn:'Prenota Ora — WhatsApp',
+    mmBack:'← I Nostri Fotografi',
+  },
+  en:{
+    navBack:'Our Photographers',
+    navBook:'Book FILOZ →',
+    heroEyebrow:'RevCulture — Photographer',
+    heroLoc:'Switzerland — Nationwide',
+    photoCountLabel:'Photos in portfolio',
+    heroSpec:'Supercar · Luxury Lifestyle<br/>Alpine Locations',
+    ftAll:'All',ftSupercar:'Supercar',ftLifestyle:'Lifestyle',ftEvents:'Events',
+    filterSuffix:'photos',
+    bookBarLoc:'Switzerland — Nationwide',
+    bookBarBtn:'Book Now — WhatsApp',
+    mmBack:'← Our Photographers',
+  }
+};
+
+function setText(id,txt,html=false){const el=document.getElementById(id);if(el){if(html)el.innerHTML=txt;else el.textContent=txt;}}
+
+function setLang(lang){
+  const d=PF_T[lang];
+
+  // nav
+  setText('nav-back-text',d.navBack);
+  setText('nav-book-el',d.navBook);
+
+  // hero
+  setText('hero-eyebrow-el',d.heroEyebrow);
+  setText('hero-loc-el',d.heroLoc);
+  setText('photo-count-label',d.photoCountLabel);
+  document.getElementById('hero-spec-el').innerHTML=d.heroSpec;
+
+  // filters
+  setText('ft-all',d.ftAll);setText('ft-supercar',d.ftSupercar);
+  setText('ft-lifestyle',d.ftLifestyle);setText('ft-events',d.ftEvents);
+
+  // filter count
+  const visible=document.querySelectorAll('.m-item:not(.filtered-out)').length;
+  document.getElementById('filterCount').textContent=`${visible} ${d.filterSuffix}`;
+
+  // book bar
+  setText('book-bar-loc',d.bookBarLoc);
+  setText('book-bar-btn-text',d.bookBarBtn);
+
+  // mobile menu back link
+  const mmBack=document.getElementById('mm-back-link');
+  if(mmBack) mmBack.textContent=d.mmBack;
+
+  // lang button sync
+  document.getElementById('btn-it').style.background=lang==='it'?'var(--r)':'transparent';
+  document.getElementById('btn-it').style.color=lang==='it'?'var(--w)':'rgba(244,242,239,.5)';
+  document.getElementById('btn-en').style.background=lang==='en'?'var(--r)':'transparent';
+  document.getElementById('btn-en').style.color=lang==='en'?'var(--w)':'rgba(244,242,239,.5)';
+
+  // page title
+  document.documentElement.lang=lang;
+  if(lang==='en'){
+    document.title='FILOZ — Portfolio | RevCulture Automotive Photography Switzerland';
+  } else {
+    document.title='FILOZ — Portfolio | RevCulture Fotografia Automotive Svizzera';
+  }
+}
+
+const isMobile=()=>window.innerWidth<=768;
+
+// CURSOR
+const curEl=document.getElementById('cur'),ringEl=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+if(!isMobile()){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curEl.style.left=mx+'px';curEl.style.top=my+'px'});
+  (function ar(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(ar)})();
+  document.querySelectorAll('a,button,.m-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// HAMBURGER
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu'),menuOverlay=document.getElementById('menu-overlay');
+function openMenu(){hamburger.classList.add('open');mobileMenu.classList.add('open');menuOverlay.classList.add('open');document.body.style.overflow='hidden'}
+function closeMenu(){hamburger.classList.remove('open');mobileMenu.classList.remove('open');menuOverlay.classList.remove('open');document.body.style.overflow=''}
+hamburger.addEventListener('click',()=>mobileMenu.classList.contains('open')?closeMenu():openMenu());
+menuOverlay.addEventListener('click',closeMenu);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+// SCROLL REVEAL for gallery items
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('on'),i*60);
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.m-item').forEach(el=>ro.observe(el));
+
+// STICKY BOOK BAR — appears after scrolling past hero
+const bookBar=document.getElementById('bookBar');
+const heroEl=document.querySelector('.page-hero');
+const barObserver=new IntersectionObserver(entries=>{
+  bookBar.classList.toggle('visible',!entries[0].isIntersecting);
+},{threshold:0});
+barObserver.observe(heroEl);
+
+// ── LIGHTBOX ──
+const lb=document.getElementById('lightbox');
+const lbImg=document.getElementById('lb-img');
+const lbCounter=document.getElementById('lb-counter');
+const lbDots=document.getElementById('lbDots');
+
+let currentItems=[];  // currently visible items (respects filter)
+let currentIdx=0;
+
+function buildDots(){
+  lbDots.innerHTML='';
+  currentItems.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='lb-dot'+(i===currentIdx?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    lbDots.appendChild(d);
+  });
+}
+
+function updateDots(){
+  lbDots.querySelectorAll('.lb-dot').forEach((d,i)=>d.classList.toggle('active',i===currentIdx));
+}
+
+function openLightbox(idx){
+  currentIdx=idx;
+  lbImg.src=currentItems[idx].querySelector('img').src;
+  lbImg.alt=currentItems[idx].querySelector('img').alt;
+  lbCounter.textContent=`${idx+1} / ${currentItems.length}`;
+  buildDots();
+  lb.classList.add('open');
+  document.body.classList.add('lb-open');
+}
+
+function closeLightbox(){
+  lb.classList.remove('open');
+  document.body.classList.remove('lb-open');
+}
+
+function goTo(idx){
+  if(idx<0) idx=currentItems.length-1;
+  if(idx>=currentItems.length) idx=0;
+  currentIdx=idx;
+  lbImg.classList.add('switching');
+  setTimeout(()=>{
+    lbImg.src=currentItems[idx].querySelector('img').src;
+    lbImg.alt=currentItems[idx].querySelector('img').alt;
+    lbImg.classList.remove('switching');
+    lbCounter.textContent=`${idx+1} / ${currentItems.length}`;
+    updateDots();
+  },200);
+}
+
+// click on gallery item
+document.getElementById('gallery').addEventListener('click',e=>{
+  const item=e.target.closest('.m-item');
+  if(!item||item.classList.contains('filtered-out'))return;
+  // rebuild current visible items list
+  currentItems=Array.from(document.querySelectorAll('.m-item:not(.filtered-out)'));
+  const idx=currentItems.indexOf(item);
+  if(idx!==-1) openLightbox(idx);
+});
+
+document.getElementById('lb-close').addEventListener('click',closeLightbox);
+document.getElementById('lb-prev').addEventListener('click',()=>goTo(currentIdx-1));
+document.getElementById('lb-next').addEventListener('click',()=>goTo(currentIdx+1));
+
+// keyboard navigation
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') goTo(currentIdx+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') goTo(currentIdx-1);
+  if(e.key==='Escape') closeLightbox();
+});
+
+// click outside image closes lightbox
+lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox()});
+
+// ── FILTER TABS ──
+const filterCountEl=document.getElementById('filterCount');
+
+function updateFilterCount(){
+  const visible=document.querySelectorAll('.m-item:not(.filtered-out)').length;
+  const suffix=document.documentElement.lang==='en'?'photos':'foto';
+  filterCountEl.textContent=`${visible} ${suffix}`;
+}
+
+document.querySelectorAll('.filter-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter=tab.dataset.filter;
+    document.querySelectorAll('.m-item').forEach(item=>{
+      const match=filter==='all'||item.dataset.cat===filter;
+      item.classList.toggle('filtered-out',!match);
+    });
+    updateFilterCount();
+    // rebuild currentItems for lightbox
+    currentItems=Array.from(document.querySelectorAll('.m-item:not(.filtered-out)'));
+  });
+});
+
+// init currentItems
+currentItems=Array.from(document.querySelectorAll('.m-item'));
+updateFilterCount();
+
+// TILT on images (desktop)
+if(!isMobile()){
+  document.querySelectorAll('.m-item').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(600px) rotateY(${x*5}deg) rotateX(${-y*5}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='';
+      el.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94),opacity .7s';
+      setTimeout(()=>el.style.transition='',600);
+    });
+  });
+}
+</script>
+</body>
+</html>
