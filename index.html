@@ -357,6 +357,66 @@ nav.hidden{transform:translateY(-100%)}
 }
 .sec-h em{color:var(--r);font-style:normal}
 
+/* ================================================================
+   HAMBURGER — mobile nav
+================================================================ */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;z-index:600;
+}
+.hamburger span{
+  display:block;width:100%;height:1.5px;background:var(--w);
+  transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;
+  transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+#mobile-menu{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(300px,82vw);
+  background:rgba(8,8,8,.98);backdrop-filter:blur(20px);
+  border-left:1px solid rgba(255,255,255,.06);
+  z-index:590;display:flex;flex-direction:column;
+  padding:88px 36px 48px;
+  transform:translateX(100%);
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+#mobile-menu.open{transform:translateX(0);pointer-events:all}
+#mobile-menu a{
+  font-family:var(--head);font-size:2rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--w);
+  display:block;padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:color .25s;
+}
+#mobile-menu a:hover{color:var(--r)}
+#mobile-menu a.menu-team{color:var(--r)}
+.menu-lang{display:flex;gap:4px;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;}
+.menu-lang-btn{
+  font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  flex:1;padding:12px;text-align:center;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:rgba(244,242,239,.5);cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.menu-lang-btn.active{background:var(--r);color:var(--w);border-color:var(--r)}
+.menu-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--w);background:#25D366;padding:16px;margin-top:16px;
+  transition:background .2s;
+}
+.menu-wa:hover{background:#20bd5a}
+#menu-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:580;opacity:0;pointer-events:none;transition:opacity .4s;
+}
+#menu-overlay.open{opacity:1;pointer-events:all}
+
 /* scroll reveal */
 .rev{
   opacity:0;transform:translateY(48px);
@@ -778,9 +838,8 @@ footer p{
   nav{padding:20px 24px}
   nav.scrolled{padding:14px 24px}
   .nav-links{display:none}
-  .nav-btn{
-    font-size:.62rem;padding:10px 18px;letter-spacing:.15em
-  }
+  .nav-btn{display:none}
+  .hamburger{display:flex}
 
   /* ---- HERO ---- */
   .hero{min-height:100svh}
@@ -935,10 +994,10 @@ footer p{
 <nav id="nav">
   <a href="#" class="nav-logo">Rev<em>C</em>ulture</a>
   <ul class="nav-links">
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="fotografi.html" style="color:var(--r)">Il Team</a></li>
-    <li><a href="#servizi">Servizi</a></li>
-    <li><a href="#contatti">Contatti</a></li>
+    <li><a href="#portfolio" id="nl-portfolio">Portfolio</a></li>
+    <li><a href="fotografi.html" style="color:var(--r)" id="nl-team">Il Team</a></li>
+    <li><a href="#servizi" id="nl-services">Servizi</a></li>
+    <li><a href="#contatti" id="nl-contact">Contatti</a></li>
     <li>
       <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden">
         <button onclick="setLang('it')" id="btn-it" style="font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:var(--r);border:none;padding:8px 14px;cursor:pointer">IT</button>
@@ -946,8 +1005,31 @@ footer p{
       </div>
     </li>
   </ul>
-  <a href="https://wa.me/3931289124" target="_blank" class="nav-btn" id="nav-book-btn">Book Now →</a>
+  <a href="https://wa.me/393931289124" target="_blank" class="nav-btn" id="nav-book-btn">Book Now →</a>
+  <!-- hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div id="menu-overlay"></div>
+
+<!-- MOBILE MENU DRAWER -->
+<div id="mobile-menu">
+  <a href="#portfolio" id="mm-portfolio" class="mm-link">Portfolio</a>
+  <a href="fotografi.html" id="mm-team" class="mm-link menu-team">Il Team</a>
+  <a href="#servizi" id="mm-services" class="mm-link">Servizi</a>
+  <a href="#contatti" id="mm-contact" class="mm-link">Contatti</a>
+  <a href="https://wa.me/393931289124" target="_blank" class="menu-wa">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span id="mm-wa-text">Scrivici su WhatsApp</span>
+  </a>
+  <div class="menu-lang">
+    <button class="menu-lang-btn active" id="mm-btn-it" onclick="setLang('it');closeMobileMenu()">IT</button>
+    <button class="menu-lang-btn" id="mm-btn-en" onclick="setLang('en');closeMobileMenu()">EN</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1362,10 +1444,15 @@ function setLang(lang) {
   document.getElementById('btn-en').style.background = lang==='en' ? 'var(--r)' : 'transparent';
   document.getElementById('btn-en').style.color = lang==='en' ? 'var(--w)' : 'rgba(244,242,239,.5)';
 
-  // ---- nav links ----
-  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-btn)');
-  const navKeys = ['nav.portfolio','nav.team','nav.services','nav.contact'];
-  navLinks.forEach((a, i) => { if(navKeys[i] && d[navKeys[i]]) a.textContent = d[navKeys[i]]; });
+  // ---- nav links (desktop) ----
+  const nlPortfolio = document.getElementById('nl-portfolio');
+  const nlTeam = document.getElementById('nl-team');
+  const nlServices = document.getElementById('nl-services');
+  const nlContact = document.getElementById('nl-contact');
+  if(nlPortfolio) nlPortfolio.textContent = lang==='en' ? 'Portfolio' : 'Portfolio';
+  if(nlTeam)      nlTeam.textContent      = lang==='en' ? 'The Team'  : 'Il Team';
+  if(nlServices)  nlServices.textContent  = lang==='en' ? 'Services'  : 'Servizi';
+  if(nlContact)   nlContact.textContent   = lang==='en' ? 'Contact'   : 'Contatti';
   const navBookBtn = document.getElementById('nav-book-btn');
   if(navBookBtn) navBookBtn.textContent = d.navBook;
 
@@ -1441,6 +1528,32 @@ function setLang(lang) {
     wwaLink.href = `https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
   }
 
+  // ---- mobile menu ----
+  const mmPortfolio = document.getElementById('mm-portfolio');
+  const mmTeam = document.getElementById('mm-team');
+  const mmServices = document.getElementById('mm-services');
+  const mmContact = document.getElementById('mm-contact');
+  const mmWaText = document.getElementById('mm-wa-text');
+  if(mmPortfolio) mmPortfolio.textContent = lang==='en' ? 'Portfolio' : 'Portfolio';
+  if(mmTeam) mmTeam.textContent = lang==='en' ? 'The Team' : 'Il Team';
+  if(mmServices) mmServices.textContent = lang==='en' ? 'Services' : 'Servizi';
+  if(mmContact) mmContact.textContent = lang==='en' ? 'Contact' : 'Contatti';
+  if(mmWaText) mmWaText.textContent = lang==='en' ? 'Message us on WhatsApp' : 'Scrivici su WhatsApp';
+
+  // sync all lang buttons (desktop + mobile)
+  ['btn-it','mm-btn-it'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(lang==='it'){ el.style.background='var(--r)';el.style.color='var(--w)';el.classList.add('active'); }
+    else { el.style.background='transparent';el.style.color='rgba(244,242,239,.5)';el.classList.remove('active'); }
+  });
+  ['btn-en','mm-btn-en'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(lang==='en'){ el.style.background='var(--r)';el.style.color='var(--w)';el.classList.add('active'); }
+    else { el.style.background='transparent';el.style.color='rgba(244,242,239,.5)';el.classList.remove('active'); }
+  });
+
   document.documentElement.lang = lang;
 }
 
@@ -1454,6 +1567,1630 @@ if(!isMobile()){
     grid.style.backgroundPosition=`${x*20}px ${y*20}px`;
   });
 }
+
+// ---- HAMBURGER MENU ----
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+
+function openMobileMenu(){
+  hamburger.classList.add('open');
+  mobileMenu.classList.add('open');
+  menuOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMobileMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  menuOverlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+hamburger.addEventListener('click', ()=>{
+  mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+});
+menuOverlay.addEventListener('click', closeMobileMenu);
+// close on nav link click
+document.querySelectorAll('.mm-link').forEach(a=>{
+  a.addEventListener('click', closeMobileMenu);
+});
+
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REV CULTURE — Automotive & Luxury Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+
+/* ================================================================
+   TOKENS
+================================================================ */
+:root {
+  --r:   #CC0000;
+  --rh:  #FF1111;
+  --blk: #060606;
+  --d1:  #0e0e0e;
+  --d2:  #161616;
+  --d3:  #1f1f1f;
+  --w:   #F4F2EF;
+  --head:'Anton', sans-serif;
+  --cond:'Barlow Condensed', sans-serif;
+  --body:'Barlow', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--blk);
+  color:var(--w);
+  font-family:var(--body);
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ================================================================
+   NOISE
+================================================================ */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.03;pointer-events:none;z-index:9001
+}
+
+/* ================================================================
+   CURSOR — desktop only
+================================================================ */
+#cur{
+  position:fixed;width:8px;height:8px;
+  background:var(--r);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  left:0;top:0;
+  transform:translate(-50%,-50%);
+  transition:width .15s,height .15s,background .15s,border-radius .2s;
+  mix-blend-mode:screen;
+}
+#cur-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(204,0,0,.5);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  left:0;top:0;
+  transform:translate(-50%,-50%);
+  transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s;
+}
+body.hov #cur{width:16px;height:16px;background:var(--rh);border-radius:3px}
+body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
+
+/* ================================================================
+   LOADER
+================================================================ */
+#loader{
+  position:fixed;inset:0;background:var(--blk);
+  z-index:8000;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0;
+  overflow:hidden;
+}
+#loader.gone{
+  clip-path:polygon(0 0,100% 0,100% 0,0 0);
+  transition:clip-path .9s cubic-bezier(.7,0,.3,1);
+  pointer-events:none;
+}
+.ld-logo{
+  font-family:var(--head);font-size:clamp(3rem,8vw,7rem);
+  letter-spacing:.12em;color:var(--w);
+  overflow:hidden;margin-bottom:40px;
+}
+.ld-logo em{color:var(--r);font-style:normal}
+.ld-logo-inner{
+  display:block;
+  transform:translateY(100%);
+  animation:ldUp .8s .1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.ld-bar-outer{
+  width:220px;height:1px;
+  background:rgba(244,242,239,.08);position:relative;overflow:hidden;
+}
+.ld-bar{position:absolute;top:0;left:0;height:100%;background:var(--r);width:0%;transition:width .05s linear}
+.ld-pct{
+  font-family:var(--cond);font-size:.7rem;
+  letter-spacing:.35em;color:rgba(244,242,239,.5);
+  margin-top:16px;opacity:0;
+  animation:ldFade .5s .3s forwards;
+}
+@keyframes ldUp{to{transform:translateY(0)}}
+@keyframes ldFade{to{opacity:1}}
+
+/* ================================================================
+   NAV
+================================================================ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 48px;
+  transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s,transform .4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{
+  padding:16px 48px;
+  background:rgba(6,6,6,.94);
+  backdrop-filter:blur(20px);
+  border-color:rgba(255,255,255,.04);
+}
+nav.hidden{transform:translateY(-100%)}
+
+.nav-logo{
+  font-family:var(--head);font-size:1.4rem;
+  letter-spacing:.16em;color:var(--w);
+}
+.nav-logo em{color:var(--r);font-style:normal}
+
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{
+  font-family:var(--cond);font-size:.7rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:rgba(244,242,239,.7);
+  position:relative;transition:color .25s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-5px;left:0;
+  width:0;height:1px;background:var(--r);
+  transition:width .35s cubic-bezier(.25,.46,.45,.94);
+}
+.nav-links a:hover{color:var(--w)}
+.nav-links a:hover::after{width:100%}
+
+.nav-btn{
+  font-family:var(--cond);font-size:.7rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--w);background:var(--r);
+  padding:11px 24px;
+  position:relative;overflow:hidden;
+  transition:background .25s,transform .2s;
+}
+.nav-btn::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.12);
+  transform:translateX(-100%);transition:transform .35s;
+}
+.nav-btn:hover{background:var(--rh);transform:translateY(-1px)}
+.nav-btn:hover::before{transform:translateX(0)}
+
+/* ================================================================
+   HERO
+================================================================ */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:90px 90px;
+  animation:gridDrift 20s linear infinite;
+}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:90px 90px}}
+
+.hero-glow{position:absolute;border-radius:50%;pointer-events:none}
+.hero-glow-1{
+  width:900px;height:900px;top:-300px;left:-300px;
+  background:radial-gradient(circle,rgba(180,0,0,.16) 0%,transparent 65%);
+  animation:glow1 9s ease-in-out infinite alternate;
+}
+.hero-glow-2{
+  width:650px;height:650px;bottom:-200px;right:5%;
+  background:radial-gradient(circle,rgba(204,0,0,.1) 0%,transparent 65%);
+  animation:glow2 12s ease-in-out infinite alternate;
+}
+@keyframes glow1{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,50px) scale(1.18)}}
+@keyframes glow2{from{transform:translate(0,0)}to{transform:translate(-50px,-40px) scale(1.15)}}
+
+.hero-stripe{
+  position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent);
+}
+.hero-wm{
+  position:absolute;bottom:-60px;right:-30px;
+  font-family:var(--head);font-size:clamp(180px,30vw,420px);
+  line-height:1;letter-spacing:-.02em;
+  color:rgba(204,0,0,.045);
+  pointer-events:none;user-select:none;
+  animation:wmDrift 14s ease-in-out infinite alternate;
+}
+@keyframes wmDrift{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-20px) rotate(0deg)}}
+
+.hero-scan{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(204,0,0,.4),transparent);
+  animation:scan 6s ease-in-out infinite;pointer-events:none;
+}
+@keyframes scan{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 48px 72px;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:var(--r);margin-bottom:24px;
+  clip-path:polygon(0 0,0 0,0 100%,0 100%);
+  animation:tagReveal .6s .1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-tag::before{content:'';width:24px;height:1px;background:var(--r)}
+@keyframes tagReveal{to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+
+.hero-h1{
+  font-family:var(--head);
+  font-size:clamp(76px,18vw,240px);
+  line-height:.85;letter-spacing:-.01em;
+  text-transform:uppercase;
+}
+.h1-line{overflow:hidden;display:block}
+.h1-inner{display:block;transform:translateY(110%) skewY(4deg);opacity:0}
+.h1-line:nth-child(1) .h1-inner{animation:lineUp 1s .3s cubic-bezier(.16,1,.3,1) forwards}
+.h1-line:nth-child(2) .h1-inner{
+  color:var(--r);
+  animation:lineUp 1s .52s cubic-bezier(.16,1,.3,1) forwards,
+            glitchIn .4s .52s steps(1) forwards;
+}
+@keyframes lineUp{to{transform:translateY(0) skewY(0);opacity:1}}
+@keyframes glitchIn{
+  0%{text-shadow:3px 0 var(--rh),-3px 0 #001aff}
+  25%{text-shadow:-3px 0 var(--rh),3px 0 #001aff}
+  50%{text-shadow:2px 0 #fff,-2px 0 var(--r)}
+  100%{text-shadow:none}
+}
+
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:40px;gap:32px;
+  opacity:0;animation:fadeUp .8s 1.1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-sub{
+  font-family:var(--cond);font-size:1.05rem;font-weight:300;font-style:italic;
+  /* ★ WAS semi-transparent, NOW full white */
+  color:var(--w);
+  max-width:380px;line-height:1.65;
+}
+.hero-btns{display:flex;gap:16px;align-items:center;flex-shrink:0}
+
+.btn-red{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--r);color:var(--w);
+  font-family:var(--cond);font-size:.72rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:17px 36px;
+  position:relative;overflow:hidden;
+  transition:background .25s,transform .2s;
+}
+.btn-red::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.12);
+  transform:translateX(-100%) skewX(-10deg);transition:transform .4s;
+}
+.btn-red:hover{background:var(--rh);transform:translateX(4px)}
+.btn-red:hover::after{transform:translateX(100%) skewX(-10deg)}
+
+.btn-ghost{
+  font-family:var(--cond);font-size:.72rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS semi-transparent, NOW white */
+  color:var(--w);
+  border-bottom:1px solid rgba(244,242,239,.35);
+  padding-bottom:3px;
+  transition:color .25s,border-color .25s;
+}
+.btn-ghost:hover{color:var(--r);border-color:var(--r)}
+
+.hero-scroll{
+  position:absolute;right:48px;bottom:72px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeUp .8s 1.4s forwards;
+}
+.hero-scroll span{
+  font-family:var(--cond);font-size:.58rem;font-weight:700;
+  letter-spacing:.35em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:rgba(244,242,239,.6);
+  writing-mode:vertical-rl;
+}
+.scroll-track{
+  width:1px;height:64px;
+  background:rgba(255,255,255,.15);position:relative;overflow:hidden;
+}
+.scroll-track::after{
+  content:'';position:absolute;width:100%;height:35%;
+  background:var(--r);top:-35%;
+  animation:trackDrop 2s ease-in-out infinite;
+}
+@keyframes trackDrop{0%{top:-35%}100%{top:135%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ================================================================
+   MARQUEE
+================================================================ */
+.marquee-wrap{
+  overflow:hidden;background:var(--r);padding:13px 0;
+  border-top:1px solid rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.25);
+  position:relative;
+}
+.marquee-wrap::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:shine 4s ease-in-out infinite;pointer-events:none;
+}
+@keyframes shine{0%{left:-100%}100%{left:200%}}
+.marquee-track{display:flex;white-space:nowrap;animation:mq 28s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.mq-item{
+  display:inline-flex;align-items:center;gap:28px;padding-right:28px;
+  font-family:var(--head);font-size:1rem;letter-spacing:.18em;color:rgba(255,255,255,.92);
+}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);display:inline-block}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ================================================================
+   SECTION COMMONS
+================================================================ */
+.sec-label{
+  font-family:var(--cond);font-size:.65rem;font-weight:700;
+  letter-spacing:.4em;text-transform:uppercase;color:var(--r);
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.sec-label::before{content:'';width:20px;height:1px;background:var(--r)}
+.sec-h{
+  font-family:var(--head);font-size:clamp(2.8rem,7vw,6.5rem);
+  line-height:.9;letter-spacing:.02em;text-transform:uppercase;
+}
+.sec-h em{color:var(--r);font-style:normal}
+
+/* ================================================================
+   HAMBURGER — mobile nav
+================================================================ */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;z-index:600;
+}
+.hamburger span{
+  display:block;width:100%;height:1.5px;background:var(--w);
+  transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;
+  transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+#mobile-menu{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(300px,82vw);
+  background:rgba(8,8,8,.98);backdrop-filter:blur(20px);
+  border-left:1px solid rgba(255,255,255,.06);
+  z-index:590;display:flex;flex-direction:column;
+  padding:88px 36px 48px;
+  transform:translateX(100%);
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+#mobile-menu.open{transform:translateX(0);pointer-events:all}
+#mobile-menu a{
+  font-family:var(--head);font-size:2rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--w);
+  display:block;padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:color .25s;
+}
+#mobile-menu a:hover{color:var(--r)}
+#mobile-menu a.menu-team{color:var(--r)}
+.menu-lang{display:flex;gap:4px;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;}
+.menu-lang-btn{
+  font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  flex:1;padding:12px;text-align:center;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:rgba(244,242,239,.5);cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.menu-lang-btn.active{background:var(--r);color:var(--w);border-color:var(--r)}
+.menu-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--w);background:#25D366;padding:16px;margin-top:16px;
+  transition:background .2s;
+}
+.menu-wa:hover{background:#20bd5a}
+#menu-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:580;opacity:0;pointer-events:none;transition:opacity .4s;
+}
+#menu-overlay.open{opacity:1;pointer-events:all}
+
+/* scroll reveal */
+.rev{
+  opacity:0;transform:translateY(48px);
+  transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);
+}
+.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.22s}
+.rev.d3{transition-delay:.34s}.rev.d4{transition-delay:.46s}
+.rev.on{opacity:1;transform:none}
+
+/* ================================================================
+   PORTFOLIO
+================================================================ */
+#portfolio{padding:120px 48px;background:var(--blk)}
+
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px;
+}
+
+/* 3 col desktop, never more than 2 on mobile */
+.masonry{columns:3;column-gap:6px}
+.m-item{
+  position:relative;overflow:hidden;
+  background:var(--d2);margin-bottom:6px;
+  break-inside:avoid;cursor:none;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.m-item img{
+  width:100%;height:auto;display:block;
+  transition:transform .9s cubic-bezier(.25,.46,.45,.94),filter .5s;
+  filter:grayscale(30%) brightness(.85);
+}
+.m-item:hover img{transform:scale(1.09);filter:grayscale(0%) brightness(1)}
+.m-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(180,0,0,.75) 0%,transparent 60%);
+  opacity:0;transition:opacity .4s;
+}
+.m-item:hover .m-overlay{opacity:1}
+.m-item::before{
+  content:attr(data-idx);
+  position:absolute;top:14px;right:14px;
+  font-family:var(--head);font-size:.9rem;letter-spacing:.08em;
+  color:rgba(255,255,255,.18);z-index:2;
+  transition:color .3s,transform .3s;
+}
+.m-item:hover::before{color:rgba(255,255,255,.55);transform:scale(1.2)}
+
+/* ★ CTA block under portfolio — centrato */
+.port-cta{
+  margin-top:48px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  text-align:center;
+}
+.port-cta-label{
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,242,239,.5);
+}
+.port-ig-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--cond);font-size:.78rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--w);
+  border:1px solid rgba(255,255,255,.2);
+  padding:18px 44px;
+  position:relative;overflow:hidden;
+  transition:color .25s,border-color .25s,background .3s,transform .2s;
+}
+.port-ig-btn::before{
+  content:'';position:absolute;inset:0;background:var(--r);
+  transform:translateX(-100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.port-ig-btn:hover{border-color:var(--r);transform:translateY(-2px)}
+.port-ig-btn:hover::before{transform:translateX(0)}
+.port-ig-btn span{position:relative;z-index:1}
+.port-ig-btn svg{position:relative;z-index:1;flex-shrink:0}
+
+/* ================================================================
+   PARALLAX BAND
+================================================================ */
+.parallax-band{
+  position:relative;height:400px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.pb-inner{
+  position:absolute;inset:-30%;
+  background:var(--d1);
+  display:flex;align-items:center;justify-content:center;
+  will-change:transform;
+}
+.pb-bg{
+  font-family:var(--head);font-size:clamp(9rem,22vw,28rem);
+  color:rgba(244,242,239,.022);
+  letter-spacing:-.02em;white-space:nowrap;user-select:none;
+}
+.pb-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  background:linear-gradient(135deg,rgba(180,0,0,.1),transparent 60%);
+}
+.pb-quote{
+  font-family:var(--head);font-size:clamp(1.8rem,5.5vw,5rem);
+  letter-spacing:.08em;text-transform:uppercase;
+  text-align:center;line-height:1;
+  /* ★ WAS white/red, now cleaner */
+  color:var(--w);
+}
+.pb-quote em{color:var(--r);font-style:normal;display:block}
+.pb-line{
+  width:56px;height:2px;background:var(--r);
+  animation:pbLine 2.2s ease-in-out infinite;
+}
+@keyframes pbLine{0%,100%{width:56px;opacity:1}50%{width:110px;opacity:.5}}
+
+/* ================================================================
+   ABOUT
+================================================================ */
+#about{
+  padding:140px 48px;background:var(--d1);
+  position:relative;overflow:hidden;
+}
+.about-ghost{
+  position:absolute;right:-80px;bottom:-80px;
+  font-family:var(--head);font-size:30vw;
+  color:rgba(204,0,0,.04);pointer-events:none;user-select:none;line-height:1;
+}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:100px;align-items:center;position:relative;z-index:1;
+}
+.about-frame{position:relative}
+.about-img{
+  aspect-ratio:4/5;overflow:hidden;background:var(--d2);position:relative;
+}
+.about-img img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(20%) brightness(.88);
+  transition:filter .7s,transform .8s;
+}
+.about-img:hover img{filter:grayscale(0%) brightness(1);transform:scale(1.04)}
+.about-img::before,.about-img::after{
+  content:'';position:absolute;
+  width:44px;height:44px;
+  border-color:var(--r);border-style:solid;z-index:2;
+  transition:width .4s,height .4s;
+}
+.about-img::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.about-img::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.about-img:hover::before,.about-img:hover::after{width:60px;height:60px}
+.about-frame::after{
+  content:'';position:absolute;
+  bottom:-18px;right:-18px;width:60%;height:60%;
+  border:1px solid rgba(204,0,0,.2);z-index:-1;
+}
+.about-badge{
+  position:absolute;bottom:-28px;left:-28px;
+  width:110px;height:110px;background:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  animation:badgePulse 4s ease-in-out infinite;
+}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,.4)}50%{box-shadow:0 0 0 16px rgba(204,0,0,0)}}
+.badge-n{font-family:var(--head);font-size:2.2rem;line-height:1;color:var(--w)}
+.badge-l{
+  font-family:var(--cond);font-size:.5rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  /* ★ WAS semi-opaque, NOW white */
+  color:rgba(255,255,255,.85);
+  margin-top:4px;
+}
+
+.about-body{
+  font-size:1rem;line-height:1.85;
+  /* ★ WAS .65 opacity, NOW full white */
+  color:var(--w);
+  margin-top:32px;
+}
+.about-body p{margin-bottom:24px}
+.about-body strong{
+  /* ★ WAS white, NOW red */
+  color:var(--r);font-weight:600;
+}
+.pull-q{
+  border-left:2px solid var(--r);
+  margin:36px 0;padding:2px 0 2px 24px;
+  font-family:var(--cond);font-size:1.2rem;font-weight:300;font-style:italic;
+  /* ★ WAS white, NOW full white still but stands out more */
+  color:var(--w);line-height:1.5;
+}
+
+.stats-row{
+  display:flex;gap:0;margin-top:52px;
+  border-top:1px solid rgba(255,255,255,.1);padding-top:44px;
+}
+.stat{flex:1;padding-right:24px;border-right:1px solid rgba(255,255,255,.1)}
+.stat:last-child{border-right:none;padding-right:0;padding-left:24px}
+.stat:not(:first-child){padding-left:24px}
+.stat-n{font-family:var(--head);font-size:3.5rem;color:var(--r);line-height:1}
+.stat-l{
+  font-family:var(--cond);font-size:.6rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  margin-top:8px;
+}
+
+/* ================================================================
+   SERVICES
+================================================================ */
+#servizi{padding:140px 48px;background:var(--blk)}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:64px;background:var(--d3);
+}
+.svc-card{
+  background:var(--blk);padding:48px 36px;
+  position:relative;overflow:hidden;cursor:none;
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),
+             transform .8s cubic-bezier(.16,1,.3,1),
+             background .35s;
+  opacity:0;transform:translateY(40px);
+}
+.svc-card.on{opacity:1;transform:none}
+.svc-card:nth-child(1){transition-delay:.05s}
+.svc-card:nth-child(2){transition-delay:.15s}
+.svc-card:nth-child(3){transition-delay:.25s}
+.svc-card:nth-child(4){transition-delay:.35s}
+.svc-card:nth-child(5){transition-delay:.45s}
+.svc-card:nth-child(6){transition-delay:.55s}
+.svc-card:hover{background:var(--d1)}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:0;height:2px;background:var(--r);
+  transition:width .55s cubic-bezier(.25,.46,.45,.94);
+}
+.svc-card:hover::before{width:100%}
+
+.svc-ghost{
+  position:absolute;bottom:-24px;right:8px;
+  font-family:var(--head);font-size:8rem;line-height:1;
+  color:rgba(204,0,0,.05);pointer-events:none;
+  transition:color .4s,transform .5s;
+}
+.svc-card:hover .svc-ghost{color:rgba(204,0,0,.12);transform:scale(1.05)}
+
+.svc-eyebrow{
+  font-family:var(--cond);font-size:.62rem;font-weight:700;
+  letter-spacing:.35em;text-transform:uppercase;color:var(--r);
+  margin-bottom:24px;display:flex;align-items:center;gap:10px;
+}
+.svc-eyebrow::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);max-width:36px}
+
+.svc-name{
+  font-family:var(--head);font-size:1.75rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--w);margin-bottom:18px;line-height:1.05;
+}
+.svc-desc{
+  font-size:.88rem;line-height:1.78;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+}
+.svc-arrow{
+  display:inline-flex;align-items:center;gap:8px;margin-top:28px;
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ arrow NOW red */
+  color:var(--r);
+  opacity:0;transform:translateX(-10px);
+  transition:opacity .3s,transform .35s;
+}
+.svc-card:hover .svc-arrow{opacity:1;transform:translateX(0)}
+
+/* ================================================================
+   NUMBERS BAND
+================================================================ */
+.nums-band{
+  background:var(--r);padding:80px 48px;
+  position:relative;overflow:hidden;
+}
+.nums-band::before{
+  content:'100+  50+  3+';
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:var(--head);font-size:20vw;
+  color:rgba(0,0,0,.08);white-space:nowrap;
+  pointer-events:none;line-height:1;
+}
+.nums-inner{
+  display:flex;align-items:center;justify-content:space-around;
+  gap:40px;position:relative;z-index:1;flex-wrap:wrap;
+}
+.num-item{text-align:center}
+.num-n{
+  font-family:var(--head);font-size:clamp(3rem,8vw,6.5rem);
+  color:var(--w);line-height:1;
+}
+.num-l{
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);margin-top:10px;
+}
+.num-div{width:1px;height:72px;background:rgba(255,255,255,.22)}
+
+/* ================================================================
+   CONTACT
+================================================================ */
+#contatti{
+  padding:160px 48px;background:var(--d1);
+  text-align:center;position:relative;overflow:hidden;
+}
+#contatti::before{
+  content:'';position:absolute;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(180,0,0,.12) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+  animation:glowPulse 5s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.8}
+  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}
+}
+.contact-inner{position:relative;z-index:1}
+.contact-pre{
+  font-family:var(--cond);font-size:.68rem;font-weight:700;
+  letter-spacing:.4em;text-transform:uppercase;color:var(--r);
+  display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;
+}
+.contact-pre::before,.contact-pre::after{content:'';width:24px;height:1px;background:var(--r)}
+
+.contact-h{
+  font-family:var(--head);
+  font-size:clamp(3rem,10vw,10rem);
+  line-height:.88;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--w);margin-bottom:32px;
+}
+.contact-h em{color:var(--r);font-style:normal;display:block}
+
+.contact-sub{
+  font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;
+  line-height:1.75;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  max-width:480px;margin:0 auto 60px;
+}
+
+.wa-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  background:#25D366;color:var(--w);
+  font-family:var(--cond);font-size:.75rem;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;
+  padding:22px 52px;
+  position:relative;overflow:hidden;
+  transition:background .25s,transform .2s,box-shadow .3s;
+}
+.wa-btn::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.12);
+  transform:translateX(-100%);transition:transform .4s;
+}
+.wa-btn:hover{background:#20bd5a;transform:translateY(-3px);box-shadow:0 16px 48px rgba(37,211,102,.25)}
+.wa-btn:hover::before{transform:translateX(0)}
+.wa-btn svg{width:22px;height:22px;flex-shrink:0}
+
+.contact-or{
+  display:flex;align-items:center;justify-content:center;
+  gap:20px;margin:36px 0;
+}
+.contact-or::before,.contact-or::after{content:'';width:48px;height:1px;background:rgba(255,255,255,.1)}
+.contact-or span{
+  font-family:var(--cond);font-size:.62rem;font-weight:700;
+  letter-spacing:.35em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+}
+
+.ig-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--cond);font-size:.7rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  /* ★ WAS gray, NOW white */
+  color:var(--w);
+  border:1px solid rgba(255,255,255,.2);
+  padding:15px 36px;
+  transition:color .25s,border-color .25s,background .25s;
+}
+.ig-btn:hover{color:var(--w);border-color:var(--r);background:rgba(204,0,0,.08)}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+footer{
+  background:var(--blk);border-top:1px solid rgba(255,255,255,.04);
+  padding:36px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.f-logo{font-family:var(--head);font-size:1.3rem;letter-spacing:.18em}
+.f-logo em{color:var(--r);font-style:normal}
+.f-tagline{
+  font-family:var(--cond);font-size:.55rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,242,239,.4);margin-top:5px;
+}
+footer p{
+  font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);text-align:right;
+}
+
+/* ================================================================
+   ★ MOBILE — tutto ripensato
+================================================================ */
+@media(max-width:768px){
+
+  /* cursore standard su touch */
+  #cur,#cur-ring{display:none}
+  body{cursor:auto}
+
+  /* ---- NAV ---- */
+  nav{padding:20px 24px}
+  nav.scrolled{padding:14px 24px}
+  .nav-links{display:none}
+  .nav-btn{display:none}
+  .hamburger{display:flex}
+
+  /* ---- HERO ---- */
+  .hero{min-height:100svh}
+  .hero-content{padding:0 24px 56px}
+  .hero-wm{display:none}
+  .hero-h1{font-size:clamp(64px,22vw,120px)}
+  .hero-tag{font-size:.6rem;letter-spacing:.25em;margin-bottom:20px}
+  .hero-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:24px;margin-top:28px;
+  }
+  .hero-sub{font-size:.95rem;max-width:100%}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:14px;width:100%}
+  .btn-red{width:100%;justify-content:center;padding:18px 24px;font-size:.75rem}
+  .btn-ghost{font-size:.75rem}
+  .hero-scroll{display:none}
+
+  /* ---- MARQUEE ---- */
+  .mq-item{font-size:.85rem;gap:20px}
+
+  /* ---- PORTFOLIO ---- */
+  #portfolio{padding:80px 24px}
+  .section-head{
+    flex-direction:column;align-items:flex-start;gap:20px;
+    margin-bottom:40px;
+  }
+  /* ★ Solo 2 colonne su mobile, max 2 foto visibili — gestito via JS */
+  .masonry{columns:2;column-gap:4px}
+  .m-item{margin-bottom:4px}
+  /* foto nascoste su mobile gestite da JS con classe .mob-hidden */
+  .m-item.mob-hidden{display:none}
+
+  .port-cta{margin-top:32px;gap:12px}
+  .port-ig-btn{
+    width:100%;justify-content:center;
+    padding:18px 24px;font-size:.72rem;letter-spacing:.15em;
+  }
+
+  /* ---- PARALLAX BAND ---- */
+  .parallax-band{height:220px}
+  .pb-quote{font-size:1.5rem;letter-spacing:.04em}
+
+  /* ---- ABOUT ---- */
+  #about{padding:80px 24px}
+  .about-ghost{display:none}
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  /* immagine profilo: più piccola, centrata, senza decorazioni che escono */
+  .about-frame{
+    margin-bottom:72px;/* spazio per il badge */
+  }
+  .about-img{
+    aspect-ratio:3/4;
+    max-width:300px;
+    margin:0 auto;
+  }
+  .about-frame::after{display:none}/* no offset box su mobile */
+  .about-badge{
+    bottom:-24px;left:50%;transform:translateX(-50%);
+    width:96px;height:96px;
+  }
+  .about-badge .badge-n{font-size:1.8rem}
+  .about-body{font-size:.95rem;margin-top:24px}
+  .pull-q{font-size:1rem;padding-left:16px;margin:24px 0}
+  .stats-row{
+    gap:0;padding-top:32px;margin-top:40px;
+  }
+  .stat{padding-right:12px}
+  .stat:not(:first-child){padding-left:12px}
+  .stat-n{font-size:2.4rem}
+  .stat-l{font-size:.52rem;letter-spacing:.15em}
+
+  /* ---- SERVICES ---- */
+  #servizi{padding:80px 24px}
+  .svc-grid{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+  .svc-card{padding:36px 28px}
+  .svc-name{font-size:1.5rem}
+  .svc-desc{font-size:.9rem}
+
+  /* ---- NUMBERS BAND ---- */
+  .nums-band{padding:60px 24px}
+  .num-div{display:none}
+  .nums-inner{gap:32px;justify-content:center}
+  .num-item{width:45%}
+  .num-n{font-size:2.8rem}
+  .num-l{font-size:.6rem;letter-spacing:.15em}
+
+  /* ---- CONTACT ---- */
+  #contatti{padding:100px 24px}
+  .contact-h{font-size:clamp(2.4rem,12vw,4.5rem)}
+  .contact-sub{font-size:.92rem;margin-bottom:44px}
+  .wa-btn{
+    width:100%;justify-content:center;
+    padding:20px 24px;font-size:.72rem;letter-spacing:.15em;
+  }
+  .ig-btn{
+    width:100%;justify-content:center;
+    padding:14px 24px;font-size:.68rem;letter-spacing:.12em;
+  }
+
+  /* ---- FOOTER ---- */
+  footer{
+    flex-direction:column;gap:20px;text-align:center;
+    padding:32px 24px;
+  }
+  footer p{text-align:center}
+  .f-tagline{text-align:center}
+  #f-wwa-label{text-align:center!important}
+  #f-wwa-btn{width:100%;justify-content:center!important;display:flex!important}
+}
+
+/* ----------------------------------------------------------------
+   Small phones (< 400px)
+---------------------------------------------------------------- */
+@media(max-width:400px){
+  .hero-h1{font-size:clamp(56px,20vw,90px)}
+  .masonry{columns:1}
+  .about-img{max-width:260px}
+}
+
+/* ----------------------------------------------------------------
+   Tablet range
+---------------------------------------------------------------- */
+@media(min-width:769px) and (max-width:1100px){
+  .masonry{columns:2}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .nums-inner{flex-wrap:wrap}
+  .num-div{display:none}
+  #portfolio,#about,#servizi,#contatti{padding:100px 40px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo"><span class="ld-logo-inner">Rev<em>C</em>ulture</span></div>
+  <div class="ld-bar-outer"><div class="ld-bar" id="ldBar"></div></div>
+  <div class="ld-pct" id="ldPct">0%</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Rev<em>C</em>ulture</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio" id="nl-portfolio">Portfolio</a></li>
+    <li><a href="fotografi.html" style="color:var(--r)" id="nl-team">Il Team</a></li>
+    <li><a href="#servizi" id="nl-services">Servizi</a></li>
+    <li><a href="#contatti" id="nl-contact">Contatti</a></li>
+    <li>
+      <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden">
+        <button onclick="setLang('it')" id="btn-it" style="font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:var(--r);border:none;padding:8px 14px;cursor:pointer">IT</button>
+        <button onclick="setLang('en')" id="btn-en" style="font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:none;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s">EN</button>
+      </div>
+    </li>
+  </ul>
+  <a href="https://wa.me/393931289124" target="_blank" class="nav-btn" id="nav-book-btn">Book Now →</a>
+  <!-- hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div id="menu-overlay"></div>
+
+<!-- MOBILE MENU DRAWER -->
+<div id="mobile-menu">
+  <a href="#portfolio" id="mm-portfolio" class="mm-link">Portfolio</a>
+  <a href="fotografi.html" id="mm-team" class="mm-link menu-team">Il Team</a>
+  <a href="#servizi" id="mm-services" class="mm-link">Servizi</a>
+  <a href="#contatti" id="mm-contact" class="mm-link">Contatti</a>
+  <a href="https://wa.me/393931289124" target="_blank" class="menu-wa">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span id="mm-wa-text">Scrivici su WhatsApp</span>
+  </a>
+  <div class="menu-lang">
+    <button class="menu-lang-btn active" id="mm-btn-it" onclick="setLang('it');closeMobileMenu()">IT</button>
+    <button class="menu-lang-btn" id="mm-btn-en" onclick="setLang('en');closeMobileMenu()">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-wm">REV</div>
+  <div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Automotive &amp; Luxury Photography — Italy</div>
+    <h1 class="hero-h1">
+      <span class="h1-line"><span class="h1-inner">REV</span></span>
+      <span class="h1-line"><span class="h1-inner">Culture</span></span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.</p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-red">Scopri il Portfolio ↗</a>
+        <a href="#contatti" class="btn-ghost">Contattaci</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-track"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mq-item">Automotive Photography <span class="mq-dot"></span></div>
+    <div class="mq-item">Luxury Lifestyle <span class="mq-dot"></span></div>
+    <div class="mq-item">Events Coverage <span class="mq-dot"></span></div>
+    <div class="mq-item">Supercar Shooting <span class="mq-dot"></span></div>
+    <div class="mq-item">Content Creation <span class="mq-dot"></span></div>
+    <div class="mq-item">Post-Produzione <span class="mq-dot"></span></div>
+    <div class="mq-item">Track Day <span class="mq-dot"></span></div>
+    <div class="mq-item">Brand &amp; Dealer <span class="mq-dot"></span></div>
+    <div class="mq-item">Automotive Photography <span class="mq-dot"></span></div>
+    <div class="mq-item">Luxury Lifestyle <span class="mq-dot"></span></div>
+    <div class="mq-item">Events Coverage <span class="mq-dot"></span></div>
+    <div class="mq-item">Supercar Shooting <span class="mq-dot"></span></div>
+    <div class="mq-item">Content Creation <span class="mq-dot"></span></div>
+    <div class="mq-item">Post-Produzione <span class="mq-dot"></span></div>
+    <div class="mq-item">Track Day <span class="mq-dot"></span></div>
+    <div class="mq-item">Brand &amp; Dealer <span class="mq-dot"></span></div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-head rev">
+    <div>
+      <div class="sec-label">Portfolio</div>
+      <h2 class="sec-h">I nostri<br/><em>Scatti</em></h2>
+    </div>
+  </div>
+
+  <div class="masonry rev d2" id="masonryGrid">
+    <div class="m-item" data-idx="01"><img src="images/foto01.JPG" alt="Supercar track day RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="02"><img src="images/foto02.JPG" alt="Luxury car detail RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="03"><img src="images/foto03.JPG" alt="Sports car motion RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="04"><img src="images/foto04.JPG" alt="Cars lifestyle RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="05"><img src="images/foto05.JPG" alt="Night car RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="06"><img src="images/foto06.JPG" alt="Classic car RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="07"><img src="images/foto07.JPG" alt="Cars and coffee RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+    <div class="m-item" data-idx="08"><img src="images/foto08.JPG" alt="Supercar photoshoot RevCulture" loading="lazy"/><div class="m-overlay"></div></div>
+  </div>
+
+  <!-- CTA visibile sempre, prominente su mobile -->
+  <div class="port-cta rev d3">
+    <p class="port-cta-label" id="port-cta-label">Guarda tutto il portfolio completo su Instagram</p>
+    <a href="https://instagram.com/revculture.it" target="_blank" class="port-ig-btn" id="port-ig-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span id="port-ig-span">@revculture.it — Vedi tutto →</span>
+    </a>
+  </div>
+</section>
+
+<!-- PARALLAX BAND -->
+<div class="parallax-band">
+  <div class="pb-inner" id="pbInner">
+    <div class="pb-bg">SPEED · POWER · PASSION</div>
+  </div>
+  <div class="pb-overlay">
+    <div class="pb-line"></div>
+    <div class="pb-quote rev">Non fotografie.<br/><em>Emozioni su pixel.</em></div>
+    <div class="pb-line"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-ghost">REV</div>
+  <div class="about-grid">
+    <div class="about-frame rev">
+      <div class="about-img">
+        <img src="images/profilo.jpg" alt="RevCulture photographer Italy" loading="lazy"/>
+      </div>
+      <div class="about-badge">
+        <div class="badge-n">3+</div>
+        <div class="badge-l">Anni di<br/>esperienza</div>
+      </div>
+    </div>
+    <div class="rev d2">
+      <div class="sec-label">Chi siamo</div>
+      <h2 class="sec-h">La Visione<br/><em>REV</em></h2>
+      <div class="about-body">
+        <p>Siamo un'azienda che connette i migliori fotografi di <strong>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.</p>
+        <div class="pull-q">"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."</div>
+        <p>Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-n" data-count="100">0</div>
+          <div class="stat-l">Vetture fotografate</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n" data-count="50">0</div>
+          <div class="stat-l">Clienti soddisfatti</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n" data-count="3">0</div>
+          <div class="stat-l">Anni di esperienza</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servizi">
+  <div class="rev">
+    <div class="sec-label">Servizi</div>
+    <h2 class="sec-h">Cosa<br/><em>offriamo</em></h2>
+  </div>
+  <div class="svc-grid" id="svcGrid">
+    <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name">Shooting Privato</div><div class="svc-desc">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name">Content Creator</div><div class="svc-desc">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name">Events Coverage</div><div class="svc-desc">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name">Brand &amp; Dealer</div><div class="svc-desc">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name">Luxury Lifestyle</div><div class="svc-desc">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name">Post-Produzione</div><div class="svc-desc">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow">Inizia →</div></div>
+  </div>
+</section>
+
+<!-- NUMBERS BAND -->
+<div class="nums-band">
+  <div class="nums-inner">
+    <div class="num-item"><div class="num-n">100+</div><div class="num-l">Vetture fotografate</div></div>
+    <div class="num-div"></div>
+    <div class="num-item"><div class="num-n">50+</div><div class="num-l">Clienti soddisfatti</div></div>
+    <div class="num-div"></div>
+    <div class="num-item"><div class="num-n">3+</div><div class="num-l">Anni di esperienza</div></div>
+    <div class="num-div"></div>
+    <div class="num-item"><div class="num-n">∞</div><div class="num-l">Passione per i motori</div></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contatti">
+  <div class="contact-inner rev">
+    <div class="contact-pre">Pronti a collaborare?</div>
+    <h2 class="contact-h">Parliamo<br/><em>del tuo progetto</em></h2>
+    <p class="contact-sub">Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.</p>
+    <a href="https://wa.me/3931289124" target="_blank" class="wa-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Scrivici su WhatsApp
+    </a>
+    <div class="contact-or"><span>oppure</span></div>
+    <a href="https://instagram.com/revculture.it" target="_blank" class="ig-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      Seguici — @revculture.it
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">Rev<em>C</em>ulture</div>
+    <div class="f-tagline" id="f-tagline-idx">Automotive &amp; Luxury Photography</div>
+  </div>
+  <div style="text-align:center">
+    <p id="f-rights-idx">© 2026 revculture.it — Tutti i diritti riservati</p>
+    <p style="margin-top:4px;color:rgba(255,255,255,.18)">Made with passion — Italy</p>
+  </div>
+  <div>
+    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-bottom:10px;text-align:right" id="f-wwa-label">Sei un fotografo?</div>
+    <a href="https://wa.me/393931289124?text=Ciao%20REV%20Culture%2C%20sono%20un%20fotografo%20e%20vorrei%20collaborare%20con%20il%20vostro%20network."
+       target="_blank" id="f-wwa-btn"
+       style="display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--w);border:1px solid rgba(204,0,0,.4);padding:10px 22px;position:relative;overflow:hidden;transition:border-color .25s,background .25s"
+       onmouseover="this.style.borderColor='var(--r)';this.style.background='rgba(204,0,0,.1)'"
+       onmouseout="this.style.borderColor='rgba(204,0,0,.4)';this.style.background='transparent'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="f-wwa-btn-text">Lavora con Noi →</span>
+    </a>
+  </div>
+</footer>
+
+<script>
+// ---- LOADER ----
+const ldBar=document.getElementById('ldBar');
+const ldPct=document.getElementById('ldPct');
+const loader=document.getElementById('loader');
+let prog=0;
+const ldInt=setInterval(()=>{
+  prog+=Math.random()*14+3;
+  if(prog>=100){
+    prog=100;clearInterval(ldInt);
+    ldBar.style.width='100%';ldPct.textContent='100%';
+    setTimeout(()=>loader.classList.add('gone'),300);
+  }else{ldBar.style.width=prog+'%';ldPct.textContent=Math.floor(prog)+'%'}
+},60);
+
+// ---- CURSOR (desktop) ----
+const isMobile=()=>window.innerWidth<=768;
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+if(!isMobile()){
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function ar(){
+    rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(ar);
+  })();
+  document.querySelectorAll('a,button,.m-item,.svc-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+// ---- NAV: smart show/hide + scrolled ----
+const nav=document.getElementById('nav');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const cur=scrollY;
+  nav.classList.toggle('scrolled',cur>60);
+  if(cur>lastScroll&&cur>200){
+    nav.classList.add('hidden');
+  }else{
+    nav.classList.remove('hidden');
+  }
+  lastScroll=cur;
+});
+
+// ---- PORTFOLIO: nascondi foto su mobile ----
+function handleMobilePortfolio(){
+  const items=document.querySelectorAll('.m-item');
+  if(window.innerWidth<=768){
+    // mostra solo le prime 4 (2 colonne × 2 righe)
+    items.forEach((item,i)=>{
+      if(i>=4) item.classList.add('mob-hidden');
+      else item.classList.remove('mob-hidden');
+    });
+  } else {
+    items.forEach(item=>item.classList.remove('mob-hidden'));
+  }
+}
+handleMobilePortfolio();
+window.addEventListener('resize',handleMobilePortfolio);
+
+// ---- PARALLAX ----
+const pbInner=document.getElementById('pbInner');
+window.addEventListener('scroll',()=>{
+  if(!pbInner||isMobile())return;
+  const band=pbInner.closest('.parallax-band');
+  const r=band.getBoundingClientRect();
+  pbInner.style.transform=`translateY(${r.top*.28}px)`;
+});
+
+// ---- SCROLL REVEAL ----
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.1});
+document.querySelectorAll('.rev,.svc-card').forEach(el=>ro.observe(el));
+
+// ---- COUNT UP ----
+function countUp(el,target,duration){
+  let start=null;
+  const step=ts=>{
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/duration,1);
+    const ease=1-Math.pow(1-p,4);
+    el.textContent=Math.round(ease*target)+'+';
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      countUp(e.target,+e.target.dataset.count,2000);
+      co.unobserve(e.target);
+    }
+  });
+},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// ---- TILT su foto (desktop) ----
+if(!isMobile()){
+  document.querySelectorAll('.m-item').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='';
+      el.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94)';
+      setTimeout(()=>el.style.transition='',600);
+    });
+  });
+}
+
+// ---- MAGNETIC buttons (desktop) ----
+if(!isMobile()){
+  document.querySelectorAll('.btn-red,.wa-btn,.nav-btn').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.3;
+      const y=(e.clientY-r.top-r.height/2)*.3;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{
+      btn.style.transform='';
+      btn.style.transition='transform .5s cubic-bezier(.25,.46,.45,.94),background .25s';
+      setTimeout(()=>btn.style.transition='',500);
+    });
+  });
+}
+
+// ---- LANG SWITCH (index) ----
+const indexI18n = {
+  it: {
+    heroTag: "Automotive & Luxury Photography — Italy",
+    heroSub: "Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.",
+    btnPortfolio: "Scopri il Portfolio ↗",
+    btnContact: "Contattaci",
+    navBook: "Prenota Ora →",
+    portLabel: "Portfolio",
+    portTitle1: "I nostri",
+    portTitle2: "Scatti",
+    portIg: "Vedi tutto su Instagram →",
+    pbQ1: "Non fotografie.",
+    pbQ2: "Emozioni su pixel.",
+    aboutLabel: "Chi siamo",
+    aboutH1: "La Visione",
+    aboutH2: "REV",
+    aboutP1: "Siamo un'azienda che connette i migliori fotografi di <strong style='color:var(--r)'>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.",
+    pullQ: '"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."',
+    aboutP2: "Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.",
+    stat1: "Vetture fotografate", stat2: "Clienti soddisfatti", stat3: "Anni di esperienza",
+    svcLabel: "Servizi", svcH1: "Cosa", svcH2: "offriamo",
+    ctaPre: "Pronti a collaborare?",
+    ctaH1: "Parliamo", ctaH2: "del tuo progetto",
+    ctaSub: "Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.",
+    waBtn: "Scrivici su WhatsApp",
+    or: "oppure",
+    igBtn: "Seguici — @revculture.it"
+  },
+  en: {
+    heroTag: "Automotive & Luxury Photography — Italy",
+    heroSub: "Photography that captures the soul of machines.<br/>Speed, luxury, and authentic passion.",
+    btnPortfolio: "See Portfolio ↗",
+    btnContact: "Contact Us",
+    navBook: "Book Now →",
+    portLabel: "Portfolio",
+    portTitle1: "Our",
+    portTitle2: "Shots",
+    portIg: "See everything on Instagram →",
+    pbQ1: "Not photographs.",
+    pbQ2: "Emotions on pixels.",
+    aboutLabel: "About Us",
+    aboutH1: "The Vision",
+    aboutH2: "REV",
+    aboutP1: "We are a company that connects the best <strong style='color:var(--r)'>automotive and luxury lifestyle</strong> photographers with clients across Europe. RevCulture selects, manages and coordinates every shoot — you choose the photographer, we handle the rest.",
+    pullQ: '"Every shot is a visual story that makes you want to turn the key."',
+    aboutP2: "Every session is planned down to the last detail: light, angle, movement. The result is never just a photograph.",
+    stat1: "Cars photographed", stat2: "Satisfied clients", stat3: "Years of experience",
+    svcLabel: "Services", svcH1: "What", svcH2: "we offer",
+    ctaPre: "Ready to collaborate?",
+    ctaH1: "Let's talk", ctaH2: "about your project",
+    ctaSub: "Got a car to photograph? An event? An idea? Message us on WhatsApp and we'll find the perfect solution.",
+    waBtn: "Message us on WhatsApp",
+    or: "or",
+    igBtn: "Follow us — @revculture.it"
+  }
+};
+
+function setLang(lang) {
+  const d = indexI18n[lang];
+
+  // ---- lang toggle buttons ----
+  document.getElementById('btn-it').style.background = lang==='it' ? 'var(--r)' : 'transparent';
+  document.getElementById('btn-it').style.color = lang==='it' ? 'var(--w)' : 'rgba(244,242,239,.5)';
+  document.getElementById('btn-en').style.background = lang==='en' ? 'var(--r)' : 'transparent';
+  document.getElementById('btn-en').style.color = lang==='en' ? 'var(--w)' : 'rgba(244,242,239,.5)';
+
+  // ---- nav links (desktop) ----
+  const nlPortfolio = document.getElementById('nl-portfolio');
+  const nlTeam = document.getElementById('nl-team');
+  const nlServices = document.getElementById('nl-services');
+  const nlContact = document.getElementById('nl-contact');
+  if(nlPortfolio) nlPortfolio.textContent = lang==='en' ? 'Portfolio' : 'Portfolio';
+  if(nlTeam)      nlTeam.textContent      = lang==='en' ? 'The Team'  : 'Il Team';
+  if(nlServices)  nlServices.textContent  = lang==='en' ? 'Services'  : 'Servizi';
+  if(nlContact)   nlContact.textContent   = lang==='en' ? 'Contact'   : 'Contatti';
+  const navBookBtn = document.getElementById('nav-book-btn');
+  if(navBookBtn) navBookBtn.textContent = d.navBook;
+
+  // ---- hero ----
+  const heroTag = document.querySelector('.hero-tag');
+  if(heroTag) { heroTag.innerHTML = `<span style="width:24px;height:1px;background:var(--r);display:inline-block"></span> ${d.heroTag}`; }
+  const heroSub = document.querySelector('.hero-sub');
+  if(heroSub) heroSub.innerHTML = d.heroSub;
+  const btnsRed = document.querySelectorAll('.btn-red');
+  if(btnsRed[0]) btnsRed[0].textContent = d.btnPortfolio;
+  const btnGhost = document.querySelector('.btn-ghost');
+  if(btnGhost) btnGhost.textContent = d.btnContact;
+
+  // ---- portfolio ----
+  const secLabels = document.querySelectorAll('.sec-label');
+  if(secLabels[0]) secLabels[0].textContent = d.portLabel;
+  const secHs = document.querySelectorAll('.sec-h');
+  if(secHs[0]) secHs[0].innerHTML = `${d.portTitle1}<br/><em>${d.portTitle2}</em>`;
+  const portCtaLabel = document.getElementById('port-cta-label');
+  if(portCtaLabel) portCtaLabel.textContent = lang==='en' ? 'See the full portfolio on Instagram' : 'Guarda tutto il portfolio completo su Instagram';
+  const portIgSpan = document.getElementById('port-ig-span');
+  if(portIgSpan) portIgSpan.textContent = lang==='en' ? '@revculture.it — See all →' : '@revculture.it — Vedi tutto →';
+
+  // ---- parallax ----
+  const pbQ = document.querySelector('.pb-quote');
+  if(pbQ) pbQ.innerHTML = `${d.pbQ1}<br/><em>${d.pbQ2}</em>`;
+
+  // ---- about ----
+  if(secLabels[1]) secLabels[1].textContent = d.aboutLabel;
+  if(secHs[1]) secHs[1].innerHTML = `${d.aboutH1}<br/><em>${d.aboutH2}</em>`;
+  const bodyPs = document.querySelectorAll('.about-body p');
+  if(bodyPs[0]) bodyPs[0].innerHTML = d.aboutP1;
+  if(bodyPs[1]) bodyPs[1].textContent = d.aboutP2;
+  const pq = document.querySelector('.pull-q');
+  if(pq) pq.textContent = d.pullQ;
+  const statLbls = document.querySelectorAll('.stat-l');
+  if(statLbls[0]) statLbls[0].textContent = d.stat1;
+  if(statLbls[1]) statLbls[1].textContent = d.stat2;
+  if(statLbls[2]) statLbls[2].textContent = d.stat3;
+
+  // ---- services ----
+  if(secLabels[2]) secLabels[2].textContent = d.svcLabel;
+  if(secHs[2]) secHs[2].innerHTML = `${d.svcH1}<br/><em>${d.svcH2}</em>`;
+
+  // ---- contact ----
+  const ctaPre = document.querySelector('.contact-pre');
+  if(ctaPre) ctaPre.innerHTML = `<span></span>${d.ctaPre}<span></span>`;
+  const ctaH = document.querySelector('.contact-h');
+  if(ctaH) ctaH.innerHTML = `${d.ctaH1}<br/><em>${d.ctaH2}</em>`;
+  const ctaSub = document.querySelector('.contact-sub');
+  if(ctaSub) ctaSub.textContent = d.ctaSub;
+  const waBtn = document.querySelector('.wa-btn');
+  if(waBtn) { const svg = waBtn.querySelector('svg'); waBtn.innerHTML = ''; if(svg) waBtn.appendChild(svg); waBtn.append(' '+d.waBtn); }
+  const orSpan = document.querySelector('.contact-or span');
+  if(orSpan) orSpan.textContent = d.or;
+  const igBtn = document.querySelector('.ig-btn');
+  if(igBtn) { const svg = igBtn.querySelector('svg'); igBtn.innerHTML = ''; if(svg) igBtn.appendChild(svg); igBtn.append(' '+d.igBtn); }
+
+  // ---- footer ----
+  const fTagline = document.getElementById('f-tagline-idx');
+  if(fTagline) fTagline.textContent = lang==='en' ? 'Automotive Photography Network' : 'Automotive & Luxury Photography';
+  const fRights = document.getElementById('f-rights-idx');
+  if(fRights) fRights.textContent = lang==='en' ? '© 2026 revculture.it — All rights reserved' : '© 2026 revculture.it — Tutti i diritti riservati';
+  const fWwaLabel = document.getElementById('f-wwa-label');
+  if(fWwaLabel) fWwaLabel.textContent = lang==='en' ? 'Are you a photographer?' : 'Sei un fotografo?';
+  const fWwaText = document.getElementById('f-wwa-btn-text');
+  if(fWwaText) fWwaText.textContent = lang==='en' ? 'Work With Us →' : 'Lavora con Noi →';
+  const wwaLink = document.getElementById('f-wwa-btn');
+  if(wwaLink) {
+    const msg = lang==='en'
+      ? "Hi RevCulture, I'm a photographer and I'd like to join your network."
+      : "Ciao RevCulture, sono un fotografo e vorrei collaborare con il vostro network.";
+    wwaLink.href = `https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
+  }
+
+  // ---- mobile menu ----
+  const mmPortfolio = document.getElementById('mm-portfolio');
+  const mmTeam = document.getElementById('mm-team');
+  const mmServices = document.getElementById('mm-services');
+  const mmContact = document.getElementById('mm-contact');
+  const mmWaText = document.getElementById('mm-wa-text');
+  if(mmPortfolio) mmPortfolio.textContent = lang==='en' ? 'Portfolio' : 'Portfolio';
+  if(mmTeam) mmTeam.textContent = lang==='en' ? 'The Team' : 'Il Team';
+  if(mmServices) mmServices.textContent = lang==='en' ? 'Services' : 'Servizi';
+  if(mmContact) mmContact.textContent = lang==='en' ? 'Contact' : 'Contatti';
+  if(mmWaText) mmWaText.textContent = lang==='en' ? 'Message us on WhatsApp' : 'Scrivici su WhatsApp';
+
+  // sync all lang buttons (desktop + mobile)
+  ['btn-it','mm-btn-it'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(lang==='it'){ el.style.background='var(--r)';el.style.color='var(--w)';el.classList.add('active'); }
+    else { el.style.background='transparent';el.style.color='rgba(244,242,239,.5)';el.classList.remove('active'); }
+  });
+  ['btn-en','mm-btn-en'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(lang==='en'){ el.style.background='var(--r)';el.style.color='var(--w)';el.classList.add('active'); }
+    else { el.style.background='transparent';el.style.color='rgba(244,242,239,.5)';el.classList.remove('active'); }
+  });
+
+  document.documentElement.lang = lang;
+}
+
+// ---- HERO GRID mouse parallax (desktop) ----
+if(!isMobile()){
+  const grid=document.querySelector('.hero-grid');
+  document.addEventListener('mousemove',e=>{
+    if(!grid)return;
+    const x=e.clientX/window.innerWidth;
+    const y=e.clientY/window.innerHeight;
+    grid.style.backgroundPosition=`${x*20}px ${y*20}px`;
+  });
+}
+
+// ---- HAMBURGER MENU ----
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+
+function openMobileMenu(){
+  hamburger.classList.add('open');
+  mobileMenu.classList.add('open');
+  menuOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMobileMenu(){
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  menuOverlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+hamburger.addEventListener('click', ()=>{
+  mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+});
+menuOverlay.addEventListener('click', closeMobileMenu);
+// close on nav link click
+document.querySelectorAll('.mm-link').forEach(a=>{
+  a.addEventListener('click', closeMobileMenu);
+});
 
 </script>
 </body>
