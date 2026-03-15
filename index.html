@@ -894,6 +894,8 @@ footer p{
   }
   footer p{text-align:center}
   .f-tagline{text-align:center}
+  #f-wwa-label{text-align:center!important}
+  #f-wwa-btn{width:100%;justify-content:center!important;display:flex!important}
 }
 
 /* ----------------------------------------------------------------
@@ -934,11 +936,17 @@ footer p{
   <a href="#" class="nav-logo">REV<em>.</em>CULTURE</a>
   <ul class="nav-links">
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="fotografi.html" style="color:var(--r)">Il Team</a></li>
     <li><a href="#servizi">Servizi</a></li>
     <li><a href="#contatti">Contatti</a></li>
+    <li>
+      <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden">
+        <button onclick="setLang('it')" id="btn-it" style="font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);background:var(--r);border:none;padding:8px 14px;cursor:pointer">IT</button>
+        <button onclick="setLang('en')" id="btn-en" style="font-family:var(--cond);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:none;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s">EN</button>
+      </div>
+    </li>
   </ul>
-  <a href="https://wa.me/3931289124" target="_blank" class="nav-btn">Book Now →</a>
+  <a href="https://wa.me/3931289124" target="_blank" class="nav-btn" id="nav-book-btn">Book Now →</a>
 </nav>
 
 <!-- HERO -->
@@ -1054,7 +1062,7 @@ footer p{
       <div class="sec-label">Chi siamo</div>
       <h2 class="sec-h">La Visione<br/><em>REV</em></h2>
       <div class="about-body">
-        <p>Siamo un team di due specializzato in <strong>automotive e luxury lifestyle</strong>. Il nostro obiettivo è catturare l'anima di ogni vettura — la tensione muscolare di una sportiva, l'eleganza silenziosa di una berlina di lusso.</p>
+        <p>Siamo un'azienda che connette i migliori fotografi di <strong>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. REV Culture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.</p>
         <div class="pull-q">"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."</div>
         <p>Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.</p>
       </div>
@@ -1131,11 +1139,22 @@ footer p{
 <footer>
   <div>
     <div class="f-logo">REV<em>.</em>CULTURE</div>
-    <div class="f-tagline">Automotive &amp; Luxury Photography</div>
+    <div class="f-tagline" id="f-tagline-idx">Automotive &amp; Luxury Photography</div>
+  </div>
+  <div style="text-align:center">
+    <p id="f-rights-idx">© 2026 revculture.it — Tutti i diritti riservati</p>
+    <p style="margin-top:4px;color:rgba(255,255,255,.18)">Made with passion — Italy</p>
   </div>
   <div>
-    <p>© 2026 revculture.it — Tutti i diritti riservati</p>
-    <p style="margin-top:4px">Made with passion — Italy</p>
+    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-bottom:10px;text-align:right" id="f-wwa-label">Sei un fotografo?</div>
+    <a href="https://wa.me/393931289124?text=Ciao%20REV%20Culture%2C%20sono%20un%20fotografo%20e%20vorrei%20collaborare%20con%20il%20vostro%20network."
+       target="_blank" id="f-wwa-btn"
+       style="display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--w);border:1px solid rgba(204,0,0,.4);padding:10px 22px;position:relative;overflow:hidden;transition:border-color .25s,background .25s"
+       onmouseover="this.style.borderColor='var(--r)';this.style.background='rgba(204,0,0,.1)'"
+       onmouseout="this.style.borderColor='rgba(204,0,0,.4)';this.style.background='transparent'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="f-wwa-btn-text">Lavora con Noi →</span>
+    </a>
   </div>
 </footer>
 
@@ -1276,6 +1295,141 @@ if(!isMobile()){
   });
 }
 
+// ---- LANG SWITCH (index) ----
+const indexI18n = {
+  it: {
+    heroTag: "Automotive & Luxury Photography — Italy",
+    heroSub: "Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.",
+    btnPortfolio: "Scopri il Portfolio ↗",
+    btnContact: "Contattaci",
+    navBook: "Prenota Ora →",
+    portLabel: "Portfolio",
+    portTitle1: "I nostri",
+    portTitle2: "Scatti",
+    portIg: "Vedi tutto su Instagram →",
+    pbQ1: "Non fotografie.",
+    pbQ2: "Emozioni su pixel.",
+    aboutLabel: "Chi siamo",
+    aboutH1: "La Visione",
+    aboutH2: "REV",
+    aboutP1: "Siamo un'azienda che connette i migliori fotografi di <strong style='color:var(--r)'>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. REV Culture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.",
+    pullQ: '"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."',
+    aboutP2: "Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.",
+    stat1: "Vetture fotografate", stat2: "Clienti soddisfatti", stat3: "Anni di esperienza",
+    svcLabel: "Servizi", svcH1: "Cosa", svcH2: "offriamo",
+    ctaPre: "Pronti a collaborare?",
+    ctaH1: "Parliamo", ctaH2: "del tuo progetto",
+    ctaSub: "Hai una vettura da fotografare? Un evento? Un'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.",
+    waBtn: "Scrivici su WhatsApp",
+    or: "oppure",
+    igBtn: "Seguici — @revculture.it"
+  },
+  en: {
+    heroTag: "Automotive & Luxury Photography — Italy",
+    heroSub: "Photography that captures the soul of machines.<br/>Speed, luxury, and authentic passion.",
+    btnPortfolio: "See Portfolio ↗",
+    btnContact: "Contact Us",
+    navBook: "Book Now →",
+    portLabel: "Portfolio",
+    portTitle1: "Our",
+    portTitle2: "Shots",
+    portIg: "See everything on Instagram →",
+    pbQ1: "Not photographs.",
+    pbQ2: "Emotions on pixels.",
+    aboutLabel: "About Us",
+    aboutH1: "The Vision",
+    aboutH2: "REV",
+    aboutP1: "We are a company that connects the best <strong style='color:var(--r)'>automotive and luxury lifestyle</strong> photographers with clients across Europe. REV Culture selects, manages and coordinates every shoot — you choose the photographer, we handle the rest.",
+    pullQ: '"Every shot is a visual story that makes you want to turn the key."',
+    aboutP2: "Every session is planned down to the last detail: light, angle, movement. The result is never just a photograph.",
+    stat1: "Cars photographed", stat2: "Satisfied clients", stat3: "Years of experience",
+    svcLabel: "Services", svcH1: "What", svcH2: "we offer",
+    ctaPre: "Ready to collaborate?",
+    ctaH1: "Let's talk", ctaH2: "about your project",
+    ctaSub: "Got a car to photograph? An event? An idea? Message us on WhatsApp and we'll find the perfect solution.",
+    waBtn: "Message us on WhatsApp",
+    or: "or",
+    igBtn: "Follow us — @revculture.it"
+  }
+};
+
+function setLang(lang) {
+  const d = indexI18n[lang];
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  // nav
+  $('#btn-it').style.background = lang==='it' ? 'var(--r)' : 'transparent';
+  $('#btn-it').style.color = lang==='it' ? 'var(--w)' : 'rgba(244,242,239,.5)';
+  $('#btn-en').style.background = lang==='en' ? 'var(--r)' : 'transparent';
+  $('#btn-en').style.color = lang==='en' ? 'var(--w)' : 'rgba(244,242,239,.5)';
+  if($('#nav-book-btn')) $('#nav-book-btn').textContent = d.navBook;
+
+  // hero
+  const tag = $('.hero-tag'); if(tag) tag.childNodes[tag.childNodes.length-1].textContent = ' '+d.heroTag;
+  const sub = $('.hero-sub'); if(sub) sub.innerHTML = d.heroSub;
+  const btnP = $$('.btn-red')[0]; if(btnP) btnP.textContent = d.btnPortfolio;
+  const btnC = $$('.btn-ghost')[0]; if(btnC) btnC.textContent = d.btnContact;
+
+  // portfolio
+  const portLbls = $$('.sec-label'); if(portLbls[0]) portLbls[0].innerHTML = `<span></span>${d.portLabel}`;
+  const portH = $$('.sec-h')[0];
+  if(portH) portH.innerHTML = `${d.portTitle1}<br/><em>${d.portTitle2}</em>`;
+  const portIgLink = $('.port-ig'); if(portIgLink) portIgLink.textContent = d.portIg;
+
+  // parallax
+  const pbQ = $('.pb-quote');
+  if(pbQ) pbQ.innerHTML = `${d.pbQ1}<br/><em>${d.pbQ2}</em>`;
+
+  // about
+  const aboutLbl = document.querySelectorAll('.sec-label')[1]; if(aboutLbl) aboutLbl.innerHTML = `<span></span>${d.aboutLabel}`;
+  const aboutH = document.querySelectorAll('.sec-h')[1];
+  if(aboutH) aboutH.innerHTML = `${d.aboutH1}<br/><em>${d.aboutH2}</em>`;
+  const bodyPs = document.querySelectorAll('.about-body p');
+  if(bodyPs[0]) bodyPs[0].innerHTML = d.aboutP1;
+  if(bodyPs[1]) bodyPs[1].textContent = d.aboutP2;
+  const pq = document.querySelector('.pull-q'); if(pq) pq.textContent = d.pullQ;
+  const statLbls = document.querySelectorAll('.stat-l');
+  if(statLbls[0]) statLbls[0].textContent = d.stat1;
+  if(statLbls[1]) statLbls[1].textContent = d.stat2;
+  if(statLbls[2]) statLbls[2].textContent = d.stat3;
+
+  // services
+  const svcLbl = document.querySelectorAll('.sec-label')[2]; if(svcLbl) svcLbl.innerHTML = `<span></span>${d.svcLabel}`;
+  const svcH = document.querySelectorAll('.sec-h')[2];
+  if(svcH) svcH.innerHTML = `${d.svcH1}<br/><em>${d.svcH2}</em>`;
+
+  // contact
+  const ctaPre = document.querySelector('.contact-pre'); if(ctaPre) ctaPre.innerHTML = `<span></span>${d.ctaPre}<span></span>`;
+  const ctaH = document.querySelector('.contact-h');
+  if(ctaH) ctaH.innerHTML = `${d.ctaH1}<br/><em>${d.ctaH2}</em>`;
+  const ctaSub = document.querySelector('.contact-sub'); if(ctaSub) ctaSub.textContent = d.ctaSub;
+  const waSpan = document.querySelector('.wa-btn'); if(waSpan) { const svg = waSpan.querySelector('svg'); waSpan.textContent = d.waBtn; if(svg) waSpan.prepend(svg); }
+  const orSpan = document.querySelector('.contact-or span'); if(orSpan) orSpan.textContent = d.or;
+  const igBtnEl = document.querySelector('.ig-btn'); if(igBtnEl) { const svg = igBtnEl.querySelector('svg'); igBtnEl.textContent = ' '+d.igBtn; if(svg) igBtnEl.prepend(svg); }
+
+  document.documentElement.lang = lang;
+
+  // footer
+  const fTagline = document.getElementById('f-tagline-idx');
+  if (fTagline) fTagline.textContent = lang === 'en' ? 'Automotive Photography Network' : 'Automotive & Luxury Photography';
+  const fRights = document.getElementById('f-rights-idx');
+  if (fRights) fRights.textContent = lang === 'en' ? '© 2026 revculture.it — All rights reserved' : '© 2026 revculture.it — Tutti i diritti riservati';
+  const fWwaLabel = document.getElementById('f-wwa-label');
+  if (fWwaLabel) fWwaLabel.textContent = lang === 'en' ? 'Are you a photographer?' : 'Sei un fotografo?';
+  const fWwaBtn = document.getElementById('f-wwa-btn-text');
+  if (fWwaBtn) fWwaBtn.textContent = lang === 'en' ? 'Work With Us →' : 'Lavora con Noi →';
+
+  // update WA message on footer Work With Us button
+  const wwaLink = document.getElementById('f-wwa-btn');
+  if (wwaLink) {
+    const msg = lang === 'en'
+      ? "Hi REV Culture, I'm a photographer and I'd like to join your network."
+      : "Ciao REV Culture, sono un fotografo e vorrei collaborare con il vostro network.";
+    wwaLink.href = `https://wa.me/393931289124?text=${encodeURIComponent(msg)}`;
+  }
+}
+
 // ---- HERO GRID mouse parallax (desktop) ----
 if(!isMobile()){
   const grid=document.querySelector('.hero-grid');
@@ -1286,6 +1440,7 @@ if(!isMobile()){
     grid.style.backgroundPosition=`${x*20}px ${y*20}px`;
   });
 }
+
 </script>
 </body>
 </html>
