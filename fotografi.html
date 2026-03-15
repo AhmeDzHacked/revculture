@@ -3,8 +3,70 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RevCulture — I Nostri Fotografi</title>
+
+<!-- ═══ PRIMARY SEO ═══ -->
+<title>I Nostri Fotografi — RevCulture | Network Fotografico Europeo</title>
+<meta name="description" content="Scopri i fotografi automotive di RevCulture in tutta Europa. Prenota una sessione fotografica professionale per la tua supercar con i migliori fotografi selezionati — Svizzera, Italia e oltre."/>
+<meta name="keywords" content="fotografo automotive Europa, automotive photographer Switzerland, fotografo supercar Svizzera, FILOZ photographer, automotive photography network, fotografo auto lusso"/>
+<meta name="author" content="RevCulture"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://revculture.it/fotografi.html"/>
+
+<!-- ═══ OPEN GRAPH ═══ -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://revculture.it/fotografi.html"/>
+<meta property="og:title" content="I Nostri Fotografi — RevCulture Automotive Photography Network"/>
+<meta property="og:description" content="Fotografi automotive selezionati in tutta Europa. Prenota la tua sessione — supercar, eventi luxury, lifestyle."/>
+<meta property="og:image" content="https://revculture.it/images/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="RevCulture — Automotive Photography Network"/>
+<meta property="og:locale" content="it_IT"/>
+<meta property="og:locale:alternate" content="en_GB"/>
+<meta property="og:site_name" content="RevCulture"/>
+
+<!-- ═══ TWITTER / X CARD ═══ -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:url" content="https://revculture.it/fotografi.html"/>
+<meta name="twitter:title" content="I Nostri Fotografi — RevCulture"/>
+<meta name="twitter:description" content="Fotografo automotive per la tua supercar in Svizzera, Italia e tutta Europa. Prenota ora."/>
+<meta name="twitter:image" content="https://revculture.it/images/og-image.jpg"/>
+<meta name="twitter:image:alt" content="RevCulture — Automotive Photography Network"/>
+
+<!-- ═══ STRUCTURED DATA — ItemList of photographers ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "RevCulture — Network Fotografi Automotive",
+  "description": "Fotografi automotive selezionati da RevCulture in tutta Europa",
+  "url": "https://revculture.it/fotografi.html",
+  "numberOfItems": 1,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Person",
+        "name": "FILOZ",
+        "jobTitle": "Automotive & Luxury Lifestyle Photographer",
+        "description": "Fotografo automotive specializzato in supercar, luxury lifestyle e location alpine. Lavora in tutta la Svizzera.",
+        "url": "https://revculture.it/fotografi.html",
+        "sameAs": "https://instagram.com/photo.by.filoz",
+        "knowsLanguage": ["en", "fr"],
+        "areaServed": {
+          "@type": "Country",
+          "name": "Switzerland"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ═══ FONTS ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -629,6 +691,15 @@ function applyLang(lang){
   });
 
   document.documentElement.lang=lang;
+
+  // update title + meta description on lang switch
+  if(lang==='en'){
+    document.title='Our Photographers — RevCulture | European Automotive Photography Network';
+    document.querySelector('meta[name="description"]').setAttribute('content','Discover RevCulture\'s automotive photographers across Europe. Book a professional shoot for your supercar with our selected photographers — Switzerland, Italy and beyond.');
+  } else {
+    document.title='I Nostri Fotografi — RevCulture | Network Fotografico Europeo';
+    document.querySelector('meta[name="description"]').setAttribute('content','Scopri i fotografi automotive di RevCulture in tutta Europa. Prenota una sessione fotografica professionale per la tua supercar con i migliori fotografi selezionati — Svizzera, Italia e oltre.');
+  }
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.dataset.lang)));
