@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Entra nel Network — RevCulture | Fotografi & Videomaker Automotive</title>
+<meta name="description" content="Sei un fotografo o videomaker automotive? Unisciti al network RevCulture. Gestiamo noi i clienti, tu ti concentri sul tuo lavoro. Network in espansione in tutta Europa."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://revculture.it/join.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://revculture.it/join.html"/>
+<meta property="og:title" content="Entra nel Network — RevCulture"/>
+<meta property="og:description" content="Fotografi e videomaker automotive: unisciti al network RevCulture. Gestiamo noi i clienti."/>
+<meta property="og:image" content="https://revculture.it/images/og-image.jpg"/>
+<meta property="og:site_name" content="RevCulture"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://revculture.it/images/og-image.jpg"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --r:#CC0000;--rh:#FF1111;--blk:#060606;--d1:#0e0e0e;--d2:#161616;--d3:#1f1f1f;
+  --w:#F4F2EF;--head:'Anton',sans-serif;--cond:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--blk);color:var(--w);font-family:var(--body);font-weight:300;overflow-x:hidden;cursor:none}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9001}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--r);border-radius:50%;pointer-events:none;z-index:9999;left:0;top:0;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s,border-radius .2s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(204,0,0,.5);border-radius:50%;pointer-events:none;z-index:9998;left:0;top:0;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .25s}
+body.hov #cur{width:16px;height:16px;background:var(--rh);border-radius:3px}
+body.hov #cur-ring{width:60px;height:60px;border-color:var(--r)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 48px;transition:padding .4s,background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{padding:14px 48px;background:rgba(6,6,6,.94);backdrop-filter:blur(20px);border-color:rgba(255,255,255,.04)}
+.nav-logo{font-family:var(--head);font-size:1.4rem;letter-spacing:.16em;color:var(--w)}
+.nav-logo em{color:var(--r);font-style:normal}
+.nav-back{display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,242,239,.6);transition:color .25s}
+.nav-back:hover{color:var(--w)}
+.nav-back svg{transition:transform .25s}
+.nav-back:hover svg{transform:translateX(-3px)}
+.lang-wrap{display:flex;align-items:center;gap:12px}
+.lang-switch{display:flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden}
+.lang-btn{font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);background:transparent;border:none;padding:7px 12px;cursor:pointer;transition:background .2s,color .2s}
+.lang-btn.active{background:var(--r);color:var(--w)}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:100%;height:1.5px;background:var(--w);transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s,width .3s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{position:fixed;top:0;right:0;bottom:0;width:min(300px,82vw);background:rgba(8,8,8,.98);backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,.06);z-index:590;display:flex;flex-direction:column;padding:88px 36px 48px;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
+#mobile-menu.open{transform:translateX(0);pointer-events:all}
+#mobile-menu a{font-family:var(--head);font-size:1.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--w);display:block;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .25s}
+#mobile-menu a:hover{color:var(--r)}
+#menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:580;opacity:0;pointer-events:none;transition:opacity .4s}
+#menu-overlay.open{opacity:1;pointer-events:all}
+.mm-lang{display:flex;gap:4px;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:28px}
+.mm-lang-btn{font-family:var(--cond);font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;flex:1;padding:12px;text-align:center;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(244,242,239,.5);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.mm-lang-btn.active{background:var(--r);color:var(--w);border-color:var(--r)}
+
+/* SCROLL REVEAL */
+.rev{opacity:0;transform:translateY(44px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.22s}.rev.d3{transition-delay:.34s}.rev.d4{transition-delay:.46s}
+.rev.on{opacity:1;transform:none}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--blk)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:80px 80px;animation:gridDrift 20s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:80px 80px}}
+.hero-glow{position:absolute;width:900px;height:900px;border-radius:50%;top:-300px;right:-200px;background:radial-gradient(circle,rgba(180,0,0,.14) 0%,transparent 65%);animation:glowDrift 10s ease-in-out infinite alternate;pointer-events:none}
+@keyframes glowDrift{from{transform:translate(0,0) scale(1)}to{transform:translate(-60px,50px) scale(1.15)}}
+.hero-stripe{position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,transparent,var(--r) 25%,var(--r) 75%,transparent)}
+
+/* big background word */
+.hero-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--head);font-size:clamp(100px,20vw,260px);letter-spacing:.08em;color:rgba(204,0,0,.04);white-space:nowrap;pointer-events:none;user-select:none;animation:wmFloat 12s ease-in-out infinite alternate}
+@keyframes wmFloat{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-52%) scale(1.04)}}
+
+.hero-content{position:relative;z-index:2;padding:0 48px 80px;max-width:900px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);margin-bottom:24px;opacity:0;animation:fadeUp .6s .2s forwards}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--r)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-h1{font-family:var(--head);font-size:clamp(56px,11vw,140px);line-height:.88;letter-spacing:.01em;text-transform:uppercase}
+.h1-line{overflow:hidden;display:block}
+.h1-inner{display:block;transform:translateY(110%);opacity:0}
+.h1-line:nth-child(1) .h1-inner{animation:lineUp 1s .35s cubic-bezier(.16,1,.3,1) forwards}
+.h1-line:nth-child(2) .h1-inner{animation:lineUp 1s .52s cubic-bezier(.16,1,.3,1) forwards}
+.h1-line:nth-child(3) .h1-inner{color:var(--r);animation:lineUp 1s .69s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes lineUp{to{transform:translateY(0);opacity:1}}
+.hero-sub{font-family:var(--cond);font-size:1.1rem;font-weight:300;font-style:italic;color:rgba(244,242,239,.7);line-height:1.7;margin-top:32px;max-width:560px;opacity:0;animation:fadeUp .8s 1s forwards}
+.hero-cta{display:flex;align-items:center;gap:20px;margin-top:44px;opacity:0;animation:fadeUp .8s 1.2s forwards;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:12px;background:#25D366;color:var(--w);font-family:var(--cond);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:18px 36px;transition:background .25s,transform .2s}
+.btn-wa:hover{background:#20bd5a;transform:translateY(-2px)}
+.btn-wa svg{flex-shrink:0}
+.btn-ghost-link{font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,242,239,.5);border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;transition:color .25s,border-color .25s}
+.btn-ghost-link:hover{color:var(--w);border-color:var(--w)}
+.hero-scroll-hint{position:absolute;right:48px;bottom:48px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeUp .8s 1.5s forwards}
+.hero-scroll-hint span{font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:rgba(244,242,239,.4);writing-mode:vertical-rl}
+.scroll-track{width:1px;height:56px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+.scroll-track::after{content:'';position:absolute;width:100%;height:35%;background:var(--r);top:-35%;animation:trackDrop 2s ease-in-out infinite}
+@keyframes trackDrop{0%{top:-35%}100%{top:135%}}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:var(--r);padding:12px 0}
+.marquee-track{display:flex;white-space:nowrap;animation:mq 30s linear infinite}
+.mq-item{display:inline-flex;align-items:center;gap:24px;padding-right:24px;font-family:var(--head);font-size:.9rem;letter-spacing:.18em;color:rgba(255,255,255,.9)}
+.mq-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── WHY SECTION ── */
+#perche{padding:140px 48px;background:var(--d1);position:relative;overflow:hidden}
+#perche::before{content:'WHY';position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:var(--head);font-size:28vw;color:rgba(204,0,0,.04);pointer-events:none;line-height:1}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:72px;position:relative;z-index:1}
+.why-card{background:var(--blk);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s}
+.why-card:hover{background:var(--d2)}
+.why-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--r);transition:width .55s cubic-bezier(.25,.46,.45,.94)}
+.why-card:hover::before{width:100%}
+.why-icon{width:52px;height:52px;border:1px solid rgba(204,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:28px;transition:border-color .3s,background .3s}
+.why-card:hover .why-icon{border-color:var(--r);background:rgba(204,0,0,.08)}
+.why-icon svg{color:var(--r)}
+.why-num{font-family:var(--head);font-size:5rem;color:rgba(204,0,0,.07);position:absolute;top:12px;right:16px;line-height:1;transition:color .4s}
+.why-card:hover .why-num{color:rgba(204,0,0,.14)}
+.why-title{font-family:var(--head);font-size:1.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--w);margin-bottom:16px;line-height:1}
+.why-desc{font-family:var(--body);font-size:.9rem;line-height:1.8;color:rgba(244,242,239,.6)}
+
+/* ── HOW IT WORKS FOR CREATORS ── */
+#come-funziona-creator{padding:140px 48px;background:var(--blk);position:relative;overflow:hidden}
+.creator-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:72px;position:relative}
+.creator-steps::before{content:'';position:absolute;top:36px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(to right,transparent,rgba(204,0,0,.3) 25%,rgba(204,0,0,.3) 75%,transparent);pointer-events:none}
+.cstep{padding:0 24px;text-align:center;position:relative}
+.cstep-dot{width:72px;height:72px;border:1px solid rgba(204,0,0,.25);border-radius:50%;background:var(--d1);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;z-index:1;transition:border-color .3s,background .3s}
+.cstep:hover .cstep-dot{border-color:var(--r);background:rgba(204,0,0,.1)}
+.cstep-dot svg{color:var(--r)}
+.cstep-num{position:absolute;top:-8px;right:-8px;width:22px;height:22px;background:var(--r);border-radius:50%;font-family:var(--head);font-size:.55rem;display:flex;align-items:center;justify-content:center;color:var(--w)}
+.cstep-title{font-family:var(--head);font-size:1.1rem;letter-spacing:.06em;text-transform:uppercase;color:var(--w);margin-bottom:12px}
+.cstep-desc{font-family:var(--cond);font-size:.78rem;letter-spacing:.05em;line-height:1.6;color:rgba(244,242,239,.5)}
+
+/* ── FILOZ SPOTLIGHT ── */
+#filoz-spotlight{padding:140px 48px;background:var(--d1);position:relative;overflow:hidden}
+.spotlight-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;position:relative;z-index:1}
+.spotlight-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--d2)}
+.spotlight-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) brightness(.88);transition:transform .9s,filter .5s}
+.spotlight-img:hover img{transform:scale(1.05);filter:grayscale(0%) brightness(1)}
+.spotlight-img::before,.spotlight-img::after{content:'';position:absolute;width:44px;height:44px;border-color:var(--r);border-style:solid;z-index:2;transition:width .4s,height .4s}
+.spotlight-img::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.spotlight-img::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.spotlight-img:hover::before,.spotlight-img:hover::after{width:64px;height:64px}
+.spotlight-badge{position:absolute;top:20px;right:20px;background:var(--r);padding:8px 16px;font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--w)}
+.spotlight-eyebrow{font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.spotlight-eyebrow::before{content:'';width:20px;height:1px;background:var(--r)}
+.spotlight-name{font-family:var(--head);font-size:clamp(3rem,7vw,7rem);line-height:.88;letter-spacing:.03em;text-transform:uppercase;color:var(--w);margin-bottom:12px}
+.spotlight-loc{display:inline-flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--r);margin-bottom:28px}
+.spotlight-desc{font-family:var(--body);font-size:.95rem;line-height:1.85;color:rgba(244,242,239,.7);margin-bottom:32px}
+.spotlight-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.spotlight-tag{font-family:var(--cond);font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,239,.5);border:1px solid rgba(255,255,255,.12);padding:6px 14px;transition:color .25s,border-color .25s}
+.spotlight-tag:hover{color:var(--w);border-color:rgba(255,255,255,.35)}
+.spotlight-ig{display:inline-flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,242,239,.4);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:2px;transition:color .25s,border-color .25s}
+.spotlight-ig:hover{color:var(--r);border-color:var(--r)}
+
+/* OPEN SLOTS SECTION */
+#slots{padding:120px 48px;background:var(--blk);position:relative;overflow:hidden}
+#slots::before{content:'JOIN';position:absolute;right:-40px;bottom:-40px;font-family:var(--head);font-size:25vw;color:rgba(204,0,0,.035);pointer-events:none;line-height:1}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px;position:relative;z-index:1}
+.slot-card{background:var(--d1);padding:44px 36px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.04);transition:background .3s,border-color .3s}
+.slot-card:hover{background:var(--d2);border-color:rgba(204,0,0,.2)}
+.slot-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--r);transition:width .5s cubic-bezier(.25,.46,.45,.94)}
+.slot-card:hover::before{width:100%}
+.slot-country-flag{font-size:2rem;margin-bottom:16px;line-height:1}
+.slot-country{font-family:var(--head);font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--w);margin-bottom:8px}
+.slot-status{display:inline-flex;align-items:center;gap:8px;font-family:var(--cond);font-size:.58rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-bottom:20px}
+.slot-status.open{color:#4ade80}
+.slot-status.open::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;animation:blink 1.5s ease-in-out infinite}
+.slot-status.soon{color:rgba(244,242,239,.3)}
+.slot-status.soon::before{content:'';width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.slot-desc{font-family:var(--cond);font-size:.8rem;letter-spacing:.06em;line-height:1.6;color:rgba(244,242,239,.5);margin-bottom:28px}
+.slot-types{display:flex;gap:6px;flex-wrap:wrap}
+.slot-type{font-family:var(--cond);font-size:.52rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,242,239,.4);border:1px solid rgba(255,255,255,.08);padding:4px 10px}
+
+/* CTA FINALE */
+#cta-join{padding:160px 48px;background:var(--d1);text-align:center;position:relative;overflow:hidden}
+#cta-join::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(180,0,0,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:glowPulse 5s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.8}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+.cta-inner{position:relative;z-index:1}
+.cta-pre{font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
+.cta-pre::before,.cta-pre::after{content:'';width:24px;height:1px;background:var(--r)}
+.cta-h{font-family:var(--head);font-size:clamp(2.8rem,9vw,9rem);line-height:.88;text-transform:uppercase;color:var(--w);margin-bottom:28px;letter-spacing:.02em}
+.cta-h em{color:var(--r);font-style:normal;display:block}
+.cta-sub{font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;color:rgba(244,242,239,.6);max-width:500px;margin:0 auto 56px;line-height:1.75}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+.btn-red{display:inline-flex;align-items:center;gap:12px;background:var(--r);color:var(--w);font-family:var(--cond);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:20px 44px;position:relative;overflow:hidden;transition:background .25s,transform .2s}
+.btn-red::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-100%) skewX(-10deg);transition:transform .4s}
+.btn-red:hover{background:var(--rh);transform:translateY(-2px)}
+.btn-red:hover::after{transform:translateX(100%) skewX(-10deg)}
+.btn-ig{display:inline-flex;align-items:center;gap:12px;font-family:var(--cond);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w);border:1px solid rgba(255,255,255,.2);padding:18px 36px;transition:border-color .25s,color .25s,background .25s}
+.btn-ig:hover{border-color:var(--r);background:rgba(204,0,0,.08)}
+.btn-ig svg{flex-shrink:0}
+
+/* FOOTER */
+footer{background:var(--blk);border-top:1px solid rgba(255,255,255,.04);padding:32px 48px;display:flex;justify-content:space-between;align-items:center}
+.f-logo{font-family:var(--head);font-size:1.3rem;letter-spacing:.18em}
+.f-logo em{color:var(--r);font-style:normal}
+footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:right}
+
+/* MOBILE */
+@media(max-width:768px){
+  #cur,#cur-ring{display:none}body{cursor:auto}
+  nav{padding:18px 20px}.hamburger{display:flex}.lang-wrap .lang-switch{display:none}
+  .hero-content{padding:0 24px 64px}
+  .hero-h1{font-size:clamp(48px,15vw,96px)}
+  .hero-sub{font-size:.92rem;margin-top:24px}
+  .hero-cta{flex-direction:column;align-items:flex-start;gap:14px;margin-top:32px}
+  .btn-wa,.btn-red{width:100%;justify-content:center;padding:18px 24px;font-size:.72rem}
+  .btn-ghost-link{font-size:.65rem}
+  .hero-scroll-hint{display:none}
+  #perche{padding:80px 24px}.why-grid{grid-template-columns:1fr;gap:2px}
+  .why-card{padding:36px 28px}
+  #come-funziona-creator{padding:80px 24px}
+  .creator-steps{grid-template-columns:1fr 1fr;gap:24px}
+  .creator-steps::before{display:none}
+  .cstep{padding:0 12px}
+  .cstep-dot{width:56px;height:56px}
+  .cstep-title{font-size:.9rem}
+  .cstep-desc{font-size:.72rem}
+  #filoz-spotlight{padding:80px 24px}
+  .spotlight-grid{grid-template-columns:1fr;gap:40px}
+  .spotlight-img{max-width:100%;aspect-ratio:4/3}
+  .spotlight-name{font-size:clamp(2.5rem,10vw,5rem)}
+  .spotlight-desc{font-size:.88rem}
+  #slots{padding:80px 24px}.slots-grid{grid-template-columns:1fr;gap:2px}
+  .slot-card{padding:32px 24px}
+  #cta-join{padding:100px 24px}
+  .cta-h{font-size:clamp(2.2rem,11vw,4rem)}
+  .cta-btns{flex-direction:column;align-items:stretch}
+  .btn-ig{width:100%;justify-content:center}
+  footer{flex-direction:column;gap:16px;text-align:center;padding:28px 24px}
+  footer p{text-align:center}
+}
+@media(max-width:400px){
+  .hero-h1{font-size:clamp(42px,13vw,72px)}
+  .creator-steps{grid-template-columns:1fr;gap:20px}
+  .spotlight-name{font-size:clamp(2rem,9vw,3.5rem)}
+}
+@media(min-width:769px) and (max-width:1100px){
+  .why-grid{grid-template-columns:1fr 1fr}
+  .creator-steps{grid-template-columns:1fr 1fr;gap:48px}
+  .creator-steps::before{display:none}
+  .spotlight-grid{grid-template-columns:1fr 1fr;gap:48px}
+  .slots-grid{grid-template-columns:1fr 1fr}
+  #perche,#come-funziona-creator,#filoz-spotlight,#slots,#cta-join{padding:100px 40px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <span id="nav-back-text">RevCulture</span>
+  </a>
+  <a href="index.html" class="nav-logo">Rev<em>C</em>ulture</a>
+  <div class="lang-wrap">
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('it')" id="btn-it">IT</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="menu-overlay"></div>
+<div id="mobile-menu">
+  <a href="index.html" id="mm-home">Home</a>
+  <a href="fotografi.html" id="mm-team">Il Team</a>
+  <a href="index.html#contatti" id="mm-contact">Contatti</a>
+  <div class="mm-lang">
+    <button class="mm-lang-btn active" id="mm-it" onclick="setLang('it');closeMenu()">IT</button>
+    <button class="mm-lang-btn" id="mm-en" onclick="setLang('en');closeMenu()">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-wm" id="hero-wm">JOIN US</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="hero-eyebrow-el">RevCulture — Entra nel Network</div>
+    <h1 class="hero-h1">
+      <span class="h1-line"><span class="h1-inner" id="h1-1">Sei un</span></span>
+      <span class="h1-line"><span class="h1-inner" id="h1-2">Fotografo o</span></span>
+      <span class="h1-line"><span class="h1-inner" id="h1-3">Videomaker?</span></span>
+    </h1>
+    <p class="hero-sub" id="hero-sub-el">Stai cercando clienti? Vuoi lavorare di più con la tua passione per le auto? RevCulture porta i clienti — tu fai il lavoro che ami.</p>
+    <div class="hero-cta">
+      <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20sono%20un%20fotografo%2Fvideomaker%20e%20voglio%20entrare%20nel%20network." target="_blank" class="btn-wa" id="cta-wa-hero">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span id="cta-wa-hero-text">Scrivici ora su WhatsApp</span>
+      </a>
+      <a href="#perche" class="btn-ghost-link" id="cta-more-el">Scopri come funziona ↓</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint"><div class="scroll-track"></div><span>Scroll</span></div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mq-item">Fotografi Automotive <span class="mq-dot"></span></div>
+    <div class="mq-item">Videomaker <span class="mq-dot"></span></div>
+    <div class="mq-item">Switzerland <span class="mq-dot"></span></div>
+    <div class="mq-item">Italy <span class="mq-dot"></span></div>
+    <div class="mq-item">France <span class="mq-dot"></span></div>
+    <div class="mq-item">Germany <span class="mq-dot"></span></div>
+    <div class="mq-item">España <span class="mq-dot"></span></div>
+    <div class="mq-item">Network Europeo <span class="mq-dot"></span></div>
+    <div class="mq-item">Fotografi Automotive <span class="mq-dot"></span></div>
+    <div class="mq-item">Videomaker <span class="mq-dot"></span></div>
+    <div class="mq-item">Switzerland <span class="mq-dot"></span></div>
+    <div class="mq-item">Italy <span class="mq-dot"></span></div>
+    <div class="mq-item">France <span class="mq-dot"></span></div>
+    <div class="mq-item">Germany <span class="mq-dot"></span></div>
+    <div class="mq-item">España <span class="mq-dot"></span></div>
+    <div class="mq-item">Network Europeo <span class="mq-dot"></span></div>
+  </div>
+</div>
+
+<!-- PERCHÉ REVCULTURE -->
+<section id="perche">
+  <div class="rev">
+    <div style="font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="width:20px;height:1px;background:var(--r);display:inline-block"></span><span id="why-label-el">Perché RevCulture</span></div>
+    <h2 style="font-family:var(--head);font-size:clamp(2.5rem,7vw,6rem);line-height:.9;letter-spacing:.02em;text-transform:uppercase" id="why-h-el">Noi gestiamo.<br/><span style="color:var(--r)">Tu crei.</span></h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card rev d1">
+      <div class="why-num">01</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="why-title" id="why-t1">Clienti garantiti</div>
+      <div class="why-desc" id="why-d1">Non devi cercare clienti, fare preventivi o gestire comunicazioni. RevCulture ti manda le prenotazioni — tu arrivi, scatti, consegni.</div>
+    </div>
+    <div class="why-card rev d2">
+      <div class="why-num">02</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="why-title" id="why-t2">Zero burocrazia</div>
+      <div class="why-desc" id="why-d2">Nessuna trattativa su prezzi, nessuna gestione pagamenti complicata. RevCulture fa da buffer tra te e il cliente. Tu ti concentri sul lavoro creativo.</div>
+    </div>
+    <div class="why-card rev d3">
+      <div class="why-num">03</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="why-title" id="why-t3">Visibilità europea</div>
+      <div class="why-desc" id="why-d3">Fai parte di un network che cresce in tutta Europa. Il tuo portfolio viene esposto a clienti internazionali che non raggiungeresti da solo.</div>
+    </div>
+    <div class="why-card rev d4">
+      <div class="why-num">04</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="why-title" id="why-t4">Foto e video</div>
+      <div class="why-desc" id="why-d4">Il network cerca sia fotografi che videomaker. Se lavori con entrambi, ancora meglio. Ogni tipo di creativo automotive è il benvenuto.</div>
+    </div>
+    <div class="why-card rev" style="transition-delay:.5s">
+      <div class="why-num">05</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="why-title" id="why-t5">Selezione qualitativa</div>
+      <div class="why-desc" id="why-d5">Non accettiamo chiunque. Questo significa che far parte di RevCulture è un segnale di qualità — per i clienti e per gli altri creator del network.</div>
+    </div>
+    <div class="why-card rev" style="transition-delay:.6s">
+      <div class="why-num">06</div>
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="why-title" id="why-t6">Network in crescita</div>
+      <div class="why-desc" id="why-d6">Siamo appena partiti. Chi entra ora è tra i fondatori del network — e avrà i vantaggi di chi è arrivato per primo quando RevCulture si espanderà.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COME FUNZIONA PER I CREATOR -->
+<section id="come-funziona-creator">
+  <div class="rev">
+    <div style="font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="width:20px;height:1px;background:var(--r);display:inline-block"></span><span id="how-label-el">Come funziona</span></div>
+    <h2 style="font-family:var(--head);font-size:clamp(2.5rem,7vw,6rem);line-height:.9;letter-spacing:.02em;text-transform:uppercase" id="how-h-el">Quattro passi.<br/><span style="color:var(--r)">Tutto chiaro.</span></h2>
+  </div>
+  <div class="creator-steps">
+    <div class="cstep rev d1">
+      <div class="cstep-dot">
+        <div class="cstep-num">1</div>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="cstep-title" id="cs-t1">Ci contatti</div>
+      <div class="cstep-desc" id="cs-d1">Mandi un messaggio su WhatsApp o Instagram con il tuo portfolio. Nessun modulo, nessuna burocrazia.</div>
+    </div>
+    <div class="cstep rev d2">
+      <div class="cstep-dot">
+        <div class="cstep-num">2</div>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div class="cstep-title" id="cs-t2">Valutiamo insieme</div>
+      <div class="cstep-desc" id="cs-d2">Guardiamo il tuo lavoro, capiamo il tuo stile e la tua area. Se c'è fit, ti aggiungiamo al network.</div>
+    </div>
+    <div class="cstep rev d3">
+      <div class="cstep-dot">
+        <div class="cstep-num">3</div>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="cstep-title" id="cs-t3">Arrivano i clienti</div>
+      <div class="cstep-desc" id="cs-d3">RevCulture gestisce le prenotazioni e le passa a te. Tu ricevi il briefing e ti presenti al shooting.</div>
+    </div>
+    <div class="cstep rev d4">
+      <div class="cstep-dot">
+        <div class="cstep-num">4</div>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <div class="cstep-title" id="cs-t4">Vieni pagato</div>
+      <div class="cstep-desc" id="cs-d4">Consegni il materiale, RevCulture si occupa del resto. Pagamento diretto, semplice.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILOZ SPOTLIGHT -->
+<section id="filoz-spotlight">
+  <div style="font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:60px;position:relative;z-index:1"><span style="width:20px;height:1px;background:var(--r);display:inline-block"></span><span id="spot-label-el">Chi c'è già</span></div>
+  <div class="spotlight-grid">
+    <div class="spotlight-img rev">
+      <img src="images/filoz.jpg" alt="FILOZ — RevCulture Member 01" loading="lazy" onerror="this.onerror=null;this.src='images/foto01.JPG'"/>
+      <div class="spotlight-badge" id="spot-badge-el">Membro #01</div>
+    </div>
+    <div class="rev d2">
+      <div class="spotlight-eyebrow" id="spot-eyebrow-el">Il primo del network</div>
+      <div class="spotlight-name">FILOZ</div>
+      <div class="spotlight-loc">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Switzerland — Nationwide
+      </div>
+      <div class="spotlight-desc" id="spot-desc-el">FILOZ è il fotografo che ha creduto nel progetto RevCulture fin dall'inizio. Specializzato in supercar e location alpine in tutta la Svizzera, lavora in EN e FR. Il suo portfolio parla da solo — e ora fa parte di un network che sta crescendo.</div>
+      <div class="spotlight-tags">
+        <span class="spotlight-tag">Supercar</span>
+        <span class="spotlight-tag">Luxury Lifestyle</span>
+        <span class="spotlight-tag">Alpine Locations</span>
+        <span class="spotlight-tag">EN · FR</span>
+        <span class="spotlight-tag">Switzerland</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+        <a href="portfolio-filoz.html" class="btn-red" style="font-size:.65rem;padding:14px 28px" id="spot-portfolio-el">
+          Vedi il Portfolio →
+        </a>
+        <a href="https://instagram.com/photo.by.filoz" target="_blank" class="spotlight-ig">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @photo.by.filoz
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLOT APERTI -->
+<section id="slots">
+  <div class="rev">
+    <div style="font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--r);display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="width:20px;height:1px;background:var(--r);display:inline-block"></span><span id="slots-label-el">Posizioni aperte</span></div>
+    <h2 style="font-family:var(--head);font-size:clamp(2.5rem,7vw,6rem);line-height:.9;letter-spacing:.02em;text-transform:uppercase" id="slots-h-el">Dove stiamo<br/><span style="color:var(--r)">cercando.</span></h2>
+  </div>
+  <div class="slots-grid">
+    <div class="slot-card rev d1">
+      <div class="slot-country-flag">🇮🇹</div>
+      <div class="slot-country" id="sl-c1">Italia</div>
+      <div class="slot-status open" id="sl-s1">Posizione aperta</div>
+      <div class="slot-desc" id="sl-d1">Cerchiamo fotografi e videomaker automotive in Italia — Roma, Milano, Torino e dintorni. Supercar, eventi, luxury lifestyle.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+        <span class="slot-type">Videomaker</span>
+      </div>
+    </div>
+    <div class="slot-card rev d2">
+      <div class="slot-country-flag">🇫🇷</div>
+      <div class="slot-country" id="sl-c2">Francia</div>
+      <div class="slot-status open" id="sl-s2">Posizione aperta</div>
+      <div class="slot-desc" id="sl-d2">Parigi, Côte d'Azur, Lione. Il mercato del lusso francese è enorme — vogliamo il fotografo giusto per coprirlo.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+        <span class="slot-type">Videomaker</span>
+      </div>
+    </div>
+    <div class="slot-card rev d3">
+      <div class="slot-country-flag">🇩🇪</div>
+      <div class="slot-country" id="sl-c3">Germania</div>
+      <div class="slot-status open" id="sl-s3">Posizione aperta</div>
+      <div class="slot-desc" id="sl-d3">Monaco, Francoforte, Stoccarda. La capitale delle supercar europee. Cerchiamo creator di alto livello.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+        <span class="slot-type">Videomaker</span>
+      </div>
+    </div>
+    <div class="slot-card rev d4">
+      <div class="slot-country-flag">🇪🇸</div>
+      <div class="slot-country" id="sl-c4">Spagna</div>
+      <div class="slot-status open" id="sl-s4">Posizione aperta</div>
+      <div class="slot-desc" id="sl-d4">Barcelona, Madrid, Marbella. Location da sogno per shooting automotive di lusso.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+        <span class="slot-type">Videomaker</span>
+      </div>
+    </div>
+    <div class="slot-card rev" style="transition-delay:.5s">
+      <div class="slot-country-flag">🇦🇹</div>
+      <div class="slot-country" id="sl-c5">Austria</div>
+      <div class="slot-status soon" id="sl-s5">Prossimamente</div>
+      <div class="slot-desc" id="sl-d5">Vienna e le Alpi austriache. Strade di montagna perfette per l'automotive photography.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+      </div>
+    </div>
+    <div class="slot-card rev" style="transition-delay:.6s">
+      <div class="slot-country-flag">🌍</div>
+      <div class="slot-country" id="sl-c6">Resto d'Europa</div>
+      <div class="slot-status soon" id="sl-s6">Prossimamente</div>
+      <div class="slot-desc" id="sl-d6">Belgio, Paesi Bassi, Portogallo e altro. Se sei in Europa e sei bravo, vogliamo sentirti comunque.</div>
+      <div class="slot-types">
+        <span class="slot-type">Fotografo</span>
+        <span class="slot-type">Videomaker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section id="cta-join">
+  <div class="cta-inner rev">
+    <div class="cta-pre" id="cta-pre-el">Pronto ad entrare?</div>
+    <h2 class="cta-h" id="cta-h-el">Scrivici.<br/><em>È semplice.</em></h2>
+    <p class="cta-sub" id="cta-sub-el">Mandaci un messaggio su WhatsApp o Instagram con il link al tuo portfolio. Non serve un CV, non serve un'agenzia. Serve solo il tuo lavoro.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/393931289124?text=Ciao%20RevCulture%2C%20sono%20un%20fotografo%2Fvideomaker%20e%20voglio%20entrare%20nel%20network.%20Ecco%20il%20mio%20portfolio%3A%20" target="_blank" class="btn-red" id="cta-wa-final">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span id="cta-wa-final-text">WhatsApp — Candidati ora</span>
+      </a>
+      <a href="https://instagram.com/revculture.it" target="_blank" class="btn-ig" id="cta-ig-final">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <span id="cta-ig-final-text">Instagram — @revculture.it</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="f-logo">Rev<em>C</em>ulture</div>
+    <div style="font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,239,.35);margin-top:5px">Automotive Photography & Video Network</div>
+  </div>
+  <div>
+    <p>© 2026 revculture.it</p>
+    <p style="margin-top:4px">Made with passion — Italy</p>
+  </div>
+</footer>
+
+<script>
+const isMobile=()=>window.innerWidth<=768;
+const curEl=document.getElementById('cur'),ringEl=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+if(!isMobile()){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curEl.style.left=mx+'px';curEl.style.top=my+'px'});
+  (function ar(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(ar)})();
+  document.querySelectorAll('a,button,.why-card,.slot-card,.cstep').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// HAMBURGER
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu'),overlay=document.getElementById('menu-overlay');
+function openMenu(){hamburger.classList.add('open');mobileMenu.classList.add('open');overlay.classList.add('open');document.body.style.overflow='hidden'}
+function closeMenu(){hamburger.classList.remove('open');mobileMenu.classList.remove('open');overlay.classList.remove('open');document.body.style.overflow=''}
+hamburger.addEventListener('click',()=>mobileMenu.classList.contains('open')?closeMenu():openMenu());
+overlay.addEventListener('click',closeMenu);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+// ── LANG SWITCH ──
+const J={
+  it:{
+    navBack:'RevCulture',
+    heroEyebrow:'RevCulture — Entra nel Network',
+    h1_1:'Sei un', h1_2:'Fotografo o', h1_3:'Videomaker?',
+    heroSub:'Stai cercando clienti? Vuoi lavorare di più con la tua passione per le auto? RevCulture porta i clienti — tu fai il lavoro che ami.',
+    ctaWaHero:'Scrivici ora su WhatsApp',
+    ctaMore:'Scopri come funziona ↓',
+    whyLabel:'Perché RevCulture', whyH:'Noi gestiamo.<br/><span style="color:var(--r)">Tu crei.</span>',
+    whyT1:'Clienti garantiti', whyD1:'Non devi cercare clienti, fare preventivi o gestire comunicazioni. RevCulture ti manda le prenotazioni — tu arrivi, scatti, consegni.',
+    whyT2:'Zero burocrazia', whyD2:'Nessuna trattativa su prezzi, nessuna gestione pagamenti complicata. RevCulture fa da buffer tra te e il cliente. Tu ti concentri sul lavoro creativo.',
+    whyT3:'Visibilità europea', whyD3:'Fai parte di un network che cresce in tutta Europa. Il tuo portfolio viene esposto a clienti internazionali che non raggiungeresti da solo.',
+    whyT4:'Foto e video', whyD4:'Il network cerca sia fotografi che videomaker. Se lavori con entrambi, ancora meglio. Ogni tipo di creativo automotive è il benvenuto.',
+    whyT5:'Selezione qualitativa', whyD5:'Non accettiamo chiunque. Questo significa che far parte di RevCulture è un segnale di qualità — per i clienti e per gli altri creator del network.',
+    whyT6:'Network in crescita', whyD6:'Siamo appena partiti. Chi entra ora è tra i fondatori del network — e avrà i vantaggi di chi è arrivato per primo.',
+    howLabel:'Come funziona', howH:'Quattro passi.<br/><span style="color:var(--r)">Tutto chiaro.</span>',
+    csT1:'Ci contatti', csD1:'Mandi un messaggio su WhatsApp o Instagram con il tuo portfolio. Nessun modulo, nessuna burocrazia.',
+    csT2:'Valutiamo insieme', csD2:'Guardiamo il tuo lavoro, capiamo il tuo stile e la tua area. Se c\'è fit, ti aggiungiamo al network.',
+    csT3:'Arrivano i clienti', csD3:'RevCulture gestisce le prenotazioni e le passa a te. Tu ricevi il briefing e ti presenti al shooting.',
+    csT4:'Vieni pagato', csD4:'Consegni il materiale, RevCulture si occupa del resto. Pagamento diretto, semplice.',
+    spotLabel:'Chi c\'è già', spotBadge:'Membro #01', spotEyebrow:'Il primo del network',
+    spotDesc:'FILOZ è il fotografo che ha creduto nel progetto RevCulture fin dall\'inizio. Specializzato in supercar e location alpine in tutta la Svizzera, lavora in EN e FR. Il suo portfolio parla da solo — e ora fa parte di un network che sta crescendo.',
+    spotPortfolio:'Vedi il Portfolio →',
+    slotsLabel:'Posizioni aperte', slotsH:'Dove stiamo<br/><span style="color:var(--r)">cercando.</span>',
+    slC1:'Italia',slS1:'Posizione aperta',slD1:'Cerchiamo fotografi e videomaker automotive in Italia — Roma, Milano, Torino e dintorni.',
+    slC2:'Francia',slS2:'Posizione aperta',slD2:'Parigi, Côte d\'Azur, Lione. Il mercato del lusso francese è enorme.',
+    slC3:'Germania',slS3:'Posizione aperta',slD3:'Monaco, Francoforte, Stoccarda. La capitale delle supercar europee.',
+    slC4:'Spagna',slS4:'Posizione aperta',slD4:'Barcelona, Madrid, Marbella. Location da sogno per shooting automotive.',
+    slC5:'Austria',slS5:'Prossimamente',slD5:'Vienna e le Alpi austriache. Strade di montagna perfette per l\'automotive photography.',
+    slC6:'Resto d\'Europa',slS6:'Prossimamente',slD6:'Belgio, Paesi Bassi, Portogallo e altro. Se sei bravo, vogliamo sentirti.',
+    ctaPre:'Pronto ad entrare?', ctaH:'Scrivici.<br/><em>È semplice.</em>',
+    ctaSub:'Mandaci un messaggio su WhatsApp o Instagram con il link al tuo portfolio. Non serve un CV, non serve un\'agenzia. Serve solo il tuo lavoro.',
+    ctaWaFinal:'WhatsApp — Candidati ora',
+    ctaIgFinal:'Instagram — @revculture.it',
+    mmHome:'Home', mmTeam:'Il Team', mmContact:'Contatti',
+  },
+  en:{
+    navBack:'RevCulture',
+    heroEyebrow:'RevCulture — Join the Network',
+    h1_1:'Are you a', h1_2:'Photographer or', h1_3:'Videomaker?',
+    heroSub:'Looking for clients? Want to work more with your passion for cars? RevCulture brings the clients — you do the work you love.',
+    ctaWaHero:'Message us on WhatsApp',
+    ctaMore:'See how it works ↓',
+    whyLabel:'Why RevCulture', whyH:'We manage.<br/><span style="color:var(--r)">You create.</span>',
+    whyT1:'Guaranteed clients', whyD1:'No need to find clients, send quotes or manage communications. RevCulture sends you the bookings — you show up, shoot, deliver.',
+    whyT2:'Zero admin', whyD2:'No price negotiations, no complicated payment management. RevCulture acts as a buffer between you and the client. You focus on creative work.',
+    whyT3:'European visibility', whyD3:'Be part of a network growing across Europe. Your portfolio gets exposed to international clients you\'d never reach on your own.',
+    whyT4:'Photo and video', whyD4:'The network is looking for both photographers and videomakers. If you do both, even better. All automotive creatives are welcome.',
+    whyT5:'Quality selection', whyD5:'We don\'t accept everyone. Being part of RevCulture is a quality signal — for clients and for other creators in the network.',
+    whyT6:'Growing network', whyD6:'We just launched. Those who join now are founding members — and will benefit from being first as RevCulture expands.',
+    howLabel:'How it works', howH:'Four steps.<br/><span style="color:var(--r)">Crystal clear.</span>',
+    csT1:'You contact us', csD1:'Send a message on WhatsApp or Instagram with your portfolio. No forms, no bureaucracy.',
+    csT2:'We evaluate together', csD2:'We look at your work, understand your style and area. If there\'s a fit, we add you to the network.',
+    csT3:'Clients come in', csD3:'RevCulture manages bookings and passes them to you. You get the brief and show up to the shoot.',
+    csT4:'You get paid', csD4:'You deliver the material, RevCulture handles the rest. Direct payment, simple.',
+    spotLabel:'Who\'s already in', spotBadge:'Member #01', spotEyebrow:'The first in the network',
+    spotDesc:'FILOZ is the photographer who believed in the RevCulture project from day one. Specialised in supercars and alpine locations across Switzerland, working in EN and FR. His portfolio speaks for itself — and he\'s now part of a growing network.',
+    spotPortfolio:'See Portfolio →',
+    slotsLabel:'Open positions', slotsH:'Where we\'re<br/><span style="color:var(--r)">looking.</span>',
+    slC1:'Italy',slS1:'Open position',slD1:'We\'re looking for automotive photographers and videomakers in Italy — Rome, Milan, Turin.',
+    slC2:'France',slS2:'Open position',slD2:'Paris, Côte d\'Azur, Lyon. The French luxury market is huge.',
+    slC3:'Germany',slS3:'Open position',slD3:'Munich, Frankfurt, Stuttgart. Europe\'s supercar capital.',
+    slC4:'Spain',slS4:'Open position',slD4:'Barcelona, Madrid, Marbella. Dream locations for luxury automotive shoots.',
+    slC5:'Austria',slS5:'Coming soon',slD5:'Vienna and the Austrian Alps. Mountain roads perfect for automotive photography.',
+    slC6:'Rest of Europe',slS6:'Coming soon',slD6:'Belgium, Netherlands, Portugal and more. If you\'re good, we want to hear from you.',
+    ctaPre:'Ready to join?', ctaH:'Write to us.<br/><em>It\'s simple.</em>',
+    ctaSub:'Send us a message on WhatsApp or Instagram with a link to your portfolio. No CV needed, no agency needed. Just your work.',
+    ctaWaFinal:'WhatsApp — Apply now',
+    ctaIgFinal:'Instagram — @revculture.it',
+    mmHome:'Home', mmTeam:'The Team', mmContact:'Contact',
+  }
+};
+
+function st(id,txt,html=false){const el=document.getElementById(id);if(el){if(html)el.innerHTML=txt;else el.textContent=txt;}}
+
+function setLang(lang){
+  const d=J[lang];
+  st('nav-back-text',d.navBack);
+  st('hero-eyebrow-el',d.heroEyebrow);
+  st('h1-1',d.h1_1);st('h1-2',d.h1_2);st('h1-3',d.h1_3);
+  st('hero-sub-el',d.heroSub);
+  st('cta-wa-hero-text',d.ctaWaHero);
+  st('cta-more-el',d.ctaMore);
+  st('why-label-el',d.whyLabel);
+  document.getElementById('why-h-el').innerHTML=d.whyH;
+  st('why-t1',d.whyT1);st('why-d1',d.whyD1);
+  st('why-t2',d.whyT2);st('why-d2',d.whyD2);
+  st('why-t3',d.whyT3);st('why-d3',d.whyD3);
+  st('why-t4',d.whyT4);st('why-d4',d.whyD4);
+  st('why-t5',d.whyT5);st('why-d5',d.whyD5);
+  st('why-t6',d.whyT6);st('why-d6',d.whyD6);
+  st('how-label-el',d.howLabel);
+  document.getElementById('how-h-el').innerHTML=d.howH;
+  st('cs-t1',d.csT1);st('cs-d1',d.csD1);
+  st('cs-t2',d.csT2);st('cs-d2',d.csD2);
+  st('cs-t3',d.csT3);st('cs-d3',d.csD3);
+  st('cs-t4',d.csT4);st('cs-d4',d.csD4);
+  st('spot-label-el',d.spotLabel);
+  st('spot-badge-el',d.spotBadge);
+  st('spot-eyebrow-el',d.spotEyebrow);
+  st('spot-desc-el',d.spotDesc);
+  st('spot-portfolio-el',d.spotPortfolio);
+  st('slots-label-el',d.slotsLabel);
+  document.getElementById('slots-h-el').innerHTML=d.slotsH;
+  st('sl-c1',d.slC1);st('sl-s1',d.slS1);st('sl-d1',d.slD1);
+  st('sl-c2',d.slC2);st('sl-s2',d.slS2);st('sl-d2',d.slD2);
+  st('sl-c3',d.slC3);st('sl-s3',d.slS3);st('sl-d3',d.slD3);
+  st('sl-c4',d.slC4);st('sl-s4',d.slS4);st('sl-d4',d.slD4);
+  st('sl-c5',d.slC5);st('sl-s5',d.slS5);st('sl-d5',d.slD5);
+  st('sl-c6',d.slC6);st('sl-s6',d.slS6);st('sl-d6',d.slD6);
+  st('cta-pre-el',d.ctaPre);
+  document.getElementById('cta-h-el').innerHTML=d.ctaH;
+  st('cta-sub-el',d.ctaSub);
+  st('cta-wa-final-text',d.ctaWaFinal);
+  st('cta-ig-final-text',d.ctaIgFinal);
+  st('mm-home',d.mmHome);st('mm-team',d.mmTeam);st('mm-contact',d.mmContact);
+
+  // WA message lang
+  const waMsg=lang==='en'
+    ?"Hi RevCulture, I'm a photographer/videomaker and I want to join the network. Here's my portfolio: "
+    :"Ciao RevCulture, sono un fotografo/videomaker e voglio entrare nel network. Ecco il mio portfolio: ";
+  const waHero=document.getElementById('cta-wa-hero');
+  const waFinal=document.getElementById('cta-wa-final');
+  if(waHero) waHero.href=`https://wa.me/393931289124?text=${encodeURIComponent(waMsg)}`;
+  if(waFinal) waFinal.href=`https://wa.me/393931289124?text=${encodeURIComponent(waMsg)}`;
+
+  // lang buttons
+  ['btn-it','mm-it'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.classList.toggle('active',lang==='it');
+  });
+  ['btn-en','mm-en'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.classList.toggle('active',lang==='en');
+  });
+  document.documentElement.lang=lang;
+  document.title=lang==='en'
+    ?'Join the Network — RevCulture | Automotive Photographers & Videomakers'
+    :'Entra nel Network — RevCulture | Fotografi & Videomaker Automotive';
+}
+</script>
+</body>
+</html>
