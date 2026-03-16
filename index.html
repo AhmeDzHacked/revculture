@@ -248,6 +248,49 @@ nav.hidden{transform:translateY(-100%)}
 .port-ig-btn:hover::before{transform:translateX(0)}
 .port-ig-btn span,.port-ig-btn svg{position:relative;z-index:1;flex-shrink:0}
 
+/* HOW IT WORKS */
+#come-funziona{padding:140px 48px;background:var(--d1);position:relative;overflow:hidden}
+#come-funziona::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.how-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:96px;flex-wrap:wrap;gap:24px}
+.how-steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;position:relative;z-index:1}
+.how-step{padding:52px 44px;background:var(--blk);position:relative;overflow:hidden;cursor:none}
+.how-step::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--r);transition:width .6s cubic-bezier(.25,.46,.45,.94)}
+.how-step:hover::after{width:100%}
+.how-step-num{font-family:var(--head);font-size:7rem;line-height:1;color:rgba(204,0,0,.07);position:absolute;top:-10px;right:20px;transition:color .4s,transform .5s;pointer-events:none}
+.how-step:hover .how-step-num{color:rgba(204,0,0,.14);transform:scale(1.05) translateY(-5px)}
+.how-step-icon{width:48px;height:48px;border:1px solid rgba(204,0,0,.3);display:flex;align-items:center;justify-content:center;margin-bottom:32px;transition:border-color .3s,background .3s}
+.how-step:hover .how-step-icon{border-color:var(--r);background:rgba(204,0,0,.08)}
+.how-step-icon svg{color:var(--r);flex-shrink:0}
+.how-step-label{font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--r);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.how-step-label::after{content:'';flex:1;height:1px;background:rgba(204,0,0,.2);max-width:28px}
+.how-step-title{font-family:var(--head);font-size:1.9rem;letter-spacing:.05em;text-transform:uppercase;color:var(--w);margin-bottom:16px;line-height:1}
+.how-step-desc{font-family:var(--body);font-size:.9rem;line-height:1.8;color:rgba(244,242,239,.6)}
+.how-connector{display:none}
+
+/* NETWORK TEASER */
+#network{padding:140px 48px;background:var(--d1);position:relative;overflow:hidden}
+#network::before{content:'NETWORK';position:absolute;right:-60px;bottom:-60px;font-family:var(--head);font-size:22vw;color:rgba(204,0,0,.04);pointer-events:none;user-select:none;line-height:1}
+.netw-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;position:relative;z-index:1}
+.netw-sub{font-family:var(--cond);font-size:1rem;font-weight:300;font-style:italic;color:rgba(244,242,239,.6);line-height:1.75;margin:28px 0 40px;max-width:480px}
+.netw-btn{display:inline-flex;align-items:center;gap:12px}
+.netw-right{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.netw-member{position:relative;overflow:hidden;background:var(--d2);grid-column:span 2}
+.netw-member-img{position:relative;aspect-ratio:16/9;overflow:hidden}
+.netw-member-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%) brightness(.85);transition:transform .8s,filter .5s}
+.netw-member:hover .netw-member-img img{transform:scale(1.06);filter:grayscale(0%) brightness(1)}
+.netw-member-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.9) 0%,transparent 55%)}
+.netw-member-badge{position:absolute;top:14px;left:14px;font-family:var(--cond);font-size:.55rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--w);background:var(--r);padding:5px 12px}
+.netw-member-info{padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.netw-member-name{font-family:var(--head);font-size:1.4rem;letter-spacing:.08em;text-transform:uppercase;color:var(--w)}
+.netw-member-loc{display:inline-flex;align-items:center;gap:6px;font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--r)}
+.netw-slot{background:var(--blk);border:1px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;min-height:120px;transition:border-color .3s,background .3s;cursor:pointer}
+.netw-slot:hover{border-color:rgba(204,0,0,.4);background:rgba(204,0,0,.04)}
+.netw-slot-inner{text-align:center;padding:20px}
+.netw-slot-plus{font-family:var(--head);font-size:2rem;color:rgba(204,0,0,.3);line-height:1;margin-bottom:8px;transition:color .3s}
+.netw-slot:hover .netw-slot-plus{color:var(--r)}
+.netw-slot-label{font-family:var(--cond);font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,242,239,.35)}
+.netw-slot-sub{font-family:var(--cond);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,242,239,.2);margin-top:4px}
+
 /* PARALLAX */
 .parallax-band{position:relative;height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .pb-inner{position:absolute;inset:-30%;background:var(--d1);display:flex;align-items:center;justify-content:center;will-change:transform}
@@ -373,6 +416,15 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   .stats-row{gap:0;padding-top:32px;margin-top:40px}
   .stat{padding-right:12px}.stat:not(:first-child){padding-left:12px}
   .stat-n{font-size:2.4rem}.stat-l{font-size:.52rem;letter-spacing:.15em}
+  #come-funziona{padding:80px 24px}
+  .how-header{flex-direction:column;align-items:flex-start;margin-bottom:48px}
+  .how-steps{grid-template-columns:1fr;gap:2px}
+  .how-step{padding:36px 28px}
+  .how-step-num{font-size:5rem}
+  .how-step-title{font-size:1.5rem}
+  #network{padding:80px 24px}
+  .netw-inner{grid-template-columns:1fr;gap:48px}
+  .netw-right{grid-template-columns:1fr 1fr}
   #servizi{padding:80px 24px}.svc-grid{grid-template-columns:1fr;gap:2px}
   .svc-card{padding:36px 28px}.svc-name{font-size:1.5rem}.svc-desc{font-size:.9rem}
   .nums-band{padding:60px 24px}.num-div{display:none}
@@ -389,7 +441,8 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 }
 @media(max-width:400px){.hero-h1{font-size:clamp(56px,20vw,90px)}.masonry{columns:1}.about-img{max-width:260px}}
 @media(min-width:769px) and (max-width:1100px){
-  .masonry{columns:2}.svc-grid{grid-template-columns:1fr 1fr}
+  .how-steps{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr 1fr}
   .nums-inner{flex-wrap:wrap}.num-div{display:none}
   #portfolio,#about,#servizi,#contatti{padding:100px 40px}
 }
@@ -411,6 +464,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   <ul class="nav-links">
     <li><a href="#portfolio" id="nl-portfolio">Portfolio</a></li>
     <li><a href="fotografi.html" style="color:var(--r)" id="nl-team">Il Team</a></li>
+    <li><a href="#come-funziona" id="nl-how">Come Funziona</a></li>
     <li><a href="#servizi" id="nl-services">Servizi</a></li>
     <li><a href="#contatti" id="nl-contact">Contatti</a></li>
     <li>
@@ -428,6 +482,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 <div id="mobile-menu">
   <a href="#portfolio" id="mm-portfolio" class="mm-link">Portfolio</a>
   <a href="fotografi.html" id="mm-team" class="mm-link menu-team">Il Team</a>
+  <a href="#come-funziona" id="mm-how" class="mm-link">Come Funziona</a>
   <a href="#servizi" id="mm-services" class="mm-link">Servizi</a>
   <a href="#contatti" id="mm-contact" class="mm-link">Contatti</a>
   <a href="https://wa.me/393931289124" target="_blank" class="menu-wa">
@@ -454,7 +509,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
       <span class="h1-line"><span class="h1-inner">Culture</span></span>
     </h1>
     <div class="hero-bottom">
-      <p class="hero-sub" id="hero-sub-el">Fotografia che cattura l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.</p>
+      <p class="hero-sub" id="hero-sub-el">Fotografia e video che catturano l'anima delle macchine.<br/>Velocità, lusso, e passione autentica.</p>
       <div class="hero-btns">
         <a href="#portfolio" class="btn-red" id="btn-portfolio">Scopri il Portfolio ↗</a>
         <a href="#contatti" class="btn-ghost" id="btn-contact">Contattaci</a>
@@ -467,20 +522,20 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
 <div class="marquee-wrap">
   <div class="marquee-track">
     <div class="mq-item">Automotive Photography <span class="mq-dot"></span></div>
+    <div class="mq-item">Cinematic Video <span class="mq-dot"></span></div>
     <div class="mq-item">Luxury Lifestyle <span class="mq-dot"></span></div>
     <div class="mq-item">Events Coverage <span class="mq-dot"></span></div>
     <div class="mq-item">Supercar Shooting <span class="mq-dot"></span></div>
     <div class="mq-item">Content Creation <span class="mq-dot"></span></div>
-    <div class="mq-item">Post-Produzione <span class="mq-dot"></span></div>
-    <div class="mq-item">Track Day <span class="mq-dot"></span></div>
+    <div class="mq-item">Reels &amp; Short Film <span class="mq-dot"></span></div>
     <div class="mq-item">Brand &amp; Dealer <span class="mq-dot"></span></div>
     <div class="mq-item">Automotive Photography <span class="mq-dot"></span></div>
+    <div class="mq-item">Cinematic Video <span class="mq-dot"></span></div>
     <div class="mq-item">Luxury Lifestyle <span class="mq-dot"></span></div>
     <div class="mq-item">Events Coverage <span class="mq-dot"></span></div>
     <div class="mq-item">Supercar Shooting <span class="mq-dot"></span></div>
     <div class="mq-item">Content Creation <span class="mq-dot"></span></div>
-    <div class="mq-item">Post-Produzione <span class="mq-dot"></span></div>
-    <div class="mq-item">Track Day <span class="mq-dot"></span></div>
+    <div class="mq-item">Reels &amp; Short Film <span class="mq-dot"></span></div>
     <div class="mq-item">Brand &amp; Dealer <span class="mq-dot"></span></div>
   </div>
 </div>
@@ -511,6 +566,40 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
 </section>
 
+<!-- COME FUNZIONA -->
+<section id="come-funziona">
+  <div class="how-header rev">
+    <div>
+      <div class="sec-label" id="how-label-el">Come Funziona</div>
+      <h2 class="sec-h" id="how-h-el">Tre passi.<br/><em>Zero stress.</em></h2>
+    </div>
+    <p style="font-family:var(--cond);font-size:.95rem;font-weight:300;font-style:italic;color:rgba(244,242,239,.5);max-width:360px;line-height:1.7;text-align:right" id="how-sub-el">Niente email, niente trattative. RevCulture gestisce tutto — tu pensi solo alla tua vettura.</p>
+  </div>
+  <div class="how-steps">
+    <div class="how-step rev d1">
+      <div class="how-step-num">01</div>
+      <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <div class="how-step-label">Step 01</div>
+      <div class="how-step-title" id="how-t1">Scrivici</div>
+      <div class="how-step-desc" id="how-d1">Contattaci su WhatsApp o Instagram. Raccontaci la tua vettura, il luogo, l'idea. Non serve sapere tutto — ci pensiamo noi a costruire il progetto con te.</div>
+    </div>
+    <div class="how-step rev d2">
+      <div class="how-step-num">02</div>
+      <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="how-step-label">Step 02</div>
+      <div class="how-step-title" id="how-t2">Scegliamo insieme</div>
+      <div class="how-step-desc" id="how-d2">RevCulture seleziona il fotografo o videomaker più adatto per la tua zona e il tuo stile. Coordinazione, location e briefing: tutto gestito da noi.</div>
+    </div>
+    <div class="how-step rev d3">
+      <div class="how-step-num">03</div>
+      <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="how-step-label">Step 03</div>
+      <div class="how-step-title" id="how-t3">Ricevi il risultato</div>
+      <div class="how-step-desc" id="how-d3">Foto e video professionali consegnati in pochi giorni. Alta risoluzione, post-produzione curata, pronti per social, stampa o qualsiasi uso tu abbia in mente.</div>
+    </div>
+  </div>
+</section>
+
 <div class="parallax-band">
   <div class="pb-inner" id="pbInner"><div class="pb-bg">SPEED · POWER · PASSION</div></div>
   <div class="pb-overlay">
@@ -531,7 +620,7 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
       <div class="sec-label" id="about-label-el">Chi siamo</div>
       <h2 class="sec-h" id="about-h-el">La Visione<br/><em>REV</em></h2>
       <div class="about-body">
-        <p id="about-p1">Siamo un'azienda che connette i migliori fotografi di <strong>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.</p>
+        <p id="about-p1">Siamo un'azienda che connette i migliori <strong>fotografi e videomaker automotive</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni progetto — tu scegli il creatore, ci pensiamo noi al resto.</p>
         <div class="pull-q" id="pull-q-el">"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."</div>
         <p id="about-p2">Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.</p>
       </div>
@@ -551,11 +640,59 @@ footer p{font-family:var(--cond);font-size:.6rem;letter-spacing:.15em;text-trans
   </div>
   <div class="svc-grid">
     <div class="svc-card"><div class="svc-ghost">01</div><div class="svc-eyebrow">01</div><div class="svc-name" id="svc-name-1">Shooting Privato</div><div class="svc-desc" id="svc-desc-1">Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.</div><div class="svc-arrow" id="svc-arrow-1">Inizia →</div></div>
-    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name" id="svc-name-2">Content Creator</div><div class="svc-desc" id="svc-desc-2">Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.</div><div class="svc-arrow" id="svc-arrow-2">Inizia →</div></div>
+    <div class="svc-card"><div class="svc-ghost">02</div><div class="svc-eyebrow">02</div><div class="svc-name" id="svc-name-2">Video Cinematico</div><div class="svc-desc" id="svc-desc-2">Short film e reel automotive per i tuoi social. Montaggi curati, colori cinematici e musica: la tua vettura come non l'hai mai vista.</div><div class="svc-arrow" id="svc-arrow-2">Inizia →</div></div>
     <div class="svc-card"><div class="svc-ghost">03</div><div class="svc-eyebrow">03</div><div class="svc-name" id="svc-name-3">Events Coverage</div><div class="svc-desc" id="svc-desc-3">Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.</div><div class="svc-arrow" id="svc-arrow-3">Inizia →</div></div>
     <div class="svc-card"><div class="svc-ghost">04</div><div class="svc-eyebrow">04</div><div class="svc-name" id="svc-name-4">Brand &amp; Dealer</div><div class="svc-desc" id="svc-desc-4">Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.</div><div class="svc-arrow" id="svc-arrow-4">Inizia →</div></div>
     <div class="svc-card"><div class="svc-ghost">05</div><div class="svc-eyebrow">05</div><div class="svc-name" id="svc-name-5">Luxury Lifestyle</div><div class="svc-desc" id="svc-desc-5">Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.</div><div class="svc-arrow" id="svc-arrow-5">Inizia →</div></div>
     <div class="svc-card"><div class="svc-ghost">06</div><div class="svc-eyebrow">06</div><div class="svc-name" id="svc-name-6">Post-Produzione</div><div class="svc-desc" id="svc-desc-6">Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.</div><div class="svc-arrow" id="svc-arrow-6">Inizia →</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIANZE -->
+<!-- NETWORK TEASER — invita creator ad unirsi -->
+<section id="network">
+  <div class="netw-inner rev">
+    <div class="netw-left">
+      <div class="sec-label" id="netw-label-el">Il Network</div>
+      <h2 class="sec-h" id="netw-h-el">Stiamo costruendo<br/><em>qualcosa di grande.</em></h2>
+      <p class="netw-sub" id="netw-sub-el">RevCulture è appena nata — e stiamo selezionando i migliori fotografi e videomaker d'Europa per unirsi al network. FILOZ è il primo. Potrebbe essere il tuo turno.</p>
+      <a href="join.html" class="btn-red netw-btn" id="netw-btn-el">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Unisciti al Network →
+      </a>
+    </div>
+    <div class="netw-right">
+      <!-- FILOZ card preview -->
+      <div class="netw-member rev d2">
+        <div class="netw-member-img">
+          <img src="images/filoz.jpg" alt="FILOZ — RevCulture Network" loading="lazy" onerror="this.onerror=null;this.src='images/foto01.JPG'"/>
+          <div class="netw-member-overlay"></div>
+          <div class="netw-member-badge" id="netw-badge-el">Membro #01</div>
+        </div>
+        <div class="netw-member-info">
+          <div class="netw-member-name">FILOZ</div>
+          <div class="netw-member-loc">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Switzerland — Nationwide
+          </div>
+        </div>
+      </div>
+      <!-- Slot vuoti -->
+      <div class="netw-slot rev d3">
+        <div class="netw-slot-inner">
+          <div class="netw-slot-plus">+</div>
+          <div class="netw-slot-label" id="netw-slot-label-el">Posizione aperta</div>
+          <div class="netw-slot-sub" id="netw-slot-sub-el">Italia · Spagna · Francia</div>
+        </div>
+      </div>
+      <div class="netw-slot rev d4">
+        <div class="netw-slot-inner">
+          <div class="netw-slot-plus">+</div>
+          <div class="netw-slot-label" id="netw-slot-label2-el">Posizione aperta</div>
+          <div class="netw-slot-sub" id="netw-slot-sub2-el">Germania · Austria · Europa</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -704,28 +841,39 @@ if(!isMobile()){
 // FIX #4: all translation via IDs with safe span-preserving update
 const T = {
   it:{
-    navPortfolio:'Portfolio', navTeam:'Il Team', navServices:'Servizi', navContact:'Contatti', navBook:'Prenota Ora →',
+    navPortfolio:'Portfolio', navTeam:'Il Team', navHow:'Come Funziona', navServices:'Servizi', navContact:'Contatti', navBook:'Prenota Ora →',
     heroTag:'Automotive & Luxury Photography — Italy',
-    heroSub:'Fotografia che cattura l\'anima delle macchine.<br/>Velocità, lusso, e passione autentica.',
+    heroSub:'Fotografia e video che catturano l\'anima delle macchine.<br/>Velocità, lusso, e passione autentica.',
     btnPortfolio:'Scopri il Portfolio ↗', btnContact:'Contattaci',
     portLabel:'Portfolio', portH:'I nostri<br/><em>Scatti</em>',
     portCta:'Guarda tutto il portfolio completo su Instagram', portIg:'@revculture.it — Vedi tutto →',
     pbQ:'Non fotografie.<br/><em>Emozioni su pixel.</em>',
+    howLabel:'Come Funziona', howH:'Tre passi.<br/><em>Zero stress.</em>',
+    howSub:'Niente email, niente trattative. RevCulture gestisce tutto — tu pensi solo alla tua vettura.',
+    howT1:'Scrivici', howD1:'Contattaci su WhatsApp o Instagram. Raccontaci la tua vettura, il luogo, l\'idea. Non serve sapere tutto — ci pensiamo noi a costruire il progetto con te.',
+    howT2:'Scegliamo insieme', howD2:'RevCulture seleziona il fotografo o videomaker più adatto per la tua zona e il tuo stile. Coordinazione, location e briefing: tutto gestito da noi.',
+    howT3:'Ricevi il risultato', howD3:'Foto e video professionali consegnati in pochi giorni. Alta risoluzione, post-produzione curata, pronti per social, stampa o qualsiasi uso tu abbia in mente.',
     aboutLabel:'Chi siamo', aboutH:'La Visione<br/><em>REV</em>',
     badgeLabel:'Anni di<br/>esperienza',
-    aboutP1:'Siamo un\'azienda che connette i migliori fotografi di <strong>automotive e luxury lifestyle</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni shooting — tu scegli il fotografo, ci pensiamo noi al resto.',
+    aboutP1:'Siamo un\'azienda che connette i migliori <strong>fotografi e videomaker automotive</strong> con i clienti in tutta Europa. RevCulture seleziona, gestisce e coordina ogni progetto — tu scegli il creatore, ci pensiamo noi al resto.',
     pullQ:'"Ogni scatto è un racconto visivo che fa venire voglia di mettere la chiave nel quadro."',
     aboutP2:'Ogni sessione è pensata nei minimi dettagli: luce, angolazione, movimento. Il risultato non è mai solo una fotografia.',
     stat1:'Vetture fotografate', stat2:'Clienti soddisfatti', stat3:'Anni di esperienza',
+    netwLabel:'Il Network', netwH:'Stiamo costruendo<br/><em>qualcosa di grande.</em>',
+    netwSub:'RevCulture è appena nata — e stiamo selezionando i migliori fotografi e videomaker d\'Europa per unirsi al network. FILOZ è il primo. Potrebbe essere il tuo turno.',
+    netwBtn:'Unisciti al Network →',
+    netwBadge:'Membro #01',
+    netwSlotLabel:'Posizione aperta', netwSlotSub:'Italia · Spagna · Francia',
+    netwSlotLabel2:'Posizione aperta', netwSlotSub2:'Germania · Austria · Europa',
     numL1:'Vetture fotografate', numL2:'Clienti soddisfatti', numL3:'Anni di esperienza', numL4:'Passione per i motori',
     svcLabel:'Servizi', svcH:'Cosa<br/><em>offriamo</em>',
     svc:[
       {name:'Shooting Privato',     desc:'Sessione fotografica dedicata alla tua vettura, in location selezionate. Risultati professionali per uso personale o social.',          arrow:'Inizia →'},
-      {name:'Content Creator',      desc:'Contenuti fotografici e video per i tuoi profili social, pensati per valorizzare il brand della tua vettura o stile di vita.',          arrow:'Inizia →'},
-      {name:'Events Coverage',      desc:'Copertura fotografica di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.',               arrow:'Inizia →'},
-      {name:'Brand & Dealer',       desc:'Servizi fotografici per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.',              arrow:'Inizia →'},
+      {name:'Video Cinematico',     desc:'Short film e reel automotive per i tuoi social. Montaggi curati, colori cinematici e musica: la tua vettura come non l\'hai mai vista.', arrow:'Inizia →'},
+      {name:'Events Coverage',      desc:'Copertura foto e video di eventi automotive, raduni, track day e serate luxury. Ogni momento immortalato con precisione.',               arrow:'Inizia →'},
+      {name:'Brand & Dealer',       desc:'Servizi fotografici e video per concessionarie, brand e aziende del settore automotive. Portfolio commerciale e campagne visual.',      arrow:'Inizia →'},
       {name:'Luxury Lifestyle',     desc:'Shooting integrati tra vettura e lifestyle: orologi, moda, yacht, ville. Un universo visivo coerente e aspirazionale.',                 arrow:'Inizia →'},
-      {name:'Post-Produzione',      desc:'Editing professionale e retouching avanzato. Ogni immagine passa attraverso un processo di sviluppo curato nei dettagli.',             arrow:'Inizia →'},
+      {name:'Post-Produzione',      desc:'Editing professionale e retouching avanzato. Ogni immagine e video passa attraverso un processo di sviluppo curato nei dettagli.',     arrow:'Inizia →'},
     ],
     ctaPre:'Pronti a collaborare?', ctaH:'Parliamo<br/><em>del tuo progetto</em>',
     ctaSub:'Hai una vettura da fotografare? Un evento? Un\'idea? Scrivici su WhatsApp e troviamo la soluzione perfetta.',
@@ -735,28 +883,39 @@ const T = {
     mmWa:'Scrivici su WhatsApp'
   },
   en:{
-    navPortfolio:'Portfolio', navTeam:'The Team', navServices:'Services', navContact:'Contact', navBook:'Book Now →',
+    navPortfolio:'Portfolio', navTeam:'The Team', navHow:'How It Works', navServices:'Services', navContact:'Contact', navBook:'Book Now →',
     heroTag:'Automotive & Luxury Photography — Italy',
-    heroSub:'Photography that captures the soul of machines.<br/>Speed, luxury, and authentic passion.',
+    heroSub:'Photography and video that capture the soul of machines.<br/>Speed, luxury, and authentic passion.',
     btnPortfolio:'See Portfolio ↗', btnContact:'Contact Us',
     portLabel:'Portfolio', portH:'Our<br/><em>Shots</em>',
     portCta:'See the full portfolio on Instagram', portIg:'@revculture.it — See all →',
     pbQ:'Not photographs.<br/><em>Emotions on pixels.</em>',
+    howLabel:'How It Works', howH:'Three steps.<br/><em>Zero stress.</em>',
+    howSub:'No emails, no negotiations. RevCulture handles everything — you just think about your car.',
+    howT1:'Contact us', howD1:'Reach us on WhatsApp or Instagram. Tell us about your car, the place, the idea. You don\'t need to know everything — we\'ll build the project with you.',
+    howT2:'We choose together', howD2:'RevCulture selects the most suitable photographer or videomaker for your area and style. Coordination, location scouting and briefing: all handled by us.',
+    howT3:'Receive the result', howD3:'Professional photos and videos delivered within days. High resolution, refined post-production, ready for social media, print or whatever you have in mind.',
     aboutLabel:'About Us', aboutH:'The Vision<br/><em>REV</em>',
     badgeLabel:'Years of<br/>experience',
-    aboutP1:'We are a company that connects the best <strong>automotive and luxury lifestyle</strong> photographers with clients across Europe. RevCulture selects, manages and coordinates every shoot — you choose the photographer, we handle the rest.',
+    aboutP1:'We are a company that connects the best <strong>automotive photographers and videomakers</strong> with clients across Europe. RevCulture selects, manages and coordinates every project — you choose the creator, we handle the rest.',
     pullQ:'"Every shot is a visual story that makes you want to turn the key."',
     aboutP2:'Every session is planned down to the last detail: light, angle, movement. The result is never just a photograph.',
     stat1:'Cars photographed', stat2:'Satisfied clients', stat3:'Years of experience',
+    netwLabel:'The Network', netwH:'We\'re building<br/><em>something big.</em>',
+    netwSub:'RevCulture just launched — and we\'re selecting the best photographers and videomakers across Europe to join the network. FILOZ is the first. It could be your turn.',
+    netwBtn:'Join the Network →',
+    netwBadge:'Member #01',
+    netwSlotLabel:'Open position', netwSlotSub:'Italy · Spain · France',
+    netwSlotLabel2:'Open position', netwSlotSub2:'Germany · Austria · Europe',
     numL1:'Cars photographed', numL2:'Satisfied clients', numL3:'Years of experience', numL4:'Passion for motors',
     svcLabel:'Services', svcH:'What<br/><em>we offer</em>',
     svc:[
       {name:'Private Shooting',     desc:'Dedicated photography session for your car, in selected locations. Professional results for personal or social use.',                   arrow:'Start →'},
-      {name:'Content Creator',      desc:'Photography and video content for your social profiles, designed to showcase your car brand or lifestyle.',                              arrow:'Start →'},
-      {name:'Events Coverage',      desc:'Photography coverage of automotive events, meetups, track days and luxury evenings. Every moment captured with precision.',             arrow:'Start →'},
-      {name:'Brand & Dealer',       desc:'Photography services for dealerships, brands and automotive companies. Commercial portfolio and visual campaigns.',                     arrow:'Start →'},
+      {name:'Cinematic Video',      desc:'Short films and automotive reels for your socials. Curated edits, cinematic colors and music: your car like you\'ve never seen it.',    arrow:'Start →'},
+      {name:'Events Coverage',      desc:'Photo and video coverage of automotive events, meetups, track days and luxury evenings. Every moment captured with precision.',         arrow:'Start →'},
+      {name:'Brand & Dealer',       desc:'Photo and video services for dealerships, brands and automotive companies. Commercial portfolio and visual campaigns.',                 arrow:'Start →'},
       {name:'Luxury Lifestyle',     desc:'Shoots integrating cars and lifestyle: watches, fashion, yachts, villas. A coherent and aspirational visual universe.',                arrow:'Start →'},
-      {name:'Post-Production',      desc:'Professional editing and advanced retouching. Every image goes through a carefully refined development process.',                       arrow:'Start →'},
+      {name:'Post-Production',      desc:'Professional editing and advanced retouching. Every image and video goes through a carefully refined development process.',             arrow:'Start →'},
     ],
     ctaPre:'Ready to collaborate?', ctaH:'Let\'s talk<br/><em>about your project</em>',
     ctaSub:'Got a car to photograph? An event? An idea? Message us on WhatsApp and we\'ll find the perfect solution.',
@@ -778,6 +937,7 @@ function setLang(lang){
 
   // nav desktop
   setText('nl-portfolio',d.navPortfolio);setText('nl-team',d.navTeam);
+  setText('nl-how',d.navHow);
   setText('nl-services',d.navServices);setText('nl-contact',d.navContact);
   setText('nav-book-btn',d.navBook);
 
@@ -796,6 +956,14 @@ function setLang(lang){
   // parallax
   document.getElementById('pb-quote-el').innerHTML=d.pbQ;
 
+  // how it works
+  setText('how-label-el',d.howLabel);
+  document.getElementById('how-h-el').innerHTML=d.howH;
+  setText('how-sub-el',d.howSub);
+  setText('how-t1',d.howT1);setText('how-d1',d.howD1);
+  setText('how-t2',d.howT2);setText('how-d2',d.howD2);
+  setText('how-t3',d.howT3);setText('how-d3',d.howD3);
+
   // about
   setText('about-label-el',d.aboutLabel);
   document.getElementById('about-h-el').innerHTML=d.aboutH;
@@ -807,6 +975,15 @@ function setLang(lang){
 
   // numbers band
   setText('num-l1',d.numL1);setText('num-l2',d.numL2);setText('num-l3',d.numL3);setText('num-l4',d.numL4);
+
+  // network teaser
+  setText('netw-label-el',d.netwLabel);
+  document.getElementById('netw-h-el').innerHTML=d.netwH;
+  setText('netw-sub-el',d.netwSub);
+  setText('netw-btn-el',d.netwBtn);
+  setText('netw-badge-el',d.netwBadge);
+  setText('netw-slot-label-el',d.netwSlotLabel);setText('netw-slot-sub-el',d.netwSlotSub);
+  setText('netw-slot-label2-el',d.netwSlotLabel2);setText('netw-slot-sub2-el',d.netwSlotSub2);
 
   // services
   setText('svc-label-el',d.svcLabel);
@@ -839,6 +1016,7 @@ function setLang(lang){
 
   // mobile menu
   setText('mm-portfolio',d.navPortfolio);setText('mm-team',d.navTeam);
+  setText('mm-how',d.navHow);
   setText('mm-services',d.navServices);setText('mm-contact',d.navContact);
   setText('mm-wa-text',d.mmWa);
 
